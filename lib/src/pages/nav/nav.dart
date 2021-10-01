@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:reddwarfdict/src/pages/home/home.dart';
 
 import 'nav_controller.dart';
 
@@ -14,7 +15,7 @@ class Nav extends StatelessWidget {
         builder: (controller) {
           void _onItemTapped(int index) {}
           return Scaffold(
-            body: Text("d"),
+            body: Home(),
             bottomNavigationBar: BottomNavigationBar(
                 items: [
                   BottomNavigationBarItem(
