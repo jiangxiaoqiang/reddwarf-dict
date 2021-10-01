@@ -19,7 +19,7 @@ class Nav extends StatelessWidget {
                 items: [
                   BottomNavigationBarItem(
                       icon: Icon(Icons.home),
-                      label: "d"),
+                      label: "ranslate"),
                   BottomNavigationBarItem(
                       icon: Icon(Icons.subscriptions),
                       label: "b",),
