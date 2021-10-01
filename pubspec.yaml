@@ -9,13 +9,13 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
+  get: ^4.3.8
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^1.0.0
-  get: 4.3.8
   wheel:
     git:
       url: https://github.com/jiangxiaoqiang/wheel.git

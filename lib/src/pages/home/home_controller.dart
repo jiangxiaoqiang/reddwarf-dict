@@ -4,7 +4,7 @@ import 'package:reddwarfdict/src/service/word/word_provider.dart';
 
 class HomeController extends GetxController {
   var isLoading = true.obs;
-  WordTrans? wordTrans = WordTrans(difinition: "1");
+  var wordTrans = WordTrans(difinition: "1").obs;
 
   @override
   void onInit() {
@@ -15,7 +15,7 @@ class HomeController extends GetxController {
     isLoading(true);
     try {
       var result = await WordProvider.doSearch();
-      wordTrans = result;
+      wordTrans(result);
     } finally {
       isLoading(false);
     }

@@ -20,7 +20,7 @@ class Home extends StatelessWidget {
             body:SafeArea(
               child: Column(
                 children: [
-                  Text(_controller.wordTrans!.difinition),
+                  Obx(()=> Text(controller.wordTrans.value.difinition)),
                   ElevatedButton(
                     onPressed:() {
                       _controller.fetchSearchResult();

@@ -1,7 +1,7 @@
 import 'dart:collection';
 import 'package:get/get.dart' show GetConnect;
 import 'package:reddwarfdict/src/models/word/word.dart';
-import 'package:wheel/wheel.dart' show AppLogHandler, GlobalConfig, RestApiError, RestClient;
+import 'package:wheel/wheel.dart' show RestClient;
 
 class WordProvider extends GetConnect {
   static Future<WordTrans?> doSearch() async {
