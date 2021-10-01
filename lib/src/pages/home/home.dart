@@ -10,12 +10,6 @@ class Home extends StatelessWidget {
   final HomeController _controller = Get.put(HomeController());
   TextEditingController _textController = TextEditingController();
 
-  void initState() {
-    _textController.addListener(() {
-      print(_textController.text);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
@@ -25,7 +19,14 @@ class Home extends StatelessWidget {
             body: SafeArea(
                 child: Column(
               children: [
-                TextField(),
+                TextField(
+                  autofocus: true,
+                  controller: _textController,
+                  onChanged:  (v) {
+                    print("onChange: $v");
+                    _controller.updateWords(v);
+                  },
+                ),
                 Obx(() => Text(controller.wordTrans.value.difinition)),
                 ElevatedButton(
                   onPressed: () {
