@@ -1,4 +1,4 @@
-package com.reddwarf.dict.reddwarfdict
+package com.reddwarf.dict
 
 import io.flutter.embedding.android.FlutterActivity
 
