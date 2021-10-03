@@ -54,6 +54,7 @@ jobs:
           PGY_USER_KEY: ${{ secrets.PGY_USER_KEY }}
           PGY_API_KEY: ${{ secrets.PGY_API_KEY }}
           TEAM_ID: ${{ secrets.TEAM_ID }}
+          APP_IDENTIFIER: ${{ secrets.APP_IDENTIFIER }}
           ITC_TEAM_ID: ${{ secrets.ITC_TEAM_ID }}
           FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
           FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
