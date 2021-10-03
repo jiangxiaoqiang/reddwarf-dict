@@ -28,4 +28,16 @@ class HomeController extends GetxController {
       isLoading(false);
     }
   }
+
+  void addLearningWord() async {
+    isLoading(true);
+    try {
+      if(searchWord.value.isEmpty){
+        return;
+      }
+      var result = await WordProvider.addLearningWord(searchWord.value);
+    } finally {
+      isLoading(false);
+    }
+  }
 }

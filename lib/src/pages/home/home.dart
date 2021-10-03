@@ -33,6 +33,12 @@ class Home extends StatelessWidget {
                     _controller.fetchSearchResult();
                   },
                   child: Text("查询"),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    _controller.fetchSearchResult();
+                  },
+                  child: Text("加入生词本"),
                 )
               ],
             )),
