@@ -4,7 +4,7 @@ import 'package:reddwarfdict/src/service/word/word_provider.dart';
 
 class HomeController extends GetxController {
   var isLoading = true.obs;
-  var wordTrans = WordTrans(difinition: "1").obs;
+  var wordTrans = WordTrans(definition: "", id: 0).obs;
   var searchWord = "".obs;
 
   @override
@@ -32,10 +32,10 @@ class HomeController extends GetxController {
   void addLearningWord() async {
     isLoading(true);
     try {
-      if(searchWord.value.isEmpty){
+      if(wordTrans.value.id<=0){
         return;
       }
-      var result = await WordProvider.addLearningWord(searchWord.value);
+     WordProvider.addLearningWord(wordTrans.value.id);
     } finally {
       isLoading(false);
     }

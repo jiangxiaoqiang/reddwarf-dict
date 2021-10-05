@@ -1,5 +1,9 @@
 class WordTrans {
-  WordTrans({required this.difinition});
+  WordTrans({
+    required this.definition,
+    required this.id
+  });
 
-  String difinition;
+  String definition;
+  int id;
 }

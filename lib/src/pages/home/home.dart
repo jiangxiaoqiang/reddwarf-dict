@@ -8,7 +8,7 @@ class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
 
   final HomeController _controller = Get.put(HomeController());
-  TextEditingController _textController = TextEditingController();
+  final TextEditingController _textController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class Home extends StatelessWidget {
                     _controller.updateWords(v);
                   },
                 ),
-                Obx(() => Text(controller.wordTrans.value.difinition)),
+                Obx(() => Text(controller.wordTrans.value.definition)),
                 ElevatedButton(
                   onPressed: () {
                     _controller.fetchSearchResult();
@@ -36,7 +36,7 @@ class Home extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    _controller.fetchSearchResult();
+                    _controller.addLearningWord();
                   },
                   child: Text("加入生词本"),
                 )
