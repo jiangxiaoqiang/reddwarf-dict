@@ -29,7 +29,7 @@ class NewWordController extends GetxController {
           children: [
             ListTile(
               title: Text(element.word),
-              subtitle: Text(element.definition),
+              subtitle: Text(element.translation),
             )
           ],
         ),

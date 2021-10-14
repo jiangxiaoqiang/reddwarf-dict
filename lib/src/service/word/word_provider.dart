@@ -27,10 +27,18 @@ class WordProvider extends GetConnect {
 
   static Future<List<LearningWord>> fetchLearningWord() async {
     Map wordRequest = HashMap();
-    //var response = await RestClient.postHttp("/dict/word/learn/v1/fetch", wordRequest);
-    //if (RestClient.respSuccess(response)) {}
-    LearningWord learningWord = LearningWord(word: 'ad', id: 1, definition: 'dfwg');
-    return Future.value(List.filled(1, learningWord, growable: false));
+    wordRequest.putIfAbsent("word_id", () => 1);
+    var response = await RestClient.postHttp("/dict/word/learn/v1/fetch", wordRequest);
+    if (RestClient.respSuccess(response)) {
+      var result = response.data["result"] as List;
+      List<LearningWord> words = List.empty(growable: true);
+      for (var element in result) {
+        LearningWord learningWord = LearningWord.fromJson(element);
+        words.add(learningWord);
+      }
+      return words;
+    }
+    return Future.value(List.empty());
   }
 
   static Future<void> addLearningWord(int wordId) async {
