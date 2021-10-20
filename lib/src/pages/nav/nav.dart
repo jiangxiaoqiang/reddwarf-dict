@@ -25,7 +25,7 @@ class Nav extends StatelessWidget {
                       icon: Icon(Icons.subscriptions),
                       label: "b",),
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.rss_feed), label: '频道'),
+                      icon: Icon(Icons.rss_feed), label: ''),
                   BottomNavigationBarItem(
                       icon: Icon(Icons.school), label: '我的'),
                 ],
