@@ -22,3 +22,5 @@ doc/api/
 *.iml
 .idea
 *.log
+
+.flutter-plugins-dependencies

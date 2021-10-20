@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:reddwarfdict/src/pages/home/home.dart';
+import 'package:reddwarfdict/src/pages/learn/new_word.dart';
 
 import 'nav_controller.dart';
 
@@ -13,26 +14,34 @@ class Nav extends StatelessWidget {
     return GetBuilder<NavController>(
         init: NavController(),
         builder: (controller) {
-          void _onItemTapped(int index) {}
+          void _onItemTapped(int index) {
+            controller.updateSelectIndex(index);
+            if (index == 0) {
+              Widget widget = Home();
+              controller.updateCurrentWidget(widget);
+            }
+            if (index == 1) {
+              Widget widget = NewWord();
+              controller.updateCurrentWidget(widget);
+            }
+          }
+
           return Scaffold(
-            body: Home(),
+            body: controller.getCurrentWidget,
             bottomNavigationBar: BottomNavigationBar(
-                items: [
+                items: const [
+                  BottomNavigationBarItem(icon: Icon(Icons.home), label: "翻译"),
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.home),
-                      label: "ranslate"),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.subscriptions),
-                      label: "b",),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.rss_feed), label: ''),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.school), label: '我的'),
+                    icon: Icon(Icons.subscriptions),
+                    label: "生词本",
+                  ),
+                  BottomNavigationBarItem(icon: Icon(Icons.rss_feed), label: '频道'),
+                  BottomNavigationBarItem(icon: Icon(Icons.school), label: '我的'),
                 ],
-                currentIndex: 1,
+                currentIndex: controller.currentSelectIndex,
                 fixedColor: Theme.of(context).primaryColor,
                 onTap: _onItemTapped,
-                unselectedItemColor: Color(0xff666666),
+                unselectedItemColor: const Color(0xff666666),
                 type: BottomNavigationBarType.fixed),
           );
         });

@@ -20,7 +20,7 @@ class Home extends StatelessWidget {
                 child: Column(
               children: [
                 TextField(
-                  autofocus: true,
+                  autofocus: false,
                   controller: _textController,
                   onChanged:  (v) {
                     print("onChange: $v");
