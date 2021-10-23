@@ -24,3 +24,4 @@ doc/api/
 *.log
 
 .flutter-plugins-dependencies
+.flutter-plugins
