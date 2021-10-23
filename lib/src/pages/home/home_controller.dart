@@ -30,6 +30,9 @@ class HomeController extends GetxController {
     for (var element in words) {
       var card = Card(
         margin: const EdgeInsets.all(10.0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
         child: Column(
           children: [
             ListTile(
