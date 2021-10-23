@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart' show GetConnect;
 import 'package:reddwarfdict/src/models/word/learning_word.dart';
+import 'package:reddwarfdict/src/models/word/sentence.dart';
 import 'package:reddwarfdict/src/models/word/word.dart';
 import 'package:wheel/wheel.dart' show RestClient;
 
@@ -13,9 +14,21 @@ class WordProvider extends GetConnect {
     wordRequest.putIfAbsent("word", () => word.toLowerCase());
     var response = await RestClient.postHttp("/dict/word/search/v1", wordRequest);
     if (RestClient.respSuccess(response)) {
-      var result = response.data["result"] as List;
+      var result = response.data["result"];
       if (result.isNotEmpty) {
-        WordTrans wordTrans = WordTrans(definition: result[0]["translation"], id: result[0]["id"]);
+        var sentenceMap = result["sentences"] as List;
+        List<Sentence> sList = List.empty(growable: true);
+        if(sentenceMap.isNotEmpty){
+          sentenceMap.forEach((element) {
+            Sentence sentence_entity = Sentence.fromJson(element);
+            sList.add(sentence_entity);
+          });
+        }
+        WordTrans wordTrans = WordTrans(
+            definition: result["translation"],
+            id: result["id"],
+            sentences: sList
+        );
         return wordTrans;
       } else {
         WordTrans wordTrans = WordTrans(definition: 'No Result', id: 0);

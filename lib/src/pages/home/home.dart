@@ -19,20 +19,29 @@ class Home extends StatelessWidget {
             body: SafeArea(
                 child: Column(
               children: [
-                TextField(
-                  autofocus: false,
-                  controller: _textController,
-                  onChanged:  (v) {
-                    print("onChange: $v");
-                    _controller.updateWords(v);
-                  },
+                Row(
+                  children: [
+                    Expanded(
+                      child:
+                    TextField(
+                      autofocus: false,
+                      controller: _textController,
+                      onChanged:  (v) {
+                        print("onChange: $v");
+                        _controller.updateWords(v);
+                      },
+                    )),
+                    ElevatedButton(
+                      onPressed: () {
+                        _controller.fetchSearchResult();
+                      },
+                      child: Text("查询"),
+                    ),
+                  ],
                 ),
                 Obx(() => Text(controller.wordTrans.value.definition)),
-                ElevatedButton(
-                  onPressed: () {
-                    _controller.fetchSearchResult();
-                  },
-                  child: Text("查询"),
+                Column(
+                  children: controller.getCurrentRender
                 ),
                 ElevatedButton(
                   onPressed: () {
