@@ -22,11 +22,17 @@ class HomeController extends GetxController {
   }
 
   Future<List<Card>> renderWordCards() async {
+    List<Card> cards = List.empty(growable: true);
     List<Sentence>? words = wordTrans.value.sentences;
     if(words == null||words.isEmpty){
-      return List.empty();
+      var card = Card(
+        child: Text("No Result"),
+      );
+      cards.add(card);
+      _wordWidget = cards;
+      update();
+      return cards;
     }
-    List<Card> cards = List.empty(growable: true);
     for (var element in words) {
       var card = Card(
         margin: const EdgeInsets.all(10.0),
