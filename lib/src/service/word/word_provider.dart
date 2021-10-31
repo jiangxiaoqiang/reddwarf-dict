@@ -12,7 +12,7 @@ class WordProvider extends GetConnect {
   static Future<WordTrans?> doSearch(String word) async {
     Map wordRequest = HashMap();
     wordRequest.putIfAbsent("word", () => word.toLowerCase().trim());
-    var response = await RestClient.postHttp("/dict/word/search/v1", wordRequest);
+    var response = await RestClient.postHttp("/dict/word/translate/v1", wordRequest);
     if (RestClient.respSuccess(response)) {
       var result = response.data["result"];
       if (result.isNotEmpty) {
