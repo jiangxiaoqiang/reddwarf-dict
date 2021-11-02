@@ -1,4 +1,4 @@
-package com.biyidev.app;
+package com.reddwarf.app;
 
 import io.flutter.embedding.android.FlutterActivity;
 
