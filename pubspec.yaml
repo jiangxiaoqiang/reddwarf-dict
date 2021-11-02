@@ -1,20 +1,6 @@
 name: biyi_app
 description: A convenient translation and dictionary app written in dart / Flutter.
-
-# The following line prevents the package from being accidentally published to
-# pub.dev using `pub publish`. This is preferred for private packages.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
-
-# The following defines the version and build number for your application.
-# A version number is three numbers separated by dots, like 1.2.43
-# followed by an optional build number separated by a +.
-# Both the version and the builder number may be overridden in flutter
-# build by specifying --build-name and --build-number, respectively.
-# In Android, build-name is used as versionName while build-number used as versionCode.
-# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
-# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
-# Read more about iOS versioning at
-# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 version: 0.3.2+5
 
 environment:
@@ -41,7 +27,7 @@ dependencies:
   pro_account:
     git:
       ref: main
-      url: https://github.com/biyidev/pro_account_noop.git
+      url: https://github.com/jiangxiaoqiang/pro_account_noop.git
   screen_retriever: ^0.0.2
   screen_text_extractor: ^0.0.1
   sticky_headers: ^0.1.8
@@ -56,22 +42,22 @@ dependencies:
     git:
       path: packages/uni_ocr
       ref: master
-      url: https://github.com/biyidev/uni_ocr.git
+      url: https://github.com/jiangxiaoqiang/uni_ocr.git
   uni_ocr_client:
     git:
       path: packages/uni_ocr_client
       ref: master
-      url: https://github.com/biyidev/uni_ocr.git
+      url: https://github.com/jiangxiaoqiang/uni_ocr.git
   uni_translate:
     git:
       path: packages/uni_translate
       ref: master
-      url: https://github.com/biyidev/uni_translate.git
+      url: https://github.com/jiangxiaoqiang/uni_translate.git
   uni_translate_client:
     git:
       path: packages/uni_translate_client
       ref: master
-      url: https://github.com/biyidev/uni_translate_client.git
+      url: https://github.com/jiangxiaoqiang/uni_translate.git
   url_launcher: ^6.0.6
   uuid: ^3.0.4
   window_manager: ^0.0.5
@@ -87,26 +73,11 @@ dev_dependencies:
   msix: ^2.1.3
 
 dependency_overrides:
-  # hotkey_manager:
-  #   path: ../../leanflutter/hotkey_manager
-  # pro_account:
-  #   path: ../pro_account
-  # screen_retriever:
-  #   path: ../../leanflutter/screen_retriever
-  # screen_text_extractor:
-  #   path: ../../leanflutter/screen_text_extractor
-  # tray_manager:
-  #   path: ../../leanflutter/tray_manager
-  uni_ocr:
-    path: ../uni_ocr/packages/uni_ocr
-  uni_ocr_client:
-    path: ../uni_ocr/packages/uni_ocr_client
-  uni_translate:
-    path: ../uni_translate/packages/uni_translate
   uni_translate_client:
-    path: ../uni_translate/packages/uni_translate_client
-  # window_manager:
-  #   path: ../../leanflutter/window_manager
+    git:
+      path: packages/uni_translate_client
+      ref: master
+      url: https://github.com/jiangxiaoqiang/uni_translate.git
 
 flutter:
   uses-material-design: true
