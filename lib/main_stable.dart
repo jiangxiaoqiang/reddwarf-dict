@@ -6,7 +6,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await initEnv('stable');
-  await initLocalDb();
-  await initConfig();
+  //await initLocalDb();
+  //await initConfig();
   runApp(AppNavigator());
 }

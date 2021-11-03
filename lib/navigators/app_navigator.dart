@@ -59,28 +59,28 @@ class _AppNavigatorState extends State<AppNavigator>
   }
 
   Widget _build(BuildContext context) {
-    final virtualWindowFrameBuilder = VirtualWindowFrameInit();
-    final botToastBuilder = BotToastInit();
+    //final virtualWindowFrameBuilder = VirtualWindowFrameInit();
+    //final botToastBuilder = BotToastInit();
 
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      navigatorKey: isRootPage ? _navigatorKey : null,
-      theme: lightThemeData,
-      darkTheme: darkThemeData,
-      themeMode: _config.themeMode,
-      builder: (context, child) {
-        if (isRootPage) {
-          if (kIsLinux || kIsWindows) {
-            child = virtualWindowFrameBuilder(context, child);
-          }
-          child = botToastBuilder(context, child);
-        }
-        return child;
-      },
-      navigatorObservers: isRootPage ? [BotToastNavigatorObserver()] : [],
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
+      //debugShowCheckedModeBanner: false,
+      //navigatorKey: isRootPage ? _navigatorKey : null,
+      //theme: lightThemeData,
+      //darkTheme: darkThemeData,
+      //themeMode: _config.themeMode,
+      //builder: (context, child) {
+      //  if (isRootPage) {
+      //    if (kIsLinux || kIsWindows) {
+      //      child = virtualWindowFrameBuilder(context, child);
+      //    }
+      //    child = botToastBuilder(context, child);
+      //  }
+      //  return child;
+      //},
+      //navigatorObservers: isRootPage ? [BotToastNavigatorObserver()] : [],
+     // localizationsDelegates: context.localizationDelegates,
+      //supportedLocales: context.supportedLocales,
+      //locale: context.locale,
       home: isRootPage ? HomePage() : widget.home,
     );
   }
