@@ -13,15 +13,15 @@ final pageStorageBucket = PageStorageBucket();
 
 class DictGlobalConfig {
   static void loadApp(ConfigType configType) async{
-    GlobalConfig.init(configType);
-    await ProAccount.instance.ensureInitialized();
-    await initEnv('stable');
-    await initLocalDb();
-    await initConfig();
     void _handleError(Object obj, StackTrace stack) {
       AppLogHandler.restLogger("global error" + stack.toString());
     }
-    runZonedGuarded((){
+    runZonedGuarded(() async {
+      GlobalConfig.init(configType);
+      await ProAccount.instance.ensureInitialized();
+      await initEnv('stable');
+      await initLocalDb();
+      await initConfig();
       FlutterError.onError = (FlutterErrorDetails errorDetails) {
         AppLogHandler.logFlutterErrorDetails(errorDetails);
       };
