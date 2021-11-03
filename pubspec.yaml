@@ -93,6 +93,7 @@ flutter:
     - assets/images/ocr_engine_icons/
     - assets/images/translation_engine_icons/
     - assets/translations/
+    - assets/cfg/
 
   fonts:
     - family: icomoon
