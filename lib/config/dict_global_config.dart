@@ -4,6 +4,7 @@ import 'package:biyi_app/navigators/app_navigator.dart';
 import 'package:biyi_app/networking/local_db/local_db.dart';
 import 'package:biyi_app/utilities/config.dart';
 import 'package:biyi_app/utilities/env.dart';
+import 'package:easy_localization_loader/easy_localization_loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:wheel/wheel.dart' show AppLogHandler, GlobalConfig, ConfigType;
 
@@ -23,10 +24,23 @@ class DictGlobalConfig {
       await initEnv('stable');
       await initLocalDb();
       await initConfig();
+      await EasyLocalization.ensureInitialized();
       FlutterError.onError = (FlutterErrorDetails errorDetails) {
         AppLogHandler.logFlutterErrorDetails(errorDetails);
       };
-      runApp(AppNavigator());
+      runApp(EasyLocalization(
+        supportedLocales: [
+          Locale(kLanguageEN),
+          // Locale(kLanguageJA),
+          // Locale(kLanguageKO),
+          // Locale(kLanguageRU),
+          Locale(kLanguageZH),
+        ],
+        path: 'assets/translations',
+        assetLoader: YamlAssetLoader(),
+        fallbackLocale: Locale(kLanguageEN),
+        child: AppNavigator(),
+      ));
     }, (Object error, StackTrace stackTrace) {
       _handleError(error, stackTrace);
     });
