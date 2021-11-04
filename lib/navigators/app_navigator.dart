@@ -78,9 +78,9 @@ class _AppNavigatorState extends State<AppNavigator>
         return child;
       },
       navigatorObservers: isRootPage ? [BotToastNavigatorObserver()] : [],
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
+     //localizationsDelegates: context.localizationDelegates,
+      //supportedLocales: context.supportedLocales,
+      //locale: context.locale,
       home: isRootPage ? HomePage() : widget.home,
     );
   }

@@ -1,4 +1,5 @@
 {
   "baseUrl": "https://dict.poemhub.top",
-  "appId": 1
+  "appId": 5,
+  "logUrl": "https://api.poemhub.top"
 }

@@ -770,7 +770,7 @@ class _HomePageState extends State<HomePage>
     WidgetsBinding.instance.addPostFrameCallback((_) => _windowResize());
     return Scaffold(
       appBar: _buildAppBar(context),
-      body: _buildBody(context),
+      body:_buildBody(context),
     );
   }
 
