@@ -48,12 +48,12 @@ class TranslationInputView extends StatelessWidget {
           ]),
           child: SizedBox(
             width: 30,
-            height: 26,
+            height: 40,
             child: CustomButton(
               padding: EdgeInsets.zero,
               child: Container(
                 width: 30,
-                height: 26,
+                height: 36,
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
@@ -83,7 +83,7 @@ class TranslationInputView extends StatelessWidget {
                             'AUTO',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 5.4,
+                              fontSize: 15,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -162,7 +162,7 @@ class TranslationInputView extends StatelessWidget {
     return Row(
       children: [
         Container(
-          height: 24,
+          height: 30,
           constraints: BoxConstraints(
             minWidth: 56,
           ),
@@ -172,17 +172,17 @@ class TranslationInputView extends StatelessWidget {
               right: 12,
             ),
             border: Border.all(color: Theme.of(context).primaryColor),
-            borderRadius: BorderRadius.circular(2),
+            borderRadius: BorderRadius.circular(5),
             child: Text(
               'page_home.btn_clear'.tr(),
-              style: TextStyle(fontSize: 12),
+              style: TextStyle(fontSize: 20),
             ),
             onPressed: this.onButtonTappedClear,
           ),
         ),
         SizedBox(width: 10),
         Container(
-          height: 24,
+          height: 30,
           constraints: BoxConstraints(
             minWidth: 56,
           ),
@@ -191,10 +191,10 @@ class TranslationInputView extends StatelessWidget {
               left: 12,
               right: 12,
             ),
-            borderRadius: BorderRadius.circular(2),
+            borderRadius: BorderRadius.circular(5),
             child: Text(
               'page_home.btn_trans'.tr(),
-              style: TextStyle(fontSize: 12),
+              style: TextStyle(fontSize: 20),
             ),
             onPressed: this.onButtonTappedTrans,
           ),
