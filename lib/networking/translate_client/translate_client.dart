@@ -58,6 +58,9 @@ TranslationEngine createTranslationEngine(
       case kEngineTypeYoudao:
         translationEngine = YoudaoTranslationEngine(engineConfig);
         break;
+      case kEngineTypeReddwarf:
+        translationEngine = ReddwarfTranslationEngine(engineConfig);
+        break;
     }
   }
   return translationEngine;
