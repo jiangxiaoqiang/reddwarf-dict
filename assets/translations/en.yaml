@@ -129,6 +129,7 @@ engine:
   sogou: Sogou
   tencent: Tencent
   youdao: Youda
+  reddwarf: Reddwarf
 engine_scope:
   detectlanguage: detectLanguage
   lookup: LookUp

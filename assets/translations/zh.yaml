@@ -129,6 +129,7 @@ engine:
   sogou: 搜狗翻译
   tencent: 腾讯翻译君
   youdao: 有道翻译
+  reddwarf: 红矮星翻译
 engine_scope:
   detectlanguage: 语种识别
   lookup: 查词

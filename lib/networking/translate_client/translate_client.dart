@@ -13,6 +13,7 @@ const kSupportedEngineTypes = [
   kEngineTypeSogou,
   kEngineTypeTencent,
   kEngineTypeYoudao,
+  kEngineTypeReddwarf
 ];
 
 final Map<String, List<String>> kKnownSupportedEngineOptionKeys = {
@@ -24,6 +25,7 @@ final Map<String, List<String>> kKnownSupportedEngineOptionKeys = {
   kEngineTypeSogou: SogouTranslationEngine.optionKeys,
   kEngineTypeTencent: TencentTranslationEngine.optionKeys,
   kEngineTypeYoudao: YoudaoTranslationEngine.optionKeys,
+  kEngineTypeReddwarf: YoudaoTranslationEngine.optionKeys,
 };
 
 TranslationEngine createTranslationEngine(
