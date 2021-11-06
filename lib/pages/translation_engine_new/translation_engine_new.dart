@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:wheel/wheel.dart';
 
 import '../../includes.dart';
 
@@ -184,8 +185,14 @@ class _TranslationEngineNewPageState extends State<TranslationEngineNewPage> {
                   controller: _textEditingControllerMap[optionKey],
                   placeholder: optionKey,
                   accessoryView: Container(),
-                  onChanged: (value) {
+                  onChanged: (value) async {
                     _option[optionKey] = value;
+                    if("appKey" == optionKey) {
+                      await SecureStorageUtil.putString("username", value);
+                    }
+                    if("appSecret" == optionKey){
+                      await SecureStorageUtil.putString("password", value);
+                    }
                     setState(() {});
                   },
                 ),

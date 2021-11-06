@@ -7,9 +7,7 @@ import './includes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await EasyLocalization.ensureInitialized();
-
   await AudioPlayer.ensureInitialized();
   await ProAccount.instance.ensureInitialized();
   if (kIsLinux || kIsMacOS || kIsWindows) {
