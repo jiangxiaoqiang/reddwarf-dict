@@ -2,11 +2,13 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:biyi_app/networking/rest_api/word/word_provider.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:screen_retriever/screen_retriever.dart';
 import 'package:screen_text_extractor/screen_text_extractor.dart';
 import 'package:tray_manager/tray_manager.dart';
@@ -580,6 +582,12 @@ class _HomePageState extends State<HomePage>
     _handleTextChanged(extractedData.text, isRequery: true);
   }
 
+  void _handleButtonTappedAddBook() {
+    if(_text.isNotEmpty) {
+      WordProvider.addLearningWord(-1, _text);
+    }
+  }
+
   void _handleButtonTappedClear() {
     setState(() {
       _querySubmitted = false;
@@ -680,6 +688,7 @@ class _HomePageState extends State<HomePage>
             onClickExtractTextFromClipboard:
                 this._handleExtractTextFromClipboard,
             onButtonTappedClear: this._handleButtonTappedClear,
+            onButtonAddBook: this._handleButtonTappedAddBook,
             onButtonTappedTrans: this._handleButtonTappedTrans,
           ),
           TranslationTargetSelectView(

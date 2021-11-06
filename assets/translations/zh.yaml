@@ -171,6 +171,7 @@ page_home:
   tip_extract_text_from_clipboard: 读取剪切板内容
   btn_sponsor: 支持一下
   btn_clear: 清空
+  btn_add_book: 加入生词本
   btn_trans: 翻译
   msg_please_enter_word_or_text: 未输入文本或未提取到文本
 page_language_chooser:

@@ -171,6 +171,7 @@ page_home:
   tip_extract_text_from_clipboard: Read clipboard content
   btn_sponsor: Sponsor
   btn_clear: Clear
+  btn_add_book: Add
   btn_trans: Translate
   msg_please_enter_word_or_text: No text entered or text not extracted
 page_language_chooser:
