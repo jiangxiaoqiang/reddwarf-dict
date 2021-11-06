@@ -768,10 +768,10 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) => _windowResize());
-    return Scaffold(
+    return SafeArea(child: Scaffold(
       appBar: _buildAppBar(context),
       body:_buildBody(context),
-    );
+    ));
   }
 
   @override

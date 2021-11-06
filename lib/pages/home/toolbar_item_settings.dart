@@ -26,13 +26,13 @@ class _ToolbarItemSettingsState extends State<ToolbarItemSettings> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 24,
-      height: 24,
+      height: 26,
       child: CustomButton(
         padding: EdgeInsets.zero,
         borderRadius: BorderRadius.zero,
         child: Icon(
           IcoMoonIcons.gear_fill,
-          size: 16,
+          size: 26,
           color: Theme.of(context).iconTheme.color,
         ),
         onPressed: () async {
