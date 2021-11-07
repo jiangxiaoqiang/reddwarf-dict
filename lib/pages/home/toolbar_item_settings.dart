@@ -48,14 +48,12 @@ class _ToolbarItemSettingsState extends State<ToolbarItemSettings> {
             builder: (ctx) {
               return Container(
                 height: 600,
-                child: AppNavigator(
-                  home: SettingsPage(
+                child:  SettingsPage(
                     onDismiss: () {
                       Navigator.of(ctx).pop();
                       _handleDismiss();
                     },
                   ),
-                ),
               );
             },
           );
