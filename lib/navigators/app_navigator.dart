@@ -3,7 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../includes.dart';
-import 'nav_page.dart';
+import 'nav/nav_page.dart';
 
 // ignore: non_constant_identifier_names
 TransitionBuilder VirtualWindowFrameInit() {

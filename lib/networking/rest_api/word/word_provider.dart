@@ -38,9 +38,7 @@ class WordProvider {
   }
 
   static Future<List<LearningWord>> fetchLearningWord() async {
-    Map wordRequest = HashMap();
-    wordRequest.putIfAbsent("word_id", () => 1);
-    var response = await RestClient.postHttp("/dict/word/learn/v1/fetch", wordRequest);
+    var response = await RestClient.getHttp("/dict/word/learn/v1/fetch");
     if (RestClient.respSuccess(response)) {
       var result = response.data["result"] as List;
       List<LearningWord> words = List.empty(growable: true);

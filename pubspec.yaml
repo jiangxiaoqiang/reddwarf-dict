@@ -24,6 +24,7 @@ dependencies:
   libwinmedia: ^0.0.5
   package_info_plus: ^1.0.4
   fluttertoast: 8.0.3
+  get: ^4.3.8
   photo_view: ^0.12.0
   pro_account:
     git:
