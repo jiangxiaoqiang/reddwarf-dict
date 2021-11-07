@@ -181,7 +181,9 @@ class TranslationResultRecordView extends StatelessWidget {
                           if ((definitions[i].name ?? '').isNotEmpty)
                             TextSpan(
                               text: '${definitions[i].name}',
-                              style: Theme.of(context).textTheme.caption,
+                              style: Theme.of(context).textTheme.caption.copyWith(
+                                fontSize: 16
+                              ),
                             ),
                           if ((definitions[i].name ?? '').isNotEmpty)
                             TextSpan(text: ' '),
@@ -224,7 +226,7 @@ class TranslationResultRecordView extends StatelessWidget {
                             ),
                         ],
                         style: Theme.of(context).textTheme.caption.copyWith(
-                              fontSize: 13,
+                              fontSize: 16,
                             ),
                       ),
                   ],
@@ -322,6 +324,7 @@ class TranslationResultRecordView extends StatelessWidget {
                        '例句',
                        style: Theme.of(context).textTheme.caption.copyWith(
                              fontWeight: FontWeight.bold,
+                           fontSize: 18
                            ),
                      ),
                    ),

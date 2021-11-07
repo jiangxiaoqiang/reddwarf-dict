@@ -23,12 +23,13 @@ class WordSentenceView extends StatelessWidget {
           SelectableText.rich(
             TextSpan(
               children: [
-                TextSpan(text: wordSentence.text),
+                TextSpan(text: wordSentence.text
+                ),
                 TextSpan(text: '\n'),
                 TextSpan(
                   text: wordSentence.translations.first,
                   style: Theme.of(context).textTheme.caption.copyWith(
-                        fontSize: 13,
+                        fontSize: 16,
                       ),
                 ),
               ],

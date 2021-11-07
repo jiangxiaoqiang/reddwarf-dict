@@ -26,7 +26,7 @@ class WordPronunciationView extends StatelessWidget {
                   TextSpan(
                     text: '${wordPronunciation.localType} ',
                     style: Theme.of(context).textTheme.bodyText2.copyWith(
-                          fontSize: 13,
+                          fontSize: 15,
                         ),
                   ),
                 if ((wordPronunciation.phoneticSymbol ?? '').isNotEmpty)

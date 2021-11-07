@@ -50,6 +50,7 @@ class _WordTranslationViewState extends State<WordTranslationView> {
               ),
               style: Theme.of(context).textTheme.bodyText2.copyWith(
                     height: 1.4,
+                fontSize: 16
                   ),
             ),
             Container(
@@ -65,7 +66,7 @@ class _WordTranslationViewState extends State<WordTranslationView> {
                 '常见释义',
                 style: TextStyle(
                   color: Color(0xff80838a),
-                  fontSize: 10,
+                  fontSize: 13,
                 ),
               ),
             ),
