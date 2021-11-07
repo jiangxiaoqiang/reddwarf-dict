@@ -111,7 +111,7 @@ class TranslationResultRecordView extends StatelessWidget {
         (pronunciations ?? []).isNotEmpty ||
         (images ?? []).isNotEmpty;
 
-    if (false) {
+    if (!isShowAsLookUpResult) {
       return Container(
         constraints: BoxConstraints(
           minHeight: 40,
