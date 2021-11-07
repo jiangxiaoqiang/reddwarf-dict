@@ -111,7 +111,7 @@ class TranslationResultRecordView extends StatelessWidget {
         (pronunciations ?? []).isNotEmpty ||
         (images ?? []).isNotEmpty;
 
-    if (!isShowAsLookUpResult) {
+    if (false) {
       return Container(
         constraints: BoxConstraints(
           minHeight: 40,
@@ -298,38 +298,38 @@ class TranslationResultRecordView extends StatelessWidget {
           //     ),
           //   ),
           // // 例句
-          // if ((sentences ?? []).isNotEmpty)
-          //   Container(
-          //     margin: EdgeInsets.only(top: 10),
-          //     width: double.infinity,
-          //     child: Column(
-          //       crossAxisAlignment: CrossAxisAlignment.start,
-          //       children: [
-          //         Container(
-          //           padding: EdgeInsets.only(
-          //             top: 2,
-          //             bottom: 2,
-          //           ),
-          //           decoration: BoxDecoration(
-          //             border: Border(
-          //               bottom: BorderSide(
-          //                 color: Theme.of(context).primaryColor,
-          //                 width: 2,
-          //               ),
-          //             ),
-          //           ),
-          //           child: Text(
-          //             '例句',
-          //             style: Theme.of(context).textTheme.caption.copyWith(
-          //                   fontWeight: FontWeight.bold,
-          //                 ),
-          //           ),
-          //         ),
-          //         for (WordSentence wordSentence in sentences)
-          //           WordSentenceView(wordSentence),
-          //       ],
-          //     ),
-          //   ),
+           if ((sentences ?? []).isNotEmpty)
+             Container(
+               margin: EdgeInsets.only(top: 10),
+               width: double.infinity,
+               child: Column(
+                 crossAxisAlignment: CrossAxisAlignment.start,
+                 children: [
+                   Container(
+                     padding: EdgeInsets.only(
+                       top: 2,
+                       bottom: 2,
+                     ),
+                     decoration: BoxDecoration(
+                       border: Border(
+                         bottom: BorderSide(
+                           color: Theme.of(context).primaryColor,
+                           width: 2,
+                         ),
+                       ),
+                     ),
+                     child: Text(
+                       '例句',
+                       style: Theme.of(context).textTheme.caption.copyWith(
+                             fontWeight: FontWeight.bold,
+                           ),
+                     ),
+                   ),
+                   for (WordSentence wordSentence in sentences)
+                     WordSentenceView(wordSentence),
+                 ],
+               ),
+             ),
           // 标签
           if ((tags ?? []).isNotEmpty)
             Container(
