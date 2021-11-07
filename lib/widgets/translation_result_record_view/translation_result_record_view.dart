@@ -324,7 +324,7 @@ class TranslationResultRecordView extends StatelessWidget {
                        '例句',
                        style: Theme.of(context).textTheme.caption.copyWith(
                              fontWeight: FontWeight.bold,
-                           fontSize: 18
+                             fontSize: 18
                            ),
                      ),
                    ),
