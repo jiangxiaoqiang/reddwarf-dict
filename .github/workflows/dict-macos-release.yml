@@ -18,9 +18,9 @@ jobs:
         with:
           flutter-version: '2.5.0'
           channel: 'dev'
-    - name: Enable Macos
-      run: flutter config --enable-macos-desktop
-    - name: Build macOS app
-      run: flutter build macos --release
+      - name: Enable Macos
+        run: flutter config --enable-macos-desktop
+      - name: Build macOS app
+        run: flutter build macos --release
 
 
