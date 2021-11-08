@@ -1,8 +1,8 @@
 import 'dart:collection';
 
-import 'package:biyi_app/models/request/sentence/sentence.dart';
-import 'package:biyi_app/models/request/word/learning_word.dart';
-import 'package:biyi_app/models/request/word/word.dart';
+import 'package:reddwarf_dict/models/request/sentence/sentence.dart';
+import 'package:reddwarf_dict/models/request/word/learning_word.dart';
+import 'package:reddwarf_dict/models/request/word/word.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wheel/wheel.dart' show RestClient;

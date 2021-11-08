@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:biyi_app/navigators/app_navigator.dart';
-import 'package:biyi_app/networking/local_db/local_db.dart';
-import 'package:biyi_app/utilities/config.dart';
-import 'package:biyi_app/utilities/env.dart';
+import 'package:reddwarf_dict/navigators/app_navigator.dart';
+import 'package:reddwarf_dict/networking/local_db/local_db.dart';
+import 'package:reddwarf_dict/utilities/config.dart';
+import 'package:reddwarf_dict/utilities/env.dart';
 import 'package:easy_localization_loader/easy_localization_loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:wheel/wheel.dart' show AppLogHandler, GlobalConfig, ConfigType;

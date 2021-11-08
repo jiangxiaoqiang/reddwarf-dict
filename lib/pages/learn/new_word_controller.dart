@@ -1,6 +1,6 @@
-import 'package:biyi_app/models/request/word/learning_word.dart';
-import 'package:biyi_app/models/request/word/word.dart';
-import 'package:biyi_app/networking/rest_api/word/word_provider.dart';
+import 'package:reddwarf_dict/models/request/word/learning_word.dart';
+import 'package:reddwarf_dict/models/request/word/word.dart';
+import 'package:reddwarf_dict/networking/rest_api/word/word_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

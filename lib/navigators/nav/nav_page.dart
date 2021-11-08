@@ -1,5 +1,5 @@
-import 'package:biyi_app/includes.dart';
-import 'package:biyi_app/pages/learn/new_word.dart';
+import 'package:reddwarf_dict/includes.dart';
+import 'package:reddwarf_dict/pages/learn/new_word.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
