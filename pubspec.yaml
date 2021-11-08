@@ -1,4 +1,4 @@
-name: biyi_app
+name: reddwarf_dict
 description: A convenient translation and dictionary app written in dart / Flutter.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 0.3.2+5
