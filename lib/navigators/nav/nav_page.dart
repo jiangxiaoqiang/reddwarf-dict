@@ -1,4 +1,5 @@
 import 'package:reddwarf_dict/includes.dart';
+import 'package:reddwarf_dict/pages/dev/dev_word.dart';
 import 'package:reddwarf_dict/pages/learn/new_word.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,11 @@ class Nav extends StatelessWidget {
                     Widget widget = NewWord();
                     controller.updateCurrentWidget(widget);
                     controller.updateSelectIndex(1);
+                  }
+                  if (index == 2) {
+                    Widget widget = DevWord();
+                    controller.updateCurrentWidget(widget);
+                    controller.updateSelectIndex(2);
                   }
                 }
 
