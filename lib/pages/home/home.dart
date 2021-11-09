@@ -588,18 +588,6 @@ class _HomePageState extends State<HomePage>
     }
   }
 
-  void _handleButtonTappedClear() {
-    setState(() {
-      _querySubmitted = false;
-      _text = '';
-      _textDetectedLanguage = null;
-      _extractedData = null;
-      _translationResultList = [];
-    });
-    _textEditingController.clear();
-    _focusNode.requestFocus();
-  }
-
   void _handleButtonTappedTrans() {
     if (_text.isEmpty) {
       BotToast.showText(
@@ -687,7 +675,6 @@ class _HomePageState extends State<HomePage>
                 this._handleExtractTextFromScreenCapture,
             onClickExtractTextFromClipboard:
                 this._handleExtractTextFromClipboard,
-            onButtonTappedClear: this._handleButtonTappedClear,
             onButtonAddBook: this._handleButtonTappedAddBook,
             onButtonTappedTrans: this._handleButtonTappedTrans,
           ),
@@ -823,7 +810,6 @@ class _HomePageState extends State<HomePage>
     await _windowShow();
     await Future.delayed(Duration(milliseconds: 200));
     if (uri.authority == 'translate') {
-      if (_text.isNotEmpty) _handleButtonTappedClear();
       String text = uri.queryParameters['text'];
       if (text != null && text.isNotEmpty) {
         _handleTextChanged(text, isRequery: true);

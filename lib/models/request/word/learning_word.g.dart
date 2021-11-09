@@ -11,6 +11,7 @@ LearningWord _$LearningWordFromJson(Map<String, dynamic> json) => LearningWord(
       id: json['id'] as int,
       word: json['word'] as String,
       translation: json['translation'] as String,
+      createdTime: json['createdTime'] as int,
     );
 
 Map<String, dynamic> _$LearningWordToJson(LearningWord instance) =>
@@ -19,4 +20,5 @@ Map<String, dynamic> _$LearningWordToJson(LearningWord instance) =>
       'id': instance.id,
       'word': instance.word,
       'translation': instance.translation,
+      'createdTime': instance.createdTime
     };

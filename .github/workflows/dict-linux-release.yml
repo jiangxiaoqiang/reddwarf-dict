@@ -1,4 +1,4 @@
-name: Dict-macOS-Pro
+name: Dict-Linux-Pro
 
 on:
   push:
@@ -6,9 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-11
-    env:
-      MACOS_APP_RELEASE_PATH: build/macos/Build/Products/Release
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-java@v1
@@ -17,5 +15,4 @@ jobs:
       - uses: subosito/flutter-action@v1.5.1
         with:
           flutter-version: '2.5.0'
-          channel: 'dev'
-
+          channel: 'stable'
