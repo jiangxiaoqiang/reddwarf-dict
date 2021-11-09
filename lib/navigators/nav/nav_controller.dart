@@ -1,4 +1,4 @@
-import 'package:biyi_app/includes.dart';
+import 'package:reddwarf_dict/includes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 

@@ -1,4 +1,4 @@
-import 'package:biyi_app/models/request/sentence/sentence.dart';
+import 'package:reddwarf_dict/models/request/sentence/sentence.dart';
 
 class WordTrans {
   WordTrans({

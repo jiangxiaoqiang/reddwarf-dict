@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 
-import 'package:biyi_app/networking/rest_api/word/word_provider.dart';
+import 'package:reddwarf_dict/networking/rest_api/word/word_provider.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
