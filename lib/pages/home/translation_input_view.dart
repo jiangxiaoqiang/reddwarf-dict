@@ -21,7 +21,6 @@ class TranslationInputView extends StatelessWidget {
   final VoidCallback onClickExtractTextFromScreenCapture;
   final VoidCallback onClickExtractTextFromClipboard;
 
-  final VoidCallback onButtonTappedClear;
   final VoidCallback onButtonAddBook;
   final VoidCallback onButtonTappedTrans;
 
@@ -36,7 +35,6 @@ class TranslationInputView extends StatelessWidget {
     this.inputSetting,
     this.onClickExtractTextFromScreenCapture,
     this.onClickExtractTextFromClipboard,
-    this.onButtonTappedClear,
     this.onButtonAddBook,
     this.onButtonTappedTrans,
   }) : super(key: key);
@@ -180,26 +178,6 @@ class TranslationInputView extends StatelessWidget {
               style: TextStyle(fontSize: 20),
             ),
             onPressed: this.onButtonAddBook,
-          ),
-        ),
-        SizedBox(width: 10),
-        Container(
-          height: 30,
-          constraints: BoxConstraints(
-            minWidth: 56,
-          ),
-          child: CustomButton.outlined(
-            padding: EdgeInsets.only(
-              left: 12,
-              right: 12,
-            ),
-            border: Border.all(color: Theme.of(context).primaryColor),
-            borderRadius: BorderRadius.circular(5),
-            child: Text(
-              'page_home.btn_clear'.tr(),
-              style: TextStyle(fontSize: 20),
-            ),
-            onPressed: this.onButtonTappedClear,
           ),
         ),
         SizedBox(width: 10),

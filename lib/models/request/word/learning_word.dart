@@ -9,13 +9,15 @@ class LearningWord {
      this.definition,
      this.id,
      this.word,
-     this.translation
+     this.translation,
+     this.createdTime
   });
 
   String definition;
   int id;
   String word;
   String translation;
+  int createdTime;
 
   Map<String, dynamic> toJson() => _$LearningWordToJson(this);
 

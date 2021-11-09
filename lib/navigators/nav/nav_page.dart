@@ -18,10 +18,12 @@ class Nav extends StatelessWidget {
                   if (index == 0) {
                     Widget widget = HomePage();
                     controller.updateCurrentWidget(widget);
+                    controller.updateSelectIndex(0);
                   }
                   if (index == 1) {
                     Widget widget = NewWord();
                     controller.updateCurrentWidget(widget);
+                    controller.updateSelectIndex(1);
                   }
                 }
 
@@ -40,7 +42,7 @@ class Nav extends StatelessWidget {
                         BottomNavigationBarItem(
                             icon: Icon(Icons.school), label: '我的'),
                       ],
-                      currentIndex: 0,
+                      currentIndex: controller.currentSelectIndex,
                       fixedColor: Theme
                           .of(context)
                           .primaryColor,

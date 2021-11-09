@@ -46,6 +46,9 @@ class WordProvider {
         LearningWord learningWord = LearningWord.fromJson(element);
         words.add(learningWord);
       }
+      if(words.length>1){
+        words:words.sort((a,b)=>b.createdTime.compareTo(a.createdTime));
+      }
       return words;
     }
     return Future.value(List.empty());
