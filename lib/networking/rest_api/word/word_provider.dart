@@ -67,7 +67,7 @@ class WordProvider {
 
     static Future<void> addLearningWord(int wordId, String word) async {
     Map wordRequest = HashMap();
-    wordRequest.putIfAbsent("word_id", () => wordId);
+    wordRequest.putIfAbsent("wordId", () => wordId);
     wordRequest.putIfAbsent("word", () => word.trim());
     var response = await RestClient.postHttp("/dict/word/learn/v1/add", wordRequest);
     if (RestClient.respSuccess(response)) {
