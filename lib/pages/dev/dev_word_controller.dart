@@ -11,16 +11,37 @@ class DevWordController extends GetxController {
 
   List<Card> _wordWidget = List.empty(growable: true);
 
+  DevWordController(TabController _tabController){
+    _tabController.addListener(() {
+      // https://stackoverflow.com/questions/60252355/tabcontroller-listener-called-multiple-times-how-does-indexischanging-work
+      if (!_tabController.indexIsChanging) {
+        switch (_tabController.index) {
+          case 0:
+            renderWordCards(_tabController.index );
+            break;
+          case 1:
+            renderWordCards(_tabController.index);
+            break;
+          case 2:
+            renderWordCards(_tabController.index);
+            break;
+        }
+      }
+    });
+  }
+
+
   List<Card> get getCurrentRender => _wordWidget;
 
   @override
   void onInit() {
-    renderWordCards();
+    renderWordCards(0);
+
     super.onInit();
   }
 
-  Future<List<Card>> renderWordCards() async {
-    List<LearningWord> words = await WordProvider.fetchLearningWord();
+   Future<List<Card>> renderWordCards(int tabName) async {
+    List<LearningWord> words = await WordProvider.fetchLearningWord(tabName);
     List<Card> cards = List.empty(growable: true);
     for (var element in words) {
       var card = Card(

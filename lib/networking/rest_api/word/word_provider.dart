@@ -1,10 +1,10 @@
 import 'dart:collection';
 
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:reddwarf_dict/models/request/sentence/sentence.dart';
 import 'package:reddwarf_dict/models/request/word/learning_word.dart';
 import 'package:reddwarf_dict/models/request/word/word.dart';
-import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wheel/wheel.dart' show RestClient;
 
 class WordProvider {
@@ -17,17 +17,13 @@ class WordProvider {
       if (result.isNotEmpty) {
         var sentenceMap = result["sentences"] as List;
         List<Sentence> sList = List.empty(growable: true);
-        if(sentenceMap.isNotEmpty){
+        if (sentenceMap.isNotEmpty) {
           sentenceMap.forEach((element) {
             Sentence sentence_entity = Sentence.fromJson(element);
             sList.add(sentence_entity);
           });
         }
-        WordTrans wordTrans = WordTrans(
-            definition: result["translation"],
-            id: result["id"],
-            sentences: sList
-        );
+        WordTrans wordTrans = WordTrans(definition: result["translation"], id: result["id"], sentences: sList);
         return wordTrans;
       } else {
         WordTrans wordTrans = WordTrans(definition: 'No Result', id: 0);
@@ -37,8 +33,10 @@ class WordProvider {
     return null;
   }
 
-  static Future<List<LearningWord>> fetchLearningWord() async {
-    var response = await RestClient.getHttp("/dict/word/learn/v1/fetch");
+  static Future<List<LearningWord>> fetchLearningWord(int tabName) async {
+    Map params = HashMap();
+    params.putIfAbsent("wordType", () => tabName);
+    var response = await RestClient.postHttp("/dict/word/learn/v1/fetch", params);
     if (RestClient.respSuccess(response)) {
       var result = response.data["result"] as List;
       List<LearningWord> words = List.empty(growable: true);
@@ -46,15 +44,16 @@ class WordProvider {
         LearningWord learningWord = LearningWord.fromJson(element);
         words.add(learningWord);
       }
-      if(words.length>1){
-        words:words.sort((a,b)=>b.createdTime.compareTo(a.createdTime));
+      if (words.length > 1) {
+        words:
+        words.sort((a, b) => b.createdTime.compareTo(a.createdTime));
       }
       return words;
     }
     return Future.value(List.empty());
   }
 
-  static Future<void> addLearningWord(int wordId,String word) async {
+  static Future<void> addLearningWord(int wordId, String word) async {
     Map wordRequest = HashMap();
     wordRequest.putIfAbsent("word_id", () => wordId);
     wordRequest.putIfAbsent("word", () => word.trim());
