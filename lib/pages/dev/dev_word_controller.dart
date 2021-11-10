@@ -1,3 +1,4 @@
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:reddwarf_dict/models/request/word/learning_word.dart';
 import 'package:reddwarf_dict/models/request/word/word.dart';
 import 'package:reddwarf_dict/networking/rest_api/word/word_provider.dart';
@@ -48,11 +49,49 @@ class DevWordController extends GetxController {
         margin: const EdgeInsets.all(10.0),
         child: Column(
           children: [
-            ListTile(
+            Slidable(
+            actionPane: SlidableDrawerActionPane(),
+        actionExtentRatio: 0.25,
+        actions:<Widget> [
+          IconSlideAction(
+            caption: 'Archive',
+            color: Colors.blue,
+            icon: Icons.archive,
+            onTap: () async => {
+             if(await WordProvider.updateLearningWord(element, 1)){
+                renderWordCards(0)
+             }
+              }
+          ),
+          IconSlideAction(
+            caption: 'Share',
+            color: Colors.indigo,
+            icon: Icons.share,
+            onTap: () => {
+            },
+          ),
+        ],
+        secondaryActions: <Widget>[
+          IconSlideAction(
+            caption: 'More',
+            color: Colors.black45,
+            icon: Icons.more_horiz,
+            onTap: () => {},
+          ),
+          IconSlideAction(
+            caption: 'Delete',
+            color: Colors.red,
+            icon: Icons.delete,
+            onTap: () => {
+
+            },
+          ),
+        ],
+        child: ListTile(
               title: Text(element.word),
               subtitle: Text(element.translation),
             )
-          ],
+            )],
         ),
       );
       cards.add(card);
@@ -72,7 +111,7 @@ class DevWordController extends GetxController {
       if (searchWord.value.isEmpty) {
         return;
       }
-      var result = await WordProvider.doSearch(searchWord.value);
+      var result = await WordProvider.doTranslate(searchWord.value);
       wordTrans(result);
     } finally {
       isLoading(false);

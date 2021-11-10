@@ -8,7 +8,7 @@ import 'package:reddwarf_dict/models/request/word/word.dart';
 import 'package:wheel/wheel.dart' show RestClient;
 
 class WordProvider {
-  static Future<WordTrans> doSearch(String word) async {
+  static Future<WordTrans> doTranslate(String word) async {
     Map wordRequest = HashMap();
     wordRequest.putIfAbsent("word", () => word.toLowerCase().trim());
     var response = await RestClient.postHttp("/dict/word/translate/v1", wordRequest);
@@ -53,7 +53,19 @@ class WordProvider {
     return Future.value(List.empty());
   }
 
-  static Future<void> addLearningWord(int wordId, String word) async {
+  static Future<bool> updateLearningWord(LearningWord word,int wordStatus) async {
+    Map wordRequest = HashMap();
+    wordRequest.putIfAbsent("word", () => word.word.trim());
+    wordRequest.putIfAbsent("wordStatus", () => wordStatus);
+    wordRequest.putIfAbsent("wordId", () => word.id);
+    var response = await RestClient.postHttp("/dict/word/learn/v1/update", wordRequest);
+    if (RestClient.respSuccess(response)) {
+      return true;
+    }
+    return false;
+  }
+
+    static Future<void> addLearningWord(int wordId, String word) async {
     Map wordRequest = HashMap();
     wordRequest.putIfAbsent("word_id", () => wordId);
     wordRequest.putIfAbsent("word", () => word.trim());

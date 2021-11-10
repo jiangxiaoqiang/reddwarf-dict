@@ -88,7 +88,7 @@ class NewWordController extends GetxController {
       if (searchWord.value.isEmpty) {
         return;
       }
-      var result = await WordProvider.doSearch(searchWord.value);
+      var result = await WordProvider.doTranslate(searchWord.value);
       wordTrans(result);
     } finally {
       isLoading(false);
