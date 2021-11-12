@@ -2,7 +2,7 @@ name: Dict-Linux-Pro
 
 on:
   push:
-    branches: [ main ]
+    branches: [ linux ]
 
 jobs:
   build:
