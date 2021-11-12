@@ -19,3 +19,6 @@ jobs:
 
       - name: install Flutter SDK
         run: sudo snap install flutter --classic
+
+      - name: enable desktop development mode
+        run: flutter config --enable-linux-desktop
