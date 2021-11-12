@@ -16,3 +16,6 @@ jobs:
         with:
           flutter-version: '2.5.0'
           channel: 'stable'
+
+      - name: install Flutter SDK
+        run: sudo snap install flutter --classic
