@@ -1,12 +1,22 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:reddwarf_dict/component/dialogs.dart';
+import 'package:reddwarf_dict/component/page_dia_code_selection.dart';
+import 'package:reddwarf_dict/networking/rest_api/login/login_provider.dart';
+import 'package:reddwarf_dict/pages/user/login/phone_input.dart';
 import 'package:reddwarf_dict/themes/global_style.dart';
+import 'package:wheel/wheel.dart';
 
 import 'login_controller.dart';
 
 class Login extends StatelessWidget {
-  const Login({Key key}) : super(key: key);
+  const Login({Key key,this.regions}) : super(key: key);
+
+  final List<RegionFlag> regions;
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +27,51 @@ class Login extends StatelessWidget {
               .of(context)
               .size
               .width;
+          final inputController = useTextEditingController();
+          final selectedRegion = useState<RegionFlag>(useMemoized(() {
+            // initial to select system default region.
+            final countryCode = window.locale.countryCode;
+            return regions.firstWhere((region) => region.code == countryCode,
+                orElse: () => regions[0]);
+          }));
+
+          Future<void> onNextClick() async {
+            final text = inputController.text;
+            if (text.isEmpty) {
+              return;
+            }
+
+            final result = await showLoaderOverlay(
+              context,
+              LoginApi.checkPhoneExist(
+                text,
+                selectedRegion.value.dialCode
+                    .replaceAll("+", "")
+                    .replaceAll(" ", ""),
+              ),
+            );
+            if (result.isError) {
+              //toast(result.asError!.error.toString());
+              return;
+            }
+            final value = result.asValue.value;
+            if (!value.isExist) {
+              //toast('注册流程开发未完成,欢迎贡献代码...');
+              return;
+            }
+            if (!value.hasPassword) {
+              //toast('无密码登录流程的开发未完成,欢迎提出PR贡献代码...');
+              return;
+            }
+            Navigator.pushNamed(context, "pageLoginPassword",
+                arguments: {'phone': text});
+          }
+
 
           return Scaffold(
               resizeToAvoidBottomInset: false,
               appBar: AppBar(
-                title: Text("Cruise"),
+                title: Text("红矮星词典"),
                 actions: [
                   TextButton(
                     style: GlobalStyle.textButtonStyle,
@@ -42,6 +92,22 @@ class Login extends StatelessWidget {
                           padding: const EdgeInsets.only(top: 60),
                           child: Row(
                             children: [
+                              PhoneInput(
+                                controller: inputController,
+                                selectedRegion: selectedRegion.value,
+                                onPrefixTap: () async {
+                                  final RegionFlag region = await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) {
+                                      return RegionSelectionPage(regions: regions);
+                                    }),
+                                  );
+                                  if (region != null) {
+                                    selectedRegion.value = region;
+                                  }
+                                },
+                                onDone: onNextClick,
+                              ),
                               /*CountryCodePicker(
                                 onChanged: (CountryCode country) {
                                   countryCode.value = country.toString();

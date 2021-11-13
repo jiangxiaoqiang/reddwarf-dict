@@ -1,7 +1,10 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:reddwarf_dict/pages/user/login/login.dart';
+import 'package:wheel/wheel.dart';
 
 import 'user_center_controller.dart';
 
@@ -33,13 +36,13 @@ class UserCenter extends StatelessWidget {
                                   trailing: Icon(Icons.keyboard_arrow_right),
                                   title: Text("我的"),
                                   onTap: () async {
-                                    //bool isLoggedIn = await Auth.isLoggedIn();
-                                    //if (isLoggedIn) {
+                                    bool isLoggedIn = await Auth.isLoggedIn();
+                                    if (isLoggedIn) {
                                       //NavUtil.navProfile(context);
                                       //page = BottomNavigationDemo(type: BottomNavigationDemoType.withLabels);
-                                    //} else {
-                                      //NavUtil.navLogin(context);
-                                    //}
+                                    } else {
+                                      Get.to(Login());
+                                    }
                                   },
                                 )))),
                   ],

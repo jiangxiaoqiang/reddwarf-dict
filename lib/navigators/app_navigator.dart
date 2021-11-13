@@ -1,6 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 import '../includes.dart';
 import 'nav/nav_page.dart';
@@ -63,7 +64,7 @@ class _AppNavigatorState extends State<AppNavigator>
     final virtualWindowFrameBuilder = VirtualWindowFrameInit();
     final botToastBuilder = BotToastInit();
 
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       navigatorKey: isRootPage ? _navigatorKey : null,
       theme: lightThemeData,
