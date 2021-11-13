@@ -4,6 +4,7 @@ import 'package:reddwarf_dict/pages/learn/new_word.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:reddwarf_dict/pages/user/user_center/user_center.dart';
 
 import 'nav_controller.dart';
 
@@ -30,6 +31,11 @@ class Nav extends StatelessWidget {
                     Widget widget = DevWord();
                     controller.updateCurrentWidget(widget);
                     controller.updateSelectIndex(2);
+                  }
+                  if (index == 3){
+                    Widget widget = UserCenter();
+                    controller.updateCurrentWidget(widget);
+                    controller.updateSelectIndex(3);
                   }
                 }
 
