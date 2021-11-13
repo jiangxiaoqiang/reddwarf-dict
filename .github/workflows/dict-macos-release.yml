@@ -20,3 +20,5 @@ jobs:
           channel: 'dev'
       - name: Enable Macos
         run: flutter config --enable-macos-desktop
+      - name: Build macOS app
+        run: flutter build macos --release
