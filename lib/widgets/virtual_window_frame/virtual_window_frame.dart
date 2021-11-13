@@ -2,8 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:window_manager/window_manager.dart';
-
 import '../../../includes.dart';
 
 double get kVirtualWindowFrameMargin => (kIsLinux || kIsWindows) ? 20.0 : 0;
@@ -17,19 +15,16 @@ class VirtualWindowFrame extends StatefulWidget {
   State<StatefulWidget> createState() => _VirtualWindowFrameState();
 }
 
-class _VirtualWindowFrameState extends State<VirtualWindowFrame>
-    with WindowListener {
+class _VirtualWindowFrameState extends State<VirtualWindowFrame> {
   bool _focused = true;
 
   @override
   void initState() {
-    windowManager.addListener(this);
     super.initState();
   }
 
   @override
   void dispose() {
-    windowManager.removeListener(this);
     super.dispose();
   }
 
@@ -65,12 +60,6 @@ class _VirtualWindowFrameState extends State<VirtualWindowFrame>
               left: kVirtualWindowFrameMargin,
               right: kVirtualWindowFrameMargin,
               top: kVirtualWindowFrameMargin,
-            ),
-            child: DragToMoveArea(
-              child: Container(
-                height: 34,
-                // color: Colors.red.withOpacity(0.1),
-              ),
             ),
           ),
         ),

@@ -1,8 +1,5 @@
 import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
-import 'package:window_manager/window_manager.dart';
-
 import '../../includes.dart';
 
 class ToolbarItemAlwaysOnTop extends StatefulWidget {
@@ -20,7 +17,6 @@ class _ToolbarItemAlwaysOnTopState extends State<ToolbarItemAlwaysOnTop> {
   }
 
   void _init() async {
-    _isAlwaysOnTop = await windowManager.isAlwaysOnTop();
     setState(() {});
   }
 
@@ -50,7 +46,6 @@ class _ToolbarItemAlwaysOnTopState extends State<ToolbarItemAlwaysOnTop> {
           setState(() {
             _isAlwaysOnTop = !_isAlwaysOnTop;
           });
-          windowManager.setAlwaysOnTop(_isAlwaysOnTop);
         },
       ),
     );

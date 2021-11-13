@@ -11,7 +11,6 @@ import 'package:flutter/rendering.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tray_manager/tray_manager.dart';
 import 'package:uuid/uuid.dart';
-import 'package:window_manager/window_manager.dart';
 
 import '../../../includes.dart';
 
@@ -32,7 +31,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage>
-    with TrayListener, WindowListener, ShortcutListener, UriSchemeListener {
+    with TrayListener, ShortcutListener, UriSchemeListener {
   FocusNode _focusNode = FocusNode();
   TextEditingController _textEditingController = TextEditingController();
   ScrollController _scrollController = ScrollController();
@@ -87,7 +86,6 @@ class _HomePageState extends State<HomePage>
     UriSchemeManager.instance.addListener(this);
     ShortcutService.instance.setListener(this);
     trayManager.addListener(this);
-    windowManager.addListener(this);
     sharedConfigManager.addListener(_configListen);
     _init();
     _loadData();
@@ -99,7 +97,6 @@ class _HomePageState extends State<HomePage>
     UriSchemeManager.instance.removeListener(this);
     ShortcutService.instance.setListener(null);
     trayManager.removeListener(this);
-    windowManager.removeListener(this);
     sharedConfigManager.removeListener(_configListen);
     _uninit();
     super.dispose();
@@ -127,15 +124,6 @@ class _HomePageState extends State<HomePage>
     }
 
     ShortcutService.instance.start();
-
-    windowManager.waitUntilReadyToShow().then((_) async {
-      if (kIsLinux || kIsWindows) {
-        await WindowManager.instance.setAsFrameless();
-      }
-      await windowManager.setSkipTaskbar(true);
-      await Future.delayed(Duration(milliseconds: 400));
-      _windowShow();
-    });
 
     // 初始化托盘图标
     _initTrayIcon();
@@ -173,43 +161,10 @@ class _HomePageState extends State<HomePage>
   }
 
   Future<void> _windowShow() async {
-    Size windowSize = await windowManager.getSize();
-    Offset newPosition;
-    if (kIsMacOS) {
-      Rect trayIconBounds = await trayManager.getBounds();
-      Size trayIconSize = trayIconBounds.size;
-      Offset trayIconnewPosition = trayIconBounds.topLeft;
 
-      newPosition = Offset(
-        trayIconnewPosition.dx - ((windowSize.width - trayIconSize.width) / 2),
-        trayIconnewPosition.dy,
-      );
-    }
-
-    bool isAlwaysOnTop = await windowManager.isAlwaysOnTop();
-    if (newPosition != null && !isAlwaysOnTop) {
-      await windowManager.setPosition(newPosition);
-    }
-
-    bool isVisible = await windowManager.isVisible();
-    if (!isVisible) {
-      await windowManager.show();
-    } else {
-      await windowManager.focus();
-    }
-
-    // Linux 下无法激活窗口临时解决方案
-    if (kIsLinux && !isAlwaysOnTop) {
-      await windowManager.setAlwaysOnTop(true);
-      await Future.delayed(Duration(milliseconds: 100));
-      await windowManager.setAlwaysOnTop(false);
-      await Future.delayed(Duration(milliseconds: 100));
-      await windowManager.focus();
-    }
   }
 
   Future<void> _windowHide() async {
-    await windowManager.hide();
   }
 
   void _windowResize() {
@@ -237,17 +192,7 @@ class _HomePageState extends State<HomePage>
             inputViewHeight +
             resultsViewHeight +
             ((kVirtualWindowFrameMargin * 2) + 2);
-        Size oldSize = await windowManager.getSize();
-        Size newSize = Size(
-          oldSize.width,
-          newWindowHeight < _config.maxWindowHeight
-              ? newWindowHeight
-              : _config.maxWindowHeight,
-        );
-        if (oldSize.width != newSize.width ||
-            oldSize.height != newSize.height) {
-          await windowManager.setSize(newSize, animate: true);
-        }
+
       } catch (error) {
         print(error);
       }
@@ -517,11 +462,7 @@ class _HomePageState extends State<HomePage>
   }
 
   void _handleExtractTextFromClipboard() async {
-    bool windowIsVisible = await windowManager.isVisible();
-    if (!windowIsVisible) {
-      await _windowShow();
-      await Future.delayed(Duration(milliseconds: 100));
-    }
+
 
   }
 
@@ -709,12 +650,7 @@ class _HomePageState extends State<HomePage>
 
   @override
   void onShortcutKeyDownShowOrHide() async {
-    bool isVisible = await windowManager.isVisible();
-    if (isVisible) {
-      _windowHide();
-    } else {
-      _windowShow();
-    }
+
   }
 
   @override
@@ -772,7 +708,6 @@ class _HomePageState extends State<HomePage>
         break;
       case kMenuItemKeyExitApp:
         await trayManager.destroy();
-        windowManager.terminate();
         break;
     }
   }
@@ -785,9 +720,6 @@ class _HomePageState extends State<HomePage>
   @override
   void onWindowBlur() async {
     _focusNode.unfocus();
-    bool isAlwaysOnTop = await windowManager.isAlwaysOnTop();
-    if (!isAlwaysOnTop) {
-      windowManager.hide();
-    }
+
   }
 }
