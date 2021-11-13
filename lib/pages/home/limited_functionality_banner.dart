@@ -118,7 +118,6 @@ class LimitedFunctionalityBanner extends StatelessWidget {
                       title: 'page_home.limited_banner_text_screen_capture'.tr(),
                       allowed: isAllowedScreenCaptureAccess,
                       onTappedTryAllow: () {
-                        screenTextExtractor.requestScreenCaptureAccess();
                         BotToast.showText(
                           text: 'page_home.limited_banner_msg_allow_access_tip'.tr(),
                           align: Alignment.center,
@@ -126,9 +125,7 @@ class LimitedFunctionalityBanner extends StatelessWidget {
                         );
                       },
                       onTappedGoSettings: () {
-                        screenTextExtractor.requestScreenCaptureAccess(
-                          onlyOpenPrefPane: true,
-                        );
+
                       },
                     ),
                   if (kIsMacOS)
@@ -136,7 +133,6 @@ class LimitedFunctionalityBanner extends StatelessWidget {
                       title: 'page_home.limited_banner_text_screen_selection'.tr(),
                       allowed: isAllowedScreenSelectionAccess,
                       onTappedTryAllow: () {
-                        screenTextExtractor.requestScreenSelectionAccess();
                         BotToast.showText(
                           text: 'page_home.limited_banner_msg_allow_access_tip'.tr(),
                           align: Alignment.center,
@@ -144,9 +140,7 @@ class LimitedFunctionalityBanner extends StatelessWidget {
                         );
                       },
                       onTappedGoSettings: () {
-                        screenTextExtractor.requestScreenSelectionAccess(
-                          onlyOpenPrefPane: true,
-                        );
+
                       },
                     ),
                 ],

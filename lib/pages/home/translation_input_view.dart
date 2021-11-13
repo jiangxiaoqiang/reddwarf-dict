@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:screen_text_extractor/screen_text_extractor.dart';
 
 import '../../../includes.dart';
 
@@ -12,7 +11,6 @@ class TranslationInputView extends StatelessWidget {
   final TextEditingController controller;
   final ValueChanged<String> onChanged;
 
-  final ExtractedData extractedData;
 
   final String translationMode;
   final ValueChanged<String> onTranslationModeChanged;
@@ -29,7 +27,6 @@ class TranslationInputView extends StatelessWidget {
     this.focusNode,
     this.controller,
     this.onChanged,
-    this.extractedData,
     this.translationMode,
     this.onTranslationModeChanged,
     this.inputSetting,
@@ -205,8 +202,6 @@ class TranslationInputView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isTextDetecting =
-        (extractedData?.base64Image != null && extractedData?.text == null);
 
     return Container(
       margin: EdgeInsets.only(
@@ -259,43 +254,7 @@ class TranslationInputView extends StatelessWidget {
                       onButtonTappedTrans();
                     },
                   ),
-                  if (isTextDetecting)
-                    Positioned(
-                      left: 0,
-                      right: 0,
-                      top: 0,
-                      bottom: 0,
-                      child: Container(
-                        padding: EdgeInsets.only(left: 12, right: 12),
-                        color: Theme.of(context).canvasColor,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Row(
-                              children: [
-                                SpinKitDoubleBounce(
-                                  color:
-                                      Theme.of(context).textTheme.caption.color,
-                                  size: 18.0,
-                                ),
-                                SizedBox(width: 6),
-                                Text(
-                                  'page_home.text_extracting_text'.tr(),
-                                  style: TextStyle(
-                                    color: Theme.of(context)
-                                        .textTheme
-                                        .caption
-                                        .color,
-                                    fontSize: 13,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Expanded(child: Container()),
-                          ],
-                        ),
-                      ),
-                    ),
+
                 ],
               ),
             ),

@@ -31,8 +31,8 @@ dependencies:
     git:
       ref: main
       url: https://github.com/jiangxiaoqiang/pro_account_noop.git
-  screen_retriever: ^0.0.2
-  screen_text_extractor: ^0.0.1
+  #creen_retriever: ^0.0.2
+  #screen_text_extractor: ^0.0.1
   sticky_headers: ^0.1.8
   tray_manager: ^0.1.0
   uni_links: ^0.5.1

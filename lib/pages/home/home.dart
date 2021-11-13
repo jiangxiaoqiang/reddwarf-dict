@@ -9,8 +9,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:screen_retriever/screen_retriever.dart';
-import 'package:screen_text_extractor/screen_text_extractor.dart';
 import 'package:tray_manager/tray_manager.dart';
 import 'package:uuid/uuid.dart';
 import 'package:window_manager/window_manager.dart';
@@ -60,7 +58,6 @@ class _HomePageState extends State<HomePage>
   bool _querySubmitted = false;
   String _text = '';
   String _textDetectedLanguage;
-  ExtractedData _extractedData;
   List<TranslationResult> _translationResultList = [];
 
   List<Future> _futureList = [];
@@ -126,10 +123,7 @@ class _HomePageState extends State<HomePage>
 
   void _init() async {
     if (kIsMacOS) {
-      _isAllowedScreenCaptureAccess =
-          await screenTextExtractor.isAllowedScreenCaptureAccess();
-      _isAllowedScreenSelectionAccess =
-          await screenTextExtractor.isAllowedScreenSelectionAccess();
+
     }
 
     ShortcutService.instance.start();
@@ -137,16 +131,6 @@ class _HomePageState extends State<HomePage>
     windowManager.waitUntilReadyToShow().then((_) async {
       if (kIsLinux || kIsWindows) {
         await WindowManager.instance.setAsFrameless();
-
-        Display primaryDisplay = await screenRetriever.getPrimaryDisplay();
-        Size windowSize = await windowManager.getSize();
-        Offset newPosition = Offset(
-          (primaryDisplay.size.width / primaryDisplay.scaleFactor) -
-              windowSize.width -
-              50,
-          50,
-        );
-        await windowManager.setPosition(newPosition);
       }
       await windowManager.setSkipTaskbar(true);
       await Future.delayed(Duration(milliseconds: 400));
@@ -499,15 +483,12 @@ class _HomePageState extends State<HomePage>
   }
 
   void _handleExtractTextFromScreenSelection() async {
-    ExtractedData extractedData =
-        await screenTextExtractor.extractFromScreenSelection(
-      useAccessibilityAPIFirst: false,
-    );
+
+
 
     await _windowShow();
     await Future.delayed(Duration(milliseconds: 100));
 
-    _handleTextChanged(extractedData.text, isRequery: true);
   }
 
   void _handleExtractTextFromScreenCapture() async {
@@ -515,7 +496,6 @@ class _HomePageState extends State<HomePage>
       _querySubmitted = false;
       _text = '';
       _textDetectedLanguage = null;
-      _extractedData = null;
       _translationResultList = [];
     });
     _textEditingController.clear();
@@ -530,44 +510,10 @@ class _HomePageState extends State<HomePage>
           'Screenshot-${DateTime.now().millisecondsSinceEpoch}.png';
       imagePath = '${appDir.path}/Screenshots/$fileName';
     }
-    ExtractedData extractedData =
-        await screenTextExtractor.extractFromScreenCapture(
-      imagePath: imagePath,
-      useTesseract: sharedConfig.useLocalOcrEngine,
-    );
-
-    File imageFile = File(extractedData.imagePath);
-    if (extractedData.base64Image == null && !imageFile.existsSync()) {
-      return;
-    }
 
     await _windowShow();
     await Future.delayed(Duration(milliseconds: 100));
 
-    try {
-      if (extractedData.text == null) {
-        _extractedData = extractedData;
-        setState(() {});
-        DetectTextResponse detectTextResponse = await sharedOcrClient
-            .use(sharedConfig.defaultOcrEngineId)
-            .detectText(
-              DetectTextRequest(
-                imagePath: extractedData.imagePath,
-                base64Image: extractedData.base64Image,
-              ),
-            );
-        print(detectTextResponse.toJson());
-        _extractedData.text = detectTextResponse.text;
-        _handleTextChanged(detectTextResponse.text, isRequery: true);
-      } else {
-        _handleTextChanged(extractedData.text, isRequery: true);
-      }
-    } catch (error) {
-      BotToast.showText(
-        text: error.toString(),
-        align: Alignment.center,
-      );
-    }
   }
 
   void _handleExtractTextFromClipboard() async {
@@ -577,9 +523,6 @@ class _HomePageState extends State<HomePage>
       await Future.delayed(Duration(milliseconds: 100));
     }
 
-    ExtractedData extractedData =
-        await screenTextExtractor.extractFromClipboard();
-    _handleTextChanged(extractedData.text, isRequery: true);
   }
 
   void _handleButtonTappedAddBook() {
@@ -625,12 +568,7 @@ class _HomePageState extends State<HomePage>
               isAllowedScreenCaptureAccess: _isAllowedScreenCaptureAccess,
               isAllowedScreenSelectionAccess: _isAllowedScreenSelectionAccess,
               onTappedRecheckIsAllowedAllAccess: () async {
-                _isAllowedScreenCaptureAccess =
-                    await screenTextExtractor.isAllowedScreenCaptureAccess();
-                _isAllowedScreenSelectionAccess =
-                    await screenTextExtractor.isAllowedScreenSelectionAccess();
 
-                setState(() {});
 
                 if (_isAllowedScreenCaptureAccess &&
                     _isAllowedScreenSelectionAccess) {
@@ -664,7 +602,6 @@ class _HomePageState extends State<HomePage>
             focusNode: _focusNode,
             controller: _textEditingController,
             onChanged: (newValue) => this._handleTextChanged(newValue),
-            extractedData: _extractedData,
             translationMode: _config.translationMode,
             onTranslationModeChanged: (newTranslationMode) {
               sharedConfigManager.setTranslationMode(newTranslationMode);
