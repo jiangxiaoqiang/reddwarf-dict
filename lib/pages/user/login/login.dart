@@ -11,9 +11,12 @@ import 'package:wheel/wheel.dart';
 import 'login_controller.dart';
 
 class Login extends StatelessWidget {
-  const Login({Key key, this.regions}) : super(key: key);
+  const Login({Key key, this.regions,this.inputController}) : super(key: key);
 
   final List<RegionFlag> regions;
+
+  final inputController;
+
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +24,6 @@ class Login extends StatelessWidget {
         init: LoginController(),
         builder: (controller) {
           double screenWidth = MediaQuery.of(context).size.width;
-          final inputController = TextEditingController();
           var selectedRegion = regions[0];
 
           Future<void> onNextClick() async {
@@ -80,7 +82,7 @@ class Login extends StatelessWidget {
                               SizedBox(
                                   height: 45,
                                   width: screenWidth * 0.7,
-                                  child: PhoneInput(
+                                  child:Text("") /*PhoneInput(
                                     controller: inputController,
                                     selectedRegion: selectedRegion,
                                     onPrefixTap: () async {
@@ -95,7 +97,7 @@ class Login extends StatelessWidget {
                                       }
                                     },
                                     onDone: onNextClick,
-                                  )),
+                                  )*/),
                             ],
                           )),
                       Padding(
@@ -143,7 +145,7 @@ class Login extends StatelessWidget {
                                       onPressed: () async {
                                         final AppLoginRequest loginRequest = AppLoginRequest(
                                           loginType: LoginType.PHONE,
-                                          username: "+8615086958137",
+                                          username: "+8615683761628",
                                           password: "12345678",
                                         );
                                         AuthResult result = await Auth.loginReq(appLoginRequest: loginRequest);

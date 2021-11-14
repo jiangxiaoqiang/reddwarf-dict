@@ -38,11 +38,14 @@ class UserCenter extends StatelessWidget {
                                   onTap: () async {
                                     bool isLoggedIn = await Auth.isLoggedIn();
                                     if (isLoggedIn) {
+                                      Auth.logout();
                                       //NavUtil.navProfile(context);
                                       //page = BottomNavigationDemo(type: BottomNavigationDemoType.withLabels);
                                     } else {
                                       List<RegionFlag> regions = await CommonUtils.getRegions();
-                                      Get.to(Login(regions: regions));
+                                      final inputController = TextEditingController();
+
+                                      Get.to(Login(regions: regions,inputController: inputController));
                                     }
                                   },
                                 )))),

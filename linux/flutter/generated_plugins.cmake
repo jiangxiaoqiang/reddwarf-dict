@@ -6,11 +6,8 @@ list(APPEND FLUTTER_PLUGIN_LIST
   flutter_secure_storage
   hotkey_manager
   libwinmedia
-  screen_retriever
-  screen_text_extractor
   tray_manager
   url_launcher_linux
-  window_manager
 )
 
 set(PLUGIN_BUNDLED_LIBRARIES)
