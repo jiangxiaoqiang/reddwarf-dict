@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:reddwarf_dict/pages/user/login/login.dart';
+import 'package:reddwarf_dict/pages/user/profile/profile.dart';
 import 'package:wheel/wheel.dart';
 
 import 'user_center_controller.dart';
@@ -38,9 +39,8 @@ class UserCenter extends StatelessWidget {
                                   onTap: () async {
                                     bool isLoggedIn = await Auth.isLoggedIn();
                                     if (isLoggedIn) {
-                                      Auth.logout();
-                                      //NavUtil.navProfile(context);
-                                      //page = BottomNavigationDemo(type: BottomNavigationDemoType.withLabels);
+                                      var user = await Auth.currentUser();
+                                      Get.to(Profile(user: user,));
                                     } else {
                                       List<RegionFlag> regions = await CommonUtils.getRegions();
                                       final inputController = TextEditingController();
