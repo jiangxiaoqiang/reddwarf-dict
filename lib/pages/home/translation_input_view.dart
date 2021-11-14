@@ -39,118 +39,7 @@ class TranslationInputView extends StatelessWidget {
   Widget _buildTextGetters(BuildContext context) {
     return Row(
       children: [
-        Tooltip(
-          message: 'page_home.tip_translation_mode'.tr(args: [
-            'translation_mode.${this.translationMode}'.tr(),
-          ]),
-          child: SizedBox(
-            width: 30,
-            height: 40,
-            child: CustomButton(
-              padding: EdgeInsets.zero,
-              child: Container(
-                width: 30,
-                height: 36,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Icon(
-                      IcoMoonIcons.bullseye,
-                      size: 16,
-                      color: this.translationMode == kTranslationModeAuto
-                          ? Theme.of(context).primaryColor
-                          : Theme.of(context).iconTheme.color,
-                    ),
-                    if (this.translationMode == kTranslationModeAuto)
-                      Positioned(
-                        bottom: 3,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color:
-                                Theme.of(context).primaryColor.withOpacity(0.9),
-                            borderRadius: BorderRadius.circular(2),
-                          ),
-                          padding: EdgeInsets.only(
-                            left: 2,
-                            right: 2,
-                            top: 1.4,
-                            bottom: 1.4,
-                          ),
-                          child: Text(
-                            'AUTO',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-              onPressed: () {
-                String newTranslationMode =
-                    translationMode == kTranslationModeAuto
-                        ? kTranslationModeManual
-                        : kTranslationModeAuto;
 
-                UserPreference userPreference =
-                    sharedLocalDb.preference(kPrefTranslationMode).get();
-                if (userPreference != null) {
-                  sharedLocalDb.preference(kPrefTranslationMode).update(
-                        value: newTranslationMode,
-                      );
-                } else {
-                  sharedLocalDb.preferences.create(
-                    key: kPrefTranslationMode,
-                    value: newTranslationMode,
-                  );
-                }
-                sharedLocalDb.write();
-                this.onTranslationModeChanged(newTranslationMode);
-              },
-            ),
-          ),
-        ),
-        SizedBox(
-          height: 20,
-          child: VerticalDivider(
-            width: 8,
-          ),
-        ),
-        Tooltip(
-          message: 'page_home.tip_extract_text_from_screen_capture'.tr(),
-          child: SizedBox(
-            width: 30,
-            height: 26,
-            child: CustomButton(
-              padding: EdgeInsets.zero,
-              child: Icon(
-                IcoMoonIcons.crop,
-                size: 17,
-                color: Theme.of(context).iconTheme.color,
-              ),
-              onPressed: onClickExtractTextFromScreenCapture,
-            ),
-          ),
-        ),
-        Tooltip(
-          message: 'page_home.tip_extract_text_from_clipboard'.tr(),
-          child: SizedBox(
-            width: 30,
-            height: 26,
-            child: CustomButton(
-              padding: EdgeInsets.zero,
-              child: Icon(
-                IcoMoonIcons.clipboard,
-                size: 16,
-                color: Theme.of(context).iconTheme.color,
-              ),
-              onPressed: onClickExtractTextFromClipboard,
-            ),
-          ),
-        ),
       ],
     );
   }
@@ -272,7 +161,6 @@ class TranslationInputView extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  _buildTextGetters(context),
                   Expanded(child: Container()),
                   _buildActionButtons(context),
                 ],

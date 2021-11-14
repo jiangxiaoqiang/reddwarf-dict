@@ -556,33 +556,6 @@ class _HomePageState extends State<HomePage>
             onButtonAddBook: this._handleButtonTappedAddBook,
             onButtonTappedTrans: this._handleButtonTappedTrans,
           ),
-          TranslationTargetSelectView(
-            translationMode: _config.translationMode,
-            isShowSourceLanguageSelector: _isShowSourceLanguageSelector,
-            isShowTargetLanguageSelector: _isShowTargetLanguageSelector,
-            onToggleShowSourceLanguageSelector: (newValue) {
-              setState(() {
-                _isShowSourceLanguageSelector = newValue;
-                _isShowTargetLanguageSelector = false;
-              });
-            },
-            onToggleShowTargetLanguageSelector: (newValue) {
-              setState(() {
-                _isShowSourceLanguageSelector = false;
-                _isShowTargetLanguageSelector = newValue;
-              });
-            },
-            sourceLanguage: _sourceLanguage,
-            targetLanguage: _targetLanguage,
-            onChanged: (newSourceLanguage, newTargetLanguage) {
-              setState(() {
-                _isShowSourceLanguageSelector = false;
-                _isShowTargetLanguageSelector = false;
-                _sourceLanguage = newSourceLanguage;
-                _targetLanguage = newTargetLanguage;
-              });
-            },
-          ),
         ],
       ),
     );
