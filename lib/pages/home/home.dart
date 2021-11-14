@@ -51,8 +51,6 @@ class _HomePageState extends State<HomePage>
 
   String _sourceLanguage = kLanguageEN;
   String _targetLanguage = kLanguageZH;
-  bool _isShowSourceLanguageSelector = false;
-  bool _isShowTargetLanguageSelector = false;
 
   bool _querySubmitted = false;
   String _text = '';
@@ -222,8 +220,6 @@ class _HomePageState extends State<HomePage>
 
   void _queryData() async {
     setState(() {
-      _isShowSourceLanguageSelector = false;
-      _isShowTargetLanguageSelector = false;
       _querySubmitted = true;
       _textDetectedLanguage = null;
       _translationResultList = [];
