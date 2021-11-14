@@ -6,6 +6,9 @@ class LoginController extends GetxController {
   int _selectNavIndex = 0;
   var isLoading = true.obs;
   var submitting = false.obs;
+  var userName = "".obs;
+  var password = "".obs;
+  var showPassword = false.obs;
 
   int get currentSelectIndex => _selectNavIndex;
 

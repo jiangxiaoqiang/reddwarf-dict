@@ -41,7 +41,8 @@ class UserCenter extends StatelessWidget {
                                       //NavUtil.navProfile(context);
                                       //page = BottomNavigationDemo(type: BottomNavigationDemoType.withLabels);
                                     } else {
-                                      Get.to(Login());
+                                      List<RegionFlag> regions = await CommonUtils.getRegions();
+                                      Get.to(Login(regions: regions));
                                     }
                                   },
                                 )))),

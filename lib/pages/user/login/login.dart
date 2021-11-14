@@ -1,8 +1,5 @@
-import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:reddwarf_dict/component/dialogs.dart';
 import 'package:reddwarf_dict/component/page_dia_code_selection.dart';
@@ -14,7 +11,7 @@ import 'package:wheel/wheel.dart';
 import 'login_controller.dart';
 
 class Login extends StatelessWidget {
-  const Login({Key key,this.regions}) : super(key: key);
+  const Login({Key key, this.regions}) : super(key: key);
 
   final List<RegionFlag> regions;
 
@@ -23,17 +20,9 @@ class Login extends StatelessWidget {
     return GetBuilder<LoginController>(
         init: LoginController(),
         builder: (controller) {
-          double screenWidth = MediaQuery
-              .of(context)
-              .size
-              .width;
-          final inputController = useTextEditingController();
-          final selectedRegion = useState<RegionFlag>(useMemoized(() {
-            // initial to select system default region.
-            final countryCode = window.locale.countryCode;
-            return regions.firstWhere((region) => region.code == countryCode,
-                orElse: () => regions[0]);
-          }));
+          double screenWidth = MediaQuery.of(context).size.width;
+          final inputController = TextEditingController();
+          var selectedRegion = regions[0];
 
           Future<void> onNextClick() async {
             final text = inputController.text;
@@ -45,9 +34,7 @@ class Login extends StatelessWidget {
               context,
               LoginApi.checkPhoneExist(
                 text,
-                selectedRegion.value.dialCode
-                    .replaceAll("+", "")
-                    .replaceAll(" ", ""),
+                selectedRegion.dialCode.replaceAll("+", "").replaceAll(" ", ""),
               ),
             );
             if (result.isError) {
@@ -63,10 +50,8 @@ class Login extends StatelessWidget {
               //toast('无密码登录流程的开发未完成,欢迎提出PR贡献代码...');
               return;
             }
-            Navigator.pushNamed(context, "pageLoginPassword",
-                arguments: {'phone': text});
+            Navigator.pushNamed(context, "pageLoginPassword", arguments: {'phone': text});
           }
-
 
           return Scaffold(
               resizeToAvoidBottomInset: false,
@@ -92,51 +77,25 @@ class Login extends StatelessWidget {
                           padding: const EdgeInsets.only(top: 60),
                           child: Row(
                             children: [
-                              PhoneInput(
-                                controller: inputController,
-                                selectedRegion: selectedRegion.value,
-                                onPrefixTap: () async {
-                                  final RegionFlag region = await Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) {
-                                      return RegionSelectionPage(regions: regions);
-                                    }),
-                                  );
-                                  if (region != null) {
-                                    selectedRegion.value = region;
-                                  }
-                                },
-                                onDone: onNextClick,
-                              ),
-                              /*CountryCodePicker(
-                                onChanged: (CountryCode country) {
-                                  countryCode.value = country.toString();
-                                },
-                                initialSelection: 'CN',
-                                favorite: ['+86', 'ZH'],
-                                // flag can be styled with BoxDecoration's `borderRadius` and `shape` fields
-                                flagDecoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(7),
-                                ),
-                              ),*/
                               SizedBox(
                                   height: 45,
                                   width: screenWidth * 0.7,
-                                  child: TextFormField(
-                                    autocorrect: false,
-                                    onChanged: (value) {
-                                      //username.value = value;
-                                    },
-                                    keyboardType: TextInputType.phone,
-                                    obscureText: false,
-                                    validator: (value) {
-                                      if (value.isEmpty) {
-                                        return "电话号码不能为空";
+                                  child: PhoneInput(
+                                    controller: inputController,
+                                    selectedRegion: selectedRegion,
+                                    onPrefixTap: () async {
+                                      final RegionFlag region = await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) {
+                                          return RegionSelectionPage(regions: regions);
+                                        }),
+                                      );
+                                      if (region != null) {
+                                        selectedRegion = region;
                                       }
-                                      //phoneValid.value = true;
-                                      return null;
                                     },
-                                  ))
+                                    onDone: onNextClick,
+                                  )),
                             ],
                           )),
                       Padding(
@@ -144,7 +103,7 @@ class Login extends StatelessWidget {
                         child: TextFormField(
                           autocorrect: false,
                           onChanged: (value) {
-                            //password.value = value;
+                            //controller.password.value = value;
                           },
                           //obscureText: showPassword.value,
                           decoration: InputDecoration(
@@ -156,7 +115,7 @@ class Login extends StatelessWidget {
                               suffixIcon: IconButton(
                                 icon: Icon(Icons.remove_red_eye),
                                 onPressed: () {
-                                  //showPassword.value = !showPassword.value;
+                                  controller.showPassword.value = !controller.showPassword.value;
                                 },
                               )),
                           validator: (value) {
@@ -180,20 +139,25 @@ class Login extends StatelessWidget {
                                     height: 50.0,
                                     child: Center(
                                         child: ElevatedButton(
-                                          style: GlobalStyle.getButtonStyle(context),
-                                          onPressed: () async {
-
-                                          },
-                                          child: controller.submitting.value
-                                              ? SizedBox(
-                                            height: 45,
-                                            width: 15,
-                                            child: CircularProgressIndicator(
-                                              backgroundColor: Colors.white,
-                                            ),
-                                          )
-                                              : Text("登录"),
-                                        )));
+                                      style: GlobalStyle.getButtonStyle(context),
+                                      onPressed: () async {
+                                        final AppLoginRequest loginRequest = AppLoginRequest(
+                                          loginType: LoginType.PHONE,
+                                          username: "+8615683761628",
+                                          password: "12345678",
+                                        );
+                                        AuthResult result = await Auth.loginReq(appLoginRequest: loginRequest);
+                                      },
+                                      child: controller.submitting.value
+                                          ? SizedBox(
+                                              height: 45,
+                                              width: 15,
+                                              child: CircularProgressIndicator(
+                                                backgroundColor: Colors.white,
+                                              ),
+                                            )
+                                          : Text("登录"),
+                                    )));
                               },
                             ),
                           ),
@@ -202,8 +166,7 @@ class Login extends StatelessWidget {
                     ],
                   ),
                 ),
-              )
-          );
+              ));
         });
   }
 }

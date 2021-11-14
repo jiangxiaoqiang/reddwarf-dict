@@ -106,6 +106,7 @@ flutter:
     - assets/images/translation_engine_icons/
     - assets/translations/
     - assets/cfg/
+    - assets/static/
 
   fonts:
     - family: icomoon
