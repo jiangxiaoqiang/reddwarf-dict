@@ -44,7 +44,6 @@ class UserCenter extends StatelessWidget {
                                     } else {
                                       List<RegionFlag> regions = await CommonUtils.getRegions();
                                       final inputController = TextEditingController();
-
                                       Get.to(Login(regions: regions,inputController: inputController));
                                     }
                                   },

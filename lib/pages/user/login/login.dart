@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:reddwarf_dict/component/dialogs.dart';
 import 'package:reddwarf_dict/component/page_dia_code_selection.dart';
 import 'package:reddwarf_dict/networking/rest_api/login/login_provider.dart';
@@ -12,11 +13,8 @@ import 'login_controller.dart';
 
 class Login extends StatelessWidget {
   const Login({Key key, this.regions,this.inputController}) : super(key: key);
-
   final List<RegionFlag> regions;
-
   final inputController;
-
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +22,6 @@ class Login extends StatelessWidget {
         init: LoginController(),
         builder: (controller) {
           double screenWidth = MediaQuery.of(context).size.width;
-          var selectedRegion = regions[0];
-
           Future<void> onNextClick() async {
             final text = inputController.text;
             if (text.isEmpty) {
@@ -36,20 +32,17 @@ class Login extends StatelessWidget {
               context,
               LoginApi.checkPhoneExist(
                 text,
-                selectedRegion.dialCode.replaceAll("+", "").replaceAll(" ", ""),
+                controller.getDefaultRegionFlag.dialCode.replaceAll("+", "").replaceAll(" ", ""),
               ),
             );
             if (result.isError) {
-              //toast(result.asError!.error.toString());
-              return;
+              toast(result.asError.error.toString());
             }
             final value = result.asValue.value;
             if (!value.isExist) {
-              //toast('注册流程开发未完成,欢迎贡献代码...');
               return;
             }
             if (!value.hasPassword) {
-              //toast('无密码登录流程的开发未完成,欢迎提出PR贡献代码...');
               return;
             }
             Navigator.pushNamed(context, "pageLoginPassword", arguments: {'phone': text});
@@ -82,9 +75,9 @@ class Login extends StatelessWidget {
                               SizedBox(
                                   height: 45,
                                   width: screenWidth * 0.7,
-                                  child:Text("") /*PhoneInput(
+                                  child:PhoneInput(
                                     controller: inputController,
-                                    selectedRegion: selectedRegion,
+                                    selectedRegion: controller.getDefaultRegionFlag,
                                     onPrefixTap: () async {
                                       final RegionFlag region = await Navigator.push(
                                         context,
@@ -93,11 +86,11 @@ class Login extends StatelessWidget {
                                         }),
                                       );
                                       if (region != null) {
-                                        selectedRegion = region;
+                                        controller.selectRegion(region);
                                       }
                                     },
                                     onDone: onNextClick,
-                                  )*/),
+                                  )),
                             ],
                           )),
                       Padding(
