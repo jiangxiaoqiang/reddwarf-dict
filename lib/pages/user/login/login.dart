@@ -18,6 +18,7 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return GetBuilder<LoginController>(
         init: LoginController(),
         builder: (controller) {
@@ -64,7 +65,7 @@ class Login extends StatelessWidget {
                 ],
               ),
               body: Form(
-                key: GlobalKey(),
+                key:controller.sigInFormKey.value,
                 child: Center(
                   child: Column(
                     children: <Widget>[
@@ -76,7 +77,6 @@ class Login extends StatelessWidget {
                                   height: 45,
                                   width: screenWidth * 0.7,
                                   child:PhoneInput(
-                                    controller: inputController,
                                     selectedRegion: controller.getDefaultRegionFlag,
                                     onPrefixTap: () async {
                                       final RegionFlag region = await Navigator.push(

@@ -7,15 +7,14 @@ import 'package:wheel/wheel.dart';
 import 'login_controller.dart';
 
 class PhoneInput extends StatelessWidget {
-  const PhoneInput({
+   PhoneInput({
     Key key,
-    this.controller,
     this.selectedRegion,
     this.onPrefixTap,
     this.onDone,
   }) : super(key: key);
 
-  final TextEditingController controller;
+  final controller = TextEditingController();
 
   final RegionFlag selectedRegion;
 

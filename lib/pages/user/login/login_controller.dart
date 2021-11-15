@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:wheel/wheel.dart';
 
@@ -9,6 +10,9 @@ class LoginController extends GetxController {
   var focused = "".obs;
   var showPassword = false.obs;
   var selectRegion ;
+
+  // https://stackoverflow.com/questions/69975995/why-the-flutter-textfield-focus-make-the-ui-render-for-a-dead-loop
+  var sigInFormKey = GlobalKey<FormState>().obs;
 
   RegionFlag _regionFlag = RegionFlag(
       code: "CN",
