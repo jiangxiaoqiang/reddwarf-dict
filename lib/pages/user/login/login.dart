@@ -5,6 +5,7 @@ import 'package:overlay_support/overlay_support.dart';
 import 'package:reddwarf_dict/component/dialogs.dart';
 import 'package:reddwarf_dict/component/page_dia_code_selection.dart';
 import 'package:reddwarf_dict/networking/rest_api/login/login_provider.dart';
+import 'package:reddwarf_dict/pages/user/login/login_password.dart';
 import 'package:reddwarf_dict/pages/user/login/phone_input.dart';
 import 'package:reddwarf_dict/themes/global_style.dart';
 import 'package:wheel/wheel.dart';
@@ -108,12 +109,12 @@ class Login extends StatelessWidget {
                                         child: ElevatedButton(
                                       style: GlobalStyle.getButtonStyle(context),
                                       onPressed: () async {
-                                        final AppLoginRequest loginRequest = AppLoginRequest(
-                                          loginType: LoginType.PHONE,
-                                          username: "+8615683761628",
-                                          password: "12345678",
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (_) => LoginPassword(),
+                                          ),
                                         );
-                                        AuthResult result = await Auth.loginReq(appLoginRequest: loginRequest);
+
                                       },
                                       child: controller.submitting.value
                                           ? SizedBox(
