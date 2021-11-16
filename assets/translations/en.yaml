@@ -221,12 +221,14 @@ page_setting_translate:
 page_settings:
   title: Settings
   text_version: Version {} BUILD {}
+  pref_section_title_user: User
   pref_section_title_general: General
   pref_section_title_appearance: Appearance
   pref_section_title_shortcuts: Shortcuts
   pref_section_title_input_settings: Input Settings
   pref_section_title_service_integration: Service Integration
   pref_section_title_others: Others
+  pref_item_title_login: Login
   pref_item_title_extract_text: Extract text
   pref_item_title_interface: Interface
   pref_item_title_translate: Translate

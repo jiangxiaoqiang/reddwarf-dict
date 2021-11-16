@@ -221,12 +221,14 @@ page_setting_translate:
 page_settings:
   title: 设置
   text_version: 版本 {} BUILD {}
+  pref_section_title_user: 我的
   pref_section_title_general: 常规
   pref_section_title_appearance: 外观
   pref_section_title_shortcuts: 快捷键
   pref_section_title_input_settings: 输入设置
   pref_section_title_service_integration: 服务接入
   pref_section_title_others: 其他
+  pref_item_title_login: 登录
   pref_item_title_extract_text: 取词
   pref_item_title_translate: 翻译
   pref_item_title_interface: 界面

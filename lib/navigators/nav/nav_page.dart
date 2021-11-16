@@ -33,7 +33,7 @@ class Nav extends StatelessWidget {
                     controller.updateSelectIndex(2);
                   }
                   if (index == 3){
-                    Widget widget = UserCenter();
+                    Widget widget = SettingsPage();
                     controller.updateCurrentWidget(widget);
                     controller.updateSelectIndex(3);
                   }

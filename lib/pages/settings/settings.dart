@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:reddwarf_dict/pages/user/login/login.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:wheel/wheel.dart';
 import '../../../includes.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -36,6 +38,23 @@ class _SettingsPageState extends State<SettingsPage> {
     return LocalDbBuilder(builder: (context, dbData) {
       return PreferenceList(
         children: [
+          PreferenceListSection(
+            title: Text(t('pref_section_title_user')),
+            children: [
+              PreferenceListItem(
+                title: Text(t('pref_item_title_login')),
+                onTap: () async {
+                  List<RegionFlag> regions = await CommonUtils.getRegions();
+                  final inputController = TextEditingController();
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => Login(regions: regions,inputController: inputController),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
           PreferenceListSection(
             title: Text(t('pref_section_title_general')),
             children: [
