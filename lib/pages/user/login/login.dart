@@ -70,12 +70,12 @@ class Login extends StatelessWidget {
                   child: Column(
                     children: <Widget>[
                       Padding(
-                          padding: const EdgeInsets.only(top: 60),
+                          padding: const EdgeInsets.only(left:20,top: 60),
                           child: Row(
                             children: [
                               SizedBox(
                                   height: 45,
-                                  width: screenWidth * 0.7,
+                                  width: screenWidth * 0.9,
                                   child:PhoneInput(
                                     selectedRegion: controller.getDefaultRegionFlag,
                                     onPrefixTap: () async {
@@ -93,34 +93,6 @@ class Login extends StatelessWidget {
                                   )),
                             ],
                           )),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 16.0, left: 16, right: 16, top: 32),
-                        child: TextFormField(
-                          autocorrect: false,
-                          onChanged: (value) {
-                            //controller.password.value = value;
-                          },
-                          //obscureText: showPassword.value,
-                          decoration: InputDecoration(
-                              labelText: '密码',
-                              contentPadding: EdgeInsets.all(10.0), //控制输入控件高度
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                              suffixIcon: IconButton(
-                                icon: Icon(Icons.remove_red_eye),
-                                onPressed: () {
-                                  controller.showPassword.value = !controller.showPassword.value;
-                                },
-                              )),
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return "密码不能为空";
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
                       Flex(
                         direction: Axis.horizontal,
                         children: [
@@ -151,7 +123,7 @@ class Login extends StatelessWidget {
                                                 backgroundColor: Colors.white,
                                               ),
                                             )
-                                          : Text("登录"),
+                                          : Text("下一步"),
                                     )));
                               },
                             ),
