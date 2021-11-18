@@ -47,7 +47,7 @@ class Login extends StatelessWidget {
             if (!value.hasPassword) {
               return;
             }
-            Navigator.pushNamed(context, "pageLoginPassword", arguments: {'phone': text});
+            controller.userName.value = text;
           }
 
           return Scaffold(
@@ -55,14 +55,7 @@ class Login extends StatelessWidget {
               appBar: AppBar(
                 title: Text("红矮星词典"),
                 actions: [
-                  TextButton(
-                    style: GlobalStyle.textButtonStyle,
-                    onPressed: () {
-                      //Navigator.push(context,
-                      //    MaterialPageRoute(builder: (context) => RegPage(phoneNumber: username.value)));
-                    },
-                    child: Text("注册", style: TextStyle(fontSize: 16.0)),
-                  ),
+
                 ],
               ),
               body: Form(
@@ -109,9 +102,10 @@ class Login extends StatelessWidget {
                                         child: ElevatedButton(
                                       style: GlobalStyle.getButtonStyle(context),
                                       onPressed: () async {
+
                                         Navigator.of(context).push(
                                           MaterialPageRoute(
-                                            builder: (_) => LoginPassword(),
+                                            builder: (_) => LoginPassword(phone: controller.userName.value,),
                                           ),
                                         );
 

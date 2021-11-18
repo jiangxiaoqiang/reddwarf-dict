@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:reddwarf_dict/pages/user/login/login.dart';
+import 'package:reddwarf_dict/pages/user/profile/profile.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wheel/wheel.dart';
 import '../../../includes.dart';
@@ -44,13 +45,25 @@ class _SettingsPageState extends State<SettingsPage> {
               PreferenceListItem(
                 title: Text(t('pref_item_title_login')),
                 onTap: () async {
-                  List<RegionFlag> regions = await CommonUtils.getRegions();
-                  final inputController = TextEditingController();
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => Login(regions: regions,inputController: inputController),
-                    ),
-                  );
+                  bool isLogin = await Auth.isLoggedIn();
+                  if(isLogin) {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) =>
+                            Profile()
+                      ),
+                    );
+                  }else{
+                    List<RegionFlag> regions = await CommonUtils.getRegions();
+                    final inputController = TextEditingController();
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) =>
+                            Login(regions: regions,
+                                inputController: inputController),
+                      ),
+                    );
+                  }
                 },
               ),
             ],
@@ -266,7 +279,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           CustomDialogAction(
                             child: Text('ok'.tr()),
                             onPressed: () async {
-                              await trayManager.destroy();
+                              await Auth.logout();
                             },
                           ),
                         ],
