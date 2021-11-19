@@ -1,26 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
-import 'package:reddwarf_dict/themes/global_style.dart';
 import 'package:wheel/wheel.dart';
 
-import 'login_controller.dart';
-
 class PhoneInput extends StatelessWidget {
-   PhoneInput({
-    Key key,
+  PhoneInput({Key key,
     this.selectedRegion,
     this.onPrefixTap,
     this.onDone,
+    this.onPhoneChanged,
+    this.controller
   }) : super(key: key);
 
-  final controller = TextEditingController();
+  final controller;
 
   final RegionFlag selectedRegion;
 
   final VoidCallback onPrefixTap;
 
   final VoidCallback onDone;
+
+  final VoidCallback onPhoneChanged;
 
   Color _textColor(BuildContext context) {
     if (controller.text.isEmpty) {
@@ -32,12 +31,13 @@ class PhoneInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme.bodyText2.copyWith(
-      fontSize: 16,
-      color: _textColor(context),
-    );
+          fontSize: 16,
+          color: _textColor(context),
+        );
     return TextField(
       autofocus: true,
       style: style,
+      onChanged: (text) => onPhoneChanged(),
       controller: controller,
       keyboardType: TextInputType.phone,
       textInputAction: TextInputAction.next,

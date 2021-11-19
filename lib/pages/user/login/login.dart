@@ -13,17 +13,22 @@ import 'package:wheel/wheel.dart';
 import 'login_controller.dart';
 
 class Login extends StatelessWidget {
-  const Login({Key key, this.regions,this.inputController}) : super(key: key);
+  const Login({Key key, this.regions, this.inputController}) : super(key: key);
   final List<RegionFlag> regions;
   final inputController;
 
   @override
   Widget build(BuildContext context) {
-
     return GetBuilder<LoginController>(
         init: LoginController(),
         builder: (controller) {
           double screenWidth = MediaQuery.of(context).size.width;
+
+          Future<void> onPhoneChanged() async {
+            final text = inputController.text;
+            controller.userName.value = text;
+          }
+
           Future<void> onNextClick() async {
             final text = inputController.text;
             if (text.isEmpty) {
@@ -47,30 +52,28 @@ class Login extends StatelessWidget {
             if (!value.hasPassword) {
               return;
             }
-            controller.userName.value = text;
+            //controller.userName.value = text;
           }
 
           return Scaffold(
               resizeToAvoidBottomInset: false,
               appBar: AppBar(
                 title: Text("红矮星词典"),
-                actions: [
-
-                ],
+                actions: [],
               ),
               body: Form(
-                key:controller.sigInFormKey.value,
+                key: controller.sigInFormKey.value,
                 child: Center(
                   child: Column(
                     children: <Widget>[
                       Padding(
-                          padding: const EdgeInsets.only(left:20,top: 60),
+                          padding: const EdgeInsets.only(left: 20, top: 60),
                           child: Row(
                             children: [
                               SizedBox(
                                   height: 45,
                                   width: screenWidth * 0.9,
-                                  child:PhoneInput(
+                                  child: PhoneInput(
                                     selectedRegion: controller.getDefaultRegionFlag,
                                     onPrefixTap: () async {
                                       final RegionFlag region = await Navigator.push(
@@ -80,10 +83,12 @@ class Login extends StatelessWidget {
                                         }),
                                       );
                                       if (region != null) {
-                                        controller.selectRegion(region);
+                                        controller.updateCurrentFlag(region);
                                       }
                                     },
                                     onDone: onNextClick,
+                                    onPhoneChanged: onPhoneChanged,
+                                    controller: inputController,
                                   )),
                             ],
                           )),
@@ -102,13 +107,14 @@ class Login extends StatelessWidget {
                                         child: ElevatedButton(
                                       style: GlobalStyle.getButtonStyle(context),
                                       onPressed: () async {
-
+                                        String phone = controller.getDefaultRegionFlag.dialCode + controller.userName.value;
                                         Navigator.of(context).push(
                                           MaterialPageRoute(
-                                            builder: (_) => LoginPassword(phone: controller.userName.value,),
+                                            builder: (_) => LoginPassword(
+                                              phone: phone,
+                                            ),
                                           ),
                                         );
-
                                       },
                                       child: controller.submitting.value
                                           ? SizedBox(

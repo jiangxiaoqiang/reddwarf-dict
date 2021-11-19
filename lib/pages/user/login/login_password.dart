@@ -40,7 +40,7 @@ class LoginPassword extends StatelessWidget {
                 }
                 final AppLoginRequest loginRequest = AppLoginRequest(
                   loginType: LoginType.PHONE,
-                  username: "+86" + phone,
+                  username: phone,
                   password: password,
                 );
                 AuthResult result = await Auth.loginReq(appLoginRequest: loginRequest);
