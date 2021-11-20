@@ -13,17 +13,17 @@ const EdgeInsets _kBackgroundButtonPadding = EdgeInsets.symmetric(
 class CustomButton extends StatefulWidget {
   /// Creates an Custom-style button.
   const CustomButton({
-    required Key key,
-    required this.processing,
-    required this.child,
-    required this.padding,
-    required this.color,
+     Key key,
+     this.processing,
+     this.child,
+     this.padding,
+     this.color,
     this.disabledColor = const Color(0x4D000000),
     this.minSize = kMinInteractiveDimensionCupertino,
     this.pressedOpacity = 0.4,
-    required this.border,
+     this.border,
     this.borderRadius = const BorderRadius.all(Radius.circular(8.0)),
-    required this.onPressed,
+     this.onPressed,
   })  : assert(pressedOpacity == null ||
             (pressedOpacity >= 0.0 && pressedOpacity <= 1.0)),
         assert(disabledColor != null),
@@ -37,16 +37,16 @@ class CustomButton extends StatefulWidget {
   /// To specify a custom background color, use the [color] argument of the
   /// default constructor.
   const CustomButton.filled({
-    required Key key,
-    required this.processing,
-    required this.child,
-    required this.padding,
+     Key key,
+     this.processing,
+     this.child,
+     this.padding,
     this.disabledColor = const Color(0x4D000000),
     this.minSize = kMinInteractiveDimensionCupertino,
     this.pressedOpacity = 0.4,
-    required this.border,
+     this.border,
     this.borderRadius = const BorderRadius.all(Radius.circular(8.0)),
-    required this.onPressed,
+     this.onPressed,
   })  : assert(pressedOpacity == null ||
             (pressedOpacity >= 0.0 && pressedOpacity <= 1.0)),
         assert(disabledColor != null),
@@ -61,10 +61,10 @@ class CustomButton extends StatefulWidget {
   /// To specify a custom background color, use the [color] argument of the
   /// default constructor.
   const CustomButton.outlined({
-    required Key key,
-    required this.processing,
-    required this.child,
-    required this.padding,
+     Key key,
+     this.processing,
+     this.child,
+     this.padding,
     this.disabledColor = const Color(0x4D000000),
     this.minSize = kMinInteractiveDimensionCupertino,
     this.pressedOpacity = 0.4,
@@ -72,7 +72,7 @@ class CustomButton extends StatefulWidget {
       BorderSide(color: Color(0xff939597)),
     ),
     this.borderRadius = const BorderRadius.all(Radius.circular(8.0)),
-    required this.onPressed,
+     this.onPressed,
   })  : assert(pressedOpacity == null ||
             (pressedOpacity >= 0.0 && pressedOpacity <= 1.0)),
         assert(disabledColor != null),
@@ -157,8 +157,8 @@ class _CustomButtonState extends State<CustomButton>
   static const Duration kFadeInDuration = Duration(milliseconds: 100);
   final Tween<double> _opacityTween = Tween<double>(begin: 1.0);
 
-  late AnimationController _animationController;
-  late Animation<double> _opacityAnimation;
+   AnimationController _animationController;
+   Animation<double> _opacityAnimation;
 
   @override
   void initState() {
@@ -229,7 +229,7 @@ class _CustomButtonState extends State<CustomButton>
     final bool enabled = widget.enabled;
     final CupertinoThemeData themeData = CupertinoTheme.of(context);
     final Color primaryColor = themeData.primaryColor;
-    final Color? backgroundColor = widget.color == null
+    final Color backgroundColor = widget.color == null
         ? (widget._filled ? primaryColor : null)
         : CupertinoDynamicColor.resolve(widget.color, context);
 

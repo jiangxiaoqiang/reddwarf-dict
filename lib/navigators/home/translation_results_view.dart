@@ -17,15 +17,15 @@ class TranslationResultsView extends StatelessWidget {
   final ValueChanged<String> onTextTapped;
 
   const TranslationResultsView({
-    required Key key,
-    required this.viewKey,
-    required this.controller,
-    required this.translationMode,
-    required this.querySubmitted,
-    required this.text,
-    required this.textDetectedLanguage,
-    required this.translationResultList,
-    required this.onTextTapped,
+     Key key,
+     this.viewKey,
+     this.controller,
+     this.translationMode,
+     this.querySubmitted,
+     this.text,
+     this.textDetectedLanguage,
+     this.translationResultList,
+     this.onTextTapped,
   }) : super(key: key);
 
   Widget _buildNoMatchingTranslationTarget(BuildContext context) {

@@ -1,5 +1,6 @@
 import 'package:reddwarf_dict/includes.dart';
 import 'package:reddwarf_dict/pages/dev/dev_word.dart';
+import 'package:reddwarf_dict/pages/home/home.dart';
 import 'package:reddwarf_dict/pages/learn/new_word.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

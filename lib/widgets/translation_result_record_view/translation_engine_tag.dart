@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:reddwarfdict/src/models/translation_result_record.dart';
 import 'package:uni_translate/uni_translate.dart';
 
 import '../../includes.dart';
@@ -9,8 +8,8 @@ class TranslationEngineTag extends StatefulWidget {
   final TranslationResultRecord translationResultRecord;
 
   const TranslationEngineTag({
-    required Key key,
-    required this.translationResultRecord,
+     Key key,
+     this.translationResultRecord,
   }) : super(key: key);
 
   @override

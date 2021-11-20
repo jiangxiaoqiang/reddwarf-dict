@@ -1,8 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:reddwarfdict/src/models/translation_result.dart';
-import 'package:reddwarfdict/src/models/translation_result_record.dart';
 import 'package:uni_translate/uni_translate.dart';
 
 import '../../includes.dart';
@@ -21,10 +19,10 @@ class TranslationResultRecordView extends StatelessWidget {
   final ValueChanged<String> onTextTapped;
 
   const TranslationResultRecordView({
-    required Key key,
-    required this.translationResult,
-    required this.translationResultRecord,
-    required this.onTextTapped,
+     Key key,
+     this.translationResult,
+     this.translationResultRecord,
+     this.onTextTapped,
   }) : super(key: key);
 
   bool get _isLoading {

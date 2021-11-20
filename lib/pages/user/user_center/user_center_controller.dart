@@ -1,6 +1,7 @@
 import 'package:reddwarf_dict/includes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:reddwarf_dict/pages/home/home.dart';
 import 'package:wheel/wheel.dart';
 
 class UserCenterController extends GetxController {
