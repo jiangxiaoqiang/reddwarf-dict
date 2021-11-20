@@ -1,11 +1,9 @@
 import 'package:reddwarf_dict/includes.dart';
 import 'package:reddwarf_dict/pages/dev/dev_word.dart';
-import 'package:reddwarf_dict/pages/home/home.dart';
 import 'package:reddwarf_dict/pages/learn/new_word.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
-import 'package:reddwarf_dict/pages/user/user_center/user_center.dart';
 
 import 'nav_controller.dart';
 
