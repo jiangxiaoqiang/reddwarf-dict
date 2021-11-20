@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:reddwarfdict/src/models/translation_result_record.dart';
+import 'package:uni_translate/uni_translate.dart';
 
 import '../../includes.dart';
 
@@ -7,8 +9,8 @@ class TranslationEngineTag extends StatefulWidget {
   final TranslationResultRecord translationResultRecord;
 
   const TranslationEngineTag({
-    Key key,
-    this.translationResultRecord,
+    required Key key,
+    required this.translationResultRecord,
   }) : super(key: key);
 
   @override
@@ -19,9 +21,7 @@ class _TranslationEngineTagState extends State<TranslationEngineTag> {
   bool _isHovered = false;
 
   TranslationEngineConfig get _translationEngineConfig {
-    return sharedLocalDb
-        .engine(this.widget.translationResultRecord.translationEngineId)
-        .get();
+    return null;
   }
 
   @override
@@ -73,10 +73,7 @@ class _TranslationEngineTagState extends State<TranslationEngineTag> {
               ),
               secondChild: Row(
                 children: [
-                  TranslationEngineIcon(
-                    _translationEngineConfig,
-                    size: 12,
-                  ),
+
                   Padding(
                     padding: EdgeInsets.only(left: 4, right: 2),
                     child: Text(

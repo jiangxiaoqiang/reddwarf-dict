@@ -1,6 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:reddwarfdict/src/models/translation_result.dart';
+import 'package:reddwarfdict/src/models/translation_result_record.dart';
+import 'package:uni_translate/uni_translate.dart';
 
 import '../../includes.dart';
 
@@ -18,10 +21,10 @@ class TranslationResultRecordView extends StatelessWidget {
   final ValueChanged<String> onTextTapped;
 
   const TranslationResultRecordView({
-    Key key,
-    this.translationResult,
-    this.translationResultRecord,
-    this.onTextTapped,
+    required Key key,
+    required this.translationResult,
+    required this.translationResultRecord,
+    required this.onTextTapped,
   }) : super(key: key);
 
   bool get _isLoading {
@@ -49,7 +52,7 @@ class TranslationResultRecordView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SpinKitThreeBounce(
-            color: Theme.of(context).textTheme.caption.color,
+            color: Color.fromARGB(1, 1, 1, 1),
             size: 12.0,
           ),
         ],
@@ -131,8 +134,8 @@ class TranslationResultRecordView extends StatelessWidget {
             ],
           ),
           style: Theme.of(context).textTheme.bodyText2.copyWith(
-                height: 1.4,
-              ),
+            height: 1.4,
+          ),
         ),
       );
     }
@@ -181,9 +184,7 @@ class TranslationResultRecordView extends StatelessWidget {
                           if ((definitions[i].name ?? '').isNotEmpty)
                             TextSpan(
                               text: '${definitions[i].name}',
-                              style: Theme.of(context).textTheme.caption.copyWith(
-                                fontSize: 16
-                              ),
+                              style: Theme.of(context).textTheme.caption,
                             ),
                           if ((definitions[i].name ?? '').isNotEmpty)
                             TextSpan(text: ' '),
@@ -194,8 +195,8 @@ class TranslationResultRecordView extends StatelessWidget {
                   ],
                 ),
                 style: Theme.of(context).textTheme.bodyText2.copyWith(
-                      height: 1.5,
-                    ),
+                  height: 1.5,
+                ),
               ),
             ),
           // 时态
@@ -218,22 +219,22 @@ class TranslationResultRecordView extends StatelessWidget {
                                   .textTheme
                                   .bodyText2
                                   .copyWith(
-                                    color: Theme.of(context).primaryColor,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                                color: Theme.of(context).primaryColor,
+                                fontWeight: FontWeight.w500,
+                              ),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () => this.onTextTapped(tenseValue),
                             ),
                         ],
                         style: Theme.of(context).textTheme.caption.copyWith(
-                              fontSize: 16,
-                            ),
+                          fontSize: 13,
+                        ),
                       ),
                   ],
                 ),
                 style: Theme.of(context).textTheme.bodyText2.copyWith(
-                      height: 1.5,
-                    ),
+                  height: 1.5,
+                ),
               ),
             ),
           // 图片
@@ -263,77 +264,6 @@ class TranslationResultRecordView extends StatelessWidget {
                 ],
               ),
             ),
-          // // 常用短词/短句
-          // if ((phrases ?? []).isNotEmpty)
-          //   Container(
-          //     margin: EdgeInsets.only(top: 10),
-          //     width: double.infinity,
-          //     child: Column(
-          //       crossAxisAlignment: CrossAxisAlignment.start,
-          //       children: [
-          //         Container(
-          //           padding: EdgeInsets.only(
-          //             top: 2,
-          //             bottom: 2,
-          //           ),
-          //           decoration: BoxDecoration(
-          //             border: Border(
-          //               bottom: BorderSide(
-          //                 color: Theme.of(context).primaryColor,
-          //                 width: 2,
-          //               ),
-          //             ),
-          //           ),
-          //           child: Text(
-          //             '常用短语/词组',
-          //             style: Theme.of(context).textTheme.caption.copyWith(
-          //                   fontWeight: FontWeight.bold,
-          //                 ),
-          //           ),
-          //         ),
-          //         for (WordPhrase wordPhrase in phrases)
-          //           WordPhraseView(
-          //             wordPhrase,
-          //             onTextTapped: onTextTapped,
-          //           ),
-          //       ],
-          //     ),
-          //   ),
-          // // 例句
-           if ((sentences ?? []).isNotEmpty)
-             Container(
-               margin: EdgeInsets.only(top: 10),
-               width: double.infinity,
-               child: Column(
-                 crossAxisAlignment: CrossAxisAlignment.start,
-                 children: [
-                   Container(
-                     padding: EdgeInsets.only(
-                       top: 2,
-                       bottom: 2,
-                     ),
-                     decoration: BoxDecoration(
-                       border: Border(
-                         bottom: BorderSide(
-                           color: Theme.of(context).primaryColor,
-                           width: 2,
-                         ),
-                       ),
-                     ),
-                     child: Text(
-                       '例句',
-                       style: Theme.of(context).textTheme.caption.copyWith(
-                             fontWeight: FontWeight.bold,
-                             fontSize: 18
-                           ),
-                     ),
-                   ),
-                   for (WordSentence wordSentence in sentences)
-                     WordSentenceView(wordSentence),
-                 ],
-               ),
-             ),
-          // 标签
           if ((tags ?? []).isNotEmpty)
             Container(
               margin: EdgeInsets.only(top: 10),
