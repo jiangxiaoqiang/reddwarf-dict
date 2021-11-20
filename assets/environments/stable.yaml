@@ -1,0 +1,5 @@
+env: stable
+webUrl: https://biyidev.com
+apiUrl: https://api.biyidev.com
+appId: 5
+logUrl: https://api.poemhub.top

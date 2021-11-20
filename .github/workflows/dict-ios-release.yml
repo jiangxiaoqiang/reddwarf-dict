@@ -10,7 +10,7 @@ jobs:
     # more macOS version:
     # https://github.com/actions/virtual-environments/blob/main/images/macos/macos-10.15-Readme.md
     #
-    runs-on: macos-10.15
+    runs-on: macos-11
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-java@v1
@@ -42,7 +42,7 @@ jobs:
           pod repo update
           pod install
 
-      - run: flutter build ios --release --no-codesign --no-sound-null-safety -t lib/main.dart
+      - run: flutter build ios --release --no-codesign --no-sound-null-safety -t lib/main_stable.dart
       - name: Deploy to TestFlight/PGY
         run: |
           cd ./ios
