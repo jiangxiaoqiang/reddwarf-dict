@@ -12,6 +12,16 @@ dependencies:
   get: ^4.3.8
   fluttertoast: 8.0.3
   json_annotation: 4.1.0
+  easy_localization: ^3.0.0
+  easy_localization_loader: ^1.0.0
+  flutter_spinkit: ^5.0.0
+  screen_text_extractor: ^0.0.1
+  sticky_headers: ^0.1.8
+  uni_translate:
+    git:
+      path: packages/uni_translate
+      ref: master
+      url: https://github.com/biyidev/uni_translate.git
 
 dev_dependencies:
   flutter_test:
@@ -24,6 +34,21 @@ dev_dependencies:
     git:
       url: https://github.com/jiangxiaoqiang/wheel.git
       ref: main
+  uni_translate:
+    git:
+      path: packages/uni_translate
+      ref: master
+      url: https://github.com/biyidev/uni_translate.git
+
+dependency_overrides:
+  uni_ocr:
+    path: ../uni_ocr/packages/uni_ocr
+  uni_ocr_client:
+    path: ../uni_ocr/packages/uni_ocr_client
+  uni_translate:
+    path: ../uni_translate/packages/uni_translate
+  uni_translate_client:
+    path: ../uni_translate/packages/uni_translate_client
 
 flutter:
   uses-material-design: true
