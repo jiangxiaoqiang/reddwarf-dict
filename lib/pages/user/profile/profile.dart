@@ -1,6 +1,7 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:reddwarf_dict/navigators/nav/nav_page.dart';
 import 'package:wheel/wheel.dart';
 import 'package:intl/intl.dart';
 
@@ -11,7 +12,7 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String timestamp = user.registerTime == null ? "0" : user.registerTime;
+    String timestamp = user == null ? "0" : user.registerTime;
     var format = new DateFormat("yMd");
     var dateString = timestamp == "0" ? "--" : format.format(new DateTime.fromMillisecondsSinceEpoch(int.parse(timestamp)));
 
@@ -21,9 +22,11 @@ class Profile extends StatelessWidget {
           leading: IconButton(
               icon: Icon(Icons.arrow_back),
               onPressed: () {
-                Map<String,Object> args = new Map();
-                args.putIfAbsent("selectIndex", () => 3);
-                args.putIfAbsent("autoTriggerNav", () => true);
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => Nav(),
+                  ),
+                );
               }),
           title: Text(
             "个人信息",
@@ -79,7 +82,7 @@ class Profile extends StatelessWidget {
                               color: Colors.white,
                               child: ListTile(
                                 title: Text("用户名"),
-                                subtitle: Text(user.phone == null ? "--" : user.phone),
+                                subtitle: Text(user == null ? "--" : user.phone),
                                 onTap: () async {},
                               ))))),
               SliverToBoxAdapter(

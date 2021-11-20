@@ -25,8 +25,7 @@ class AppNavigator extends StatefulWidget {
   _AppNavigatorState createState() => _AppNavigatorState();
 }
 
-class _AppNavigatorState extends State<AppNavigator>
-    with WidgetsBindingObserver {
+class _AppNavigatorState extends State<AppNavigator> with WidgetsBindingObserver {
   GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
   Config _config = sharedConfigManager.getConfig();
 

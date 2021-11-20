@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:reddwarf_dict/pages/user/login/stretch_button.dart';
+import 'package:reddwarf_dict/pages/user/profile/profile.dart';
 import 'package:wheel/wheel.dart';
 
 class LoginPassword extends StatelessWidget {
@@ -44,6 +45,16 @@ class LoginPassword extends StatelessWidget {
                   password: password,
                 );
                 AuthResult result = await Auth.loginReq(appLoginRequest: loginRequest);
+                if(result.result.index == Result.ok.index){
+                  var user = await Auth.currentUser();
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => Profile(user:user),
+                    ),
+                  );
+                }else{
+                  toast('Login Failed');
+                }
               },
             ),
           ],
