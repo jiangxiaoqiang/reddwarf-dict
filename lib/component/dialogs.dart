@@ -23,7 +23,7 @@ Future<T> showLoaderOverlay<T>(BuildContext context, Future<T> data,
       ),
     );
   });
-  Overlay.of(context).insert(entry);
+  Overlay.of(context)!.insert(entry);
   data
       .then((value) {
         completer.complete(value);
@@ -42,7 +42,7 @@ Future<T> showLoaderOverlay<T>(BuildContext context, Future<T> data,
 ///return true when clicked positive button
 ///other return false
 Future<bool> showConfirmDialog(BuildContext context, Widget content,
-    {String positiveLabel, String negativeLabel}) async {
+    {String? positiveLabel, String? negativeLabel}) async {
   negativeLabel ??= "取消";
   positiveLabel ??= "确认";
 
@@ -56,13 +56,13 @@ Future<bool> showConfirmDialog(BuildContext context, Widget content,
               onPressed: () {
                 Navigator.pop(context, false);
               },
-              child: Text(negativeLabel),
+              child: Text(negativeLabel!),
             ),
             MaterialButton(
               onPressed: () {
                 Navigator.pop(context, true);
               },
-              child: Text(positiveLabel),
+              child: Text(positiveLabel!),
             ),
           ],
         );

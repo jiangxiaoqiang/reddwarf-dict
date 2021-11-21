@@ -8,10 +8,10 @@ class TranslationResult {
   List<String> unsupportedEngineIdList;
 
   TranslationResult({
-     this.id,
-     this.translationTarget,
-     this.translationResultRecordList,
-     this.unsupportedEngineIdList,
+     required this.id,
+     required this.translationTarget,
+     required this.translationResultRecordList,
+     required this.unsupportedEngineIdList,
   });
 
   factory TranslationResult.fromJson(Map<String, dynamic> json) {

@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 import 'dev_word_controller.dart';
 
 class DevWord extends StatefulWidget {
-  DevWord({Key key}) : super(key: key);
+  DevWord({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -17,7 +17,7 @@ class DevWord extends StatefulWidget {
 }
 
 class _TabControllerStuState extends State<DevWord> with SingleTickerProviderStateMixin {
-  TabController _tabController;
+  late TabController _tabController;
   List tabs = ["生词", "已记住", "全部"];
 
   @override

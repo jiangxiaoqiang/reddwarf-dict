@@ -23,17 +23,17 @@ class TranslationInputView extends StatelessWidget {
   final VoidCallback onButtonTappedTrans;
 
   const TranslationInputView({
-    Key key,
-    this.focusNode,
-    this.controller,
-    this.onChanged,
-    this.translationMode,
-    this.onTranslationModeChanged,
-    this.inputSetting,
-    this.onClickExtractTextFromScreenCapture,
-    this.onClickExtractTextFromClipboard,
-    this.onButtonAddBook,
-    this.onButtonTappedTrans,
+    Key? key,
+    required this.focusNode,
+    required this.controller,
+    required this.onChanged,
+    required this.translationMode,
+    required this.onTranslationModeChanged,
+    required this.inputSetting,
+    required this.onClickExtractTextFromScreenCapture,
+    required this.onClickExtractTextFromClipboard,
+    required this.onButtonAddBook,
+    required this.onButtonTappedTrans,
   }) : super(key: key);
 
   Widget _buildTextGetters(BuildContext context) {

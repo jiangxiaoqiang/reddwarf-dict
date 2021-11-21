@@ -12,18 +12,18 @@ class _SettingInterfacePageState extends State<SettingInterfacePage> {
   List<double> _maxWindowHeightOptions = [600, 700, 800, 900];
 
   bool _showTrayIcon = false;
-  String _trayIconStyle;
+  String? _trayIconStyle;
   double _maxWindowHeight = 0;
 
-  String t(String key, {List<String> args}) {
+  String t(String key, {List<String>? args}) {
     return 'page_setting_interface.$key'.tr(args: args);
   }
 
   @override
   void initState() {
-    _showTrayIcon = sharedConfig.showTrayIcon;
+    _showTrayIcon = sharedConfig.showTrayIcon!;
     _trayIconStyle = sharedConfig.trayIconStyle;
-    _maxWindowHeight = sharedConfig.maxWindowHeight;
+    _maxWindowHeight = sharedConfig.maxWindowHeight!;
     super.initState();
   }
 
@@ -55,8 +55,8 @@ class _SettingInterfacePageState extends State<SettingInterfacePage> {
                   groupValue: _trayIconStyle,
                   title: Text(t('pref_item_title_tray_icon_style_white')),
                   onChanged: (newValue) {
-                    _trayIconStyle = newValue;
-                    sharedConfigManager.setTrayIconStyle(newValue);
+                    _trayIconStyle = newValue as String?;
+                    sharedConfigManager.setTrayIconStyle(newValue!);
                     setState(() {});
                   },
                 ),
@@ -65,8 +65,8 @@ class _SettingInterfacePageState extends State<SettingInterfacePage> {
                   groupValue: _trayIconStyle,
                   title: Text(t('pref_item_title_tray_icon_style_black')),
                   onChanged: (newValue) {
-                    _trayIconStyle = newValue;
-                    sharedConfigManager.setTrayIconStyle(newValue);
+                    _trayIconStyle = newValue as String?;
+                    sharedConfigManager.setTrayIconStyle(newValue!);
                     setState(() {});
                   },
                 ),

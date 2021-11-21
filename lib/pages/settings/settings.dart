@@ -8,9 +8,9 @@ import 'package:wheel/wheel.dart';
 import '../../../includes.dart';
 
 class SettingsPage extends StatefulWidget {
-  final VoidCallback onDismiss;
+  final VoidCallback? onDismiss;
 
-  const SettingsPage({Key key, this.onDismiss}) : super(key: key);
+  const SettingsPage({Key? key, this.onDismiss}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _SettingsPageState();
@@ -19,7 +19,7 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   String _inputSetting = kInputSettingSubmitWithEnter;
 
-  String t(String key, {List<String> args}) {
+  String t(String key, {List<String>? args}) {
     return 'page_settings.$key'.tr(args: args);
   }
 
@@ -31,7 +31,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   void _init() async {
     setState(() {
-      _inputSetting = sharedConfig.inputSetting;
+      _inputSetting = sharedConfig.inputSetting!;
     });
   }
 
@@ -47,12 +47,12 @@ class _SettingsPageState extends State<SettingsPage> {
                 onTap: () async {
                   bool isLogin = await Auth.isLoggedIn();
                   if(isLogin) {
-                    Navigator.of(context).push(
+                    /*Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (_) =>
-                            Profile()
+                            Profile(user: null,)
                       ),
-                    );
+                    );*/
                   }else{
                     List<RegionFlag> regions = await CommonUtils.getRegions();
                     final inputController = TextEditingController();
@@ -108,7 +108,7 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               PreferenceListItem(
                 title: Text(t('pref_item_title_app_language')),
-                detailText: Text(getLanguageName(sharedConfig.appLanguage)),
+                detailText: Text(getLanguageName(sharedConfig.appLanguage!)),
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
@@ -122,7 +122,7 @@ class _SettingsPageState extends State<SettingsPage> {
               PreferenceListItem(
                 title: Text(t('pref_item_title_theme_mode')),
                 detailText: Text(
-                  'theme_mode.${describeEnum(sharedConfig.themeMode)}'.tr(),
+                  'theme_mode.${describeEnum(sharedConfig.themeMode!)}'.tr(),
                 ),
                 onTap: () {
                   Navigator.of(context).push(
@@ -157,8 +157,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 groupValue: _inputSetting,
                 title: Text(t('pref_item_title_submit_with_enter')),
                 onChanged: (newValue) {
-                  _inputSetting = newValue;
-                  sharedConfigManager.setInputSetting(newValue);
+                  _inputSetting = newValue.toString();
+                  sharedConfigManager.setInputSetting(newValue.toString());
                   setState(() {});
                 },
               ),
@@ -169,8 +169,8 @@ class _SettingsPageState extends State<SettingsPage> {
                     ? 'pref_item_title_submit_with_meta_enter_mac'
                     : 'pref_item_title_submit_with_meta_enter')),
                 onChanged: (newValue) {
-                  _inputSetting = newValue;
-                  sharedConfigManager.setInputSetting(newValue);
+                  _inputSetting = newValue.toString();
+                  sharedConfigManager.setInputSetting(newValue.toString());
                   setState(() {});
                 },
               ),
@@ -318,7 +318,7 @@ class _SettingsPageState extends State<SettingsPage> {
         title: Text(t('title')),
         leading: widget.onDismiss != null
             ? CustomAppBarCloseButton(
-                onPressed: widget.onDismiss,
+                onPressed: widget.onDismiss!,
               )
             : null,
       ),

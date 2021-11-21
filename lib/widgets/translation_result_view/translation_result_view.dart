@@ -8,7 +8,7 @@ class TranslationResultView extends StatelessWidget {
 
   const TranslationResultView(
     this.translationResult, {
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   String get sourceLanguage =>
@@ -48,7 +48,7 @@ class TranslationResultView extends StatelessWidget {
                 sourceLanguage,
                 flagSize: 18,
               ),
-              onPressed: () => {},
+              onPressed: () => {}, processing: null,
             ),
             SizedBox(
               width: 20,
@@ -62,7 +62,7 @@ class TranslationResultView extends StatelessWidget {
                     color: Theme.of(context).iconTheme.color,
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {}, processing: null,
               ),
             ),
             CustomButton(
@@ -71,7 +71,7 @@ class TranslationResultView extends StatelessWidget {
                 targetLanguage,
                 flagSize: 18,
               ),
-              onPressed: () => {},
+              onPressed: () => {}, processing: null,
             ),
             Expanded(child: Container()),
           ],

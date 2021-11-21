@@ -6,15 +6,15 @@ import 'package:wheel/wheel.dart';
 import 'package:intl/intl.dart';
 
 class Profile extends StatelessWidget {
-  const Profile({Key key,this.user}) : super(key: key);
+  const Profile({Key? key,required this.user}) : super(key: key);
 
   final AppUser user;
 
   @override
   Widget build(BuildContext context) {
-    String timestamp = user == null ? "0" : user.registerTime;
+    String? timestamp = user.registerTime;
     var format = new DateFormat("yMd");
-    var dateString = timestamp == "0" ? "--" : format.format(new DateTime.fromMillisecondsSinceEpoch(int.parse(timestamp)));
+    var dateString = timestamp == "0" ? "--" : format.format(new DateTime.fromMillisecondsSinceEpoch(int.parse(timestamp!)));
 
     return Scaffold(
         backgroundColor: const Color(0xFFEFEFEF),
@@ -46,7 +46,7 @@ class Profile extends StatelessWidget {
                             child: Text(
                               "取消",
                               style: TextStyle(
-                                color: Theme.of(context).textTheme.caption.color,
+                                color: Theme.of(context).textTheme.caption!.color,
                               ),
                             ),
                           ),
@@ -82,7 +82,7 @@ class Profile extends StatelessWidget {
                               color: Colors.white,
                               child: ListTile(
                                 title: Text("用户名"),
-                                subtitle: Text(user == null ? "--" : user.phone),
+                                subtitle: Text(user == null ? "--" : user.phone!),
                                 onTap: () async {},
                               ))))),
               SliverToBoxAdapter(

@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 
 class DevWordController extends GetxController {
   var isLoading = true.obs;
-  var wordTrans = WordTrans(definition: "", id: 0).obs;
+  var wordTrans = WordTrans(definition: "", id: 0, sentences: []).obs;
   var searchWord = "".obs;
 
   List<Card> _wordWidget = List.empty(growable: true);

@@ -10,7 +10,7 @@ import 'package:wheel/wheel.dart';
 
 /// Region selection for login.
 class RegionSelectionPage extends StatelessWidget {
-  const RegionSelectionPage({Key key, this.regions}) : super(key: key);
+  const RegionSelectionPage({Key? key, required this.regions}) : super(key: key);
   final List<RegionFlag> regions;
 
   @override
@@ -24,8 +24,8 @@ class RegionSelectionPage extends StatelessWidget {
 
 class _DiaCodeList extends StatefulWidget {
   const _DiaCodeList({
-    Key key,
-    this.regions,
+    Key? key,
+    required this.regions,
   }) : super(key: key);
 
   // Regions to be selections.
@@ -38,12 +38,12 @@ class _DiaCodeList extends StatefulWidget {
 const _alphabet = 'abcdefghijklmnopqrstuvwxyz';
 
 class _DiaCodeListState extends State<_DiaCodeList> {
-  List<RegionFlag> _sortedRegions;
-  ItemScrollController _scrollController;
+  List<RegionFlag>? _sortedRegions;
+  ItemScrollController? _scrollController;
 
   String _query = "";
 
-  OverlaySupportEntry _currentShowingEntry;
+  OverlaySupportEntry? _currentShowingEntry;
 
   @override
   void initState() {
@@ -61,8 +61,8 @@ class _DiaCodeListState extends State<_DiaCodeList> {
   /// Jump to best matched index in [_sortedRegions] with [q].
   void _jumpToAlphabet(String q) {
     int index = -1;
-    for (var i = 0; i < _sortedRegions.length; i++) {
-      final RegionFlag item = _sortedRegions[i];
+    for (var i = 0; i < _sortedRegions!.length; i++) {
+      final RegionFlag item = _sortedRegions![i];
       if (item.name.toLowerCase().compareTo(q) < 0) {
         index = i;
       } else {
@@ -72,7 +72,7 @@ class _DiaCodeListState extends State<_DiaCodeList> {
     if (index == -1) {
       return;
     }
-    _scrollController.jumpTo(index: index);
+    _scrollController!.jumpTo(index: index);
   }
 
   void _deleteQuery() {
@@ -112,9 +112,9 @@ class _DiaCodeListState extends State<_DiaCodeList> {
             padding: const EdgeInsets.only(right: 16),
             child: ScrollablePositionedList.builder(
                 itemScrollController: _scrollController,
-                itemCount: _sortedRegions.length,
+                itemCount: _sortedRegions!.length,
                 itemBuilder: (context, index) {
-                  final region = _sortedRegions[index];
+                  final region = _sortedRegions![index];
                   return _RegionTile(region: region);
                 }),
           ),
@@ -144,7 +144,7 @@ class _DiaCodeListState extends State<_DiaCodeList> {
               }, duration: const Duration(milliseconds: 500));
               _jumpToAlphabet(selection.toLowerCase());
             },
-            textStyle: Theme.of(context).textTheme.bodyText1,
+            textStyle: Theme.of(context).textTheme.bodyText1!,
           ),
         ],
       ),
@@ -154,8 +154,8 @@ class _DiaCodeListState extends State<_DiaCodeList> {
 
 class _AzSelectionOverlay extends StatelessWidget {
   const _AzSelectionOverlay({
-    Key key,
-    this.content,
+    Key? key,
+    required this.content,
   }) : super(key: key);
   final String content;
 
@@ -182,8 +182,8 @@ class _AzSelectionOverlay extends StatelessWidget {
 
 class _RegionTile extends StatelessWidget {
   const _RegionTile({
-    Key key,
-    this.region,
+    Key? key,
+    required this.region,
   }) : super(key: key);
 
   final RegionFlag region;
@@ -197,7 +197,7 @@ class _RegionTile extends StatelessWidget {
       ),
       title: Text(region.name),
       trailing: Text(
-        region.dialCode,
+        region.dialCode!,
         style: Theme.of(context).textTheme.caption,
       ),
       onTap: () {
@@ -211,23 +211,23 @@ typedef OnSelection = void Function(String char);
 
 /// Custom render for vertical A_Z list.
 class AZSelection extends SingleChildRenderObjectWidget {
-  const AZSelection({Key key, this.onSelection, this.textStyle}) : super(key: key);
+  const AZSelection({Key? key, this.onSelection, this.textStyle}) : super(key: key);
 
-  final OnSelection onSelection;
-  final TextStyle textStyle;
+  final OnSelection? onSelection;
+  final TextStyle? textStyle;
 
   @override
   RenderObject createRenderObject(BuildContext context) {
     return AZRender()
-      ..onSelection = onSelection
-      ..textStyle = textStyle ?? Theme.of(context).textTheme.bodyText1;
+      ..onSelection = onSelection!
+      ..textStyle = textStyle ?? Theme.of(context).textTheme.bodyText1!;
   }
 
   @override
   void updateRenderObject(BuildContext context, covariant AZRender renderObject) {
     renderObject
-      ..onSelection = onSelection
-      ..textStyle = textStyle ?? Theme.of(context).textTheme.bodyText1;
+      ..onSelection = onSelection!
+      ..textStyle = textStyle ?? Theme.of(context).textTheme.bodyText1!;
   }
 }
 
@@ -236,7 +236,7 @@ class AZRender extends RenderBox {
 
   final _offsets = HashMap<TextPainter, Offset>();
 
-  OnSelection onSelection;
+  OnSelection? onSelection;
 
   final double width = 20;
   TextStyle _textStyle = const TextStyle();
@@ -298,12 +298,12 @@ class AZRender extends RenderBox {
     final position = event.localPosition;
     final num index = ((position.dy / constraints.maxHeight) * _chars.length).round().clamp(0, _chars.length - 1);
     if (onSelection != null) {
-      onSelection(_chars[index as int]);
+      onSelection!(_chars[index as int]);
     }
   }
 
   @override
-  bool hitTest(BoxHitTestResult result, {Offset position}) {
+  bool hitTest(BoxHitTestResult result, {required Offset position}) {
     super.hitTest(result, position: position);
     if (onSelection == null) {
       return false;

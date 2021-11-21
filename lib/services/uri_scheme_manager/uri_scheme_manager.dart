@@ -19,7 +19,7 @@ class UriSchemeManager {
       ObserverList<UriSchemeListener>();
 
   bool _inited = false;
-  StreamSubscription _sub;
+  StreamSubscription? _sub;
 
   bool _debugAssertNotDisposed() {
     assert(() {
@@ -57,8 +57,8 @@ class UriSchemeManager {
     if (_inited) return;
     if (kIsWeb || kIsLinux || kIsWindows) return;
     _sub = uriLinkStream.listen(
-      (Uri uri) {
-        _listenUriSchemeLaunch(uri);
+      (Uri? uri) {
+        _listenUriSchemeLaunch(uri!);
       },
     );
     _inited = true;

@@ -50,27 +50,23 @@ class UserPreference {
   String updatedAt;
 
   int get intValue {
-    if (type != kPreferenceTypeInt) return null;
     return int.parse(value);
   }
 
   bool get boolValue {
-    if (type != kPreferenceTypeBool) return null;
     return value == 'true';
   }
 
   UserPreference({
-    this.id,
-    this.key,
-    this.type,
-    this.value,
-    this.createdAt,
-    this.updatedAt,
+    required this.id,
+    required this.key,
+    required this.type,
+    required this.value,
+    required this.createdAt,
+    required this.updatedAt,
   });
 
   factory UserPreference.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
-
     return UserPreference(
       id: json['id'],
       key: json['key'],

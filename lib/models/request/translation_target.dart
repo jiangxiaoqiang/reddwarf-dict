@@ -4,9 +4,9 @@ class TranslationTarget {
   String targetLanguage;
 
   TranslationTarget({
-     this.id,
-     this.sourceLanguage,
-     this.targetLanguage,
+     required this.id,
+     required this.sourceLanguage,
+     required this.targetLanguage,
   });
 
   factory TranslationTarget.fromJson(Map<String, dynamic> json) {

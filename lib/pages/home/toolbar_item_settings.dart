@@ -6,8 +6,8 @@ class ToolbarItemSettings extends StatefulWidget {
   final VoidCallback onSettingsPageDismiss;
 
   const ToolbarItemSettings({
-    Key key,
-    this.onSettingsPageDismiss,
+    Key? key,
+    required this.onSettingsPageDismiss,
   }) : super(key: key);
 
   @override

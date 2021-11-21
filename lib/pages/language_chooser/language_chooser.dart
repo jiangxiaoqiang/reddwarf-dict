@@ -8,9 +8,9 @@ class LanguageChooserPage extends StatefulWidget {
   final ValueChanged<String> onChoosed;
 
   const LanguageChooserPage({
-    Key key,
-    this.initialLanguage,
-    this.onChoosed,
+    Key? key,
+    required this.initialLanguage,
+    required this.onChoosed,
   }) : super(key: key);
 
   @override
@@ -18,9 +18,9 @@ class LanguageChooserPage extends StatefulWidget {
 }
 
 class _LanguageChooserPageState extends State<LanguageChooserPage> {
-  String _language;
+  String? _language;
 
-  String t(String key, {List<String> args}) {
+  String t(String key, {List<String>? args}) {
     return 'page_language_chooser.$key'.tr(args: args);
   }
 
@@ -32,13 +32,13 @@ class _LanguageChooserPageState extends State<LanguageChooserPage> {
 
   void _handleClickOk() async {
     if (widget.onChoosed != null) {
-      widget.onChoosed(_language);
+      widget.onChoosed(_language!);
     }
 
     Navigator.of(context).pop();
   }
 
-  Widget _buildAppBar(BuildContext context) {
+  PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
       title: Text(t('title')),
       actions: [

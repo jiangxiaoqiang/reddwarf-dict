@@ -7,11 +7,11 @@ const kWordImageSize = 74.0;
 
 class WordImageView extends StatelessWidget {
   final WordImage wordImage;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   const WordImageView(
     this.wordImage, {
-    Key key,
+    Key? key,
     this.onPressed,
   }) : super(key: key);
 
@@ -28,9 +28,9 @@ class WordImageView extends StatelessWidget {
       child: CupertinoButton(
         padding: EdgeInsets.zero,
         child: Hero(
-          tag: wordImage.url,
+          tag: wordImage.url!,
           child: CustomImage(
-            wordImage.url,
+            wordImage.url!,
             width: kWordImageSize,
             height: kWordImageSize,
             fit: BoxFit.cover,

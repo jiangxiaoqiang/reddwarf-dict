@@ -6,18 +6,11 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import '../includes.dart';
 import 'nav/nav_page.dart';
 
-// ignore: non_constant_identifier_names
-TransitionBuilder VirtualWindowFrameInit() {
-  return (_, Widget child) {
-    return VirtualWindowFrame(child: child);
-  };
-}
-
 class AppNavigator extends StatefulWidget {
-  final Widget home;
+  final Widget? home;
 
   const AppNavigator({
-    Key key,
+    Key? key,
     this.home,
   }) : super(key: key);
 
@@ -31,7 +24,7 @@ class _AppNavigatorState extends State<AppNavigator> with WidgetsBindingObserver
 
   @override
   void initState() {
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance!.addObserver(this);
     sharedConfigManager.addListener(_configListen);
     if (widget.home == null) {
       R.setNavigatorKey(_navigatorKey);
@@ -41,7 +34,7 @@ class _AppNavigatorState extends State<AppNavigator> with WidgetsBindingObserver
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
+    WidgetsBinding.instance!.removeObserver(this);
     sharedConfigManager.removeListener(_configListen);
     super.dispose();
   }
@@ -60,7 +53,6 @@ class _AppNavigatorState extends State<AppNavigator> with WidgetsBindingObserver
   }
 
   Widget _build(BuildContext context) {
-    final virtualWindowFrameBuilder = VirtualWindowFrameInit();
     final botToastBuilder = BotToastInit();
 
     return GetMaterialApp(
@@ -68,15 +60,12 @@ class _AppNavigatorState extends State<AppNavigator> with WidgetsBindingObserver
       navigatorKey: isRootPage ? _navigatorKey : null,
       theme: lightThemeData,
       darkTheme: darkThemeData,
-      themeMode: _config.themeMode,
+      themeMode: _config.themeMode!,
       builder: (context, child) {
         if (isRootPage) {
-          if (kIsLinux || kIsWindows) {
-            child = virtualWindowFrameBuilder(context, child);
-          }
           child = botToastBuilder(context, child);
         }
-        return child;
+        return child!;
       },
       navigatorObservers: isRootPage ? [BotToastNavigatorObserver()] : [],
       localizationsDelegates: context.localizationDelegates,

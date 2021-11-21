@@ -10,17 +10,17 @@ class SettingTranslatePage extends StatefulWidget {
 
 class _SettingTranslatePageState extends State<SettingTranslatePage> {
   String _translationMode = kTranslationModeManual;
-  TranslationEngineConfig _defaultEngineConfig;
+  TranslationEngineConfig? _defaultEngineConfig;
 
-  String t(String key, {List<String> args}) {
+  String t(String key, {List<String>? args}) {
     return 'page_setting_translate.$key'.tr(args: args);
   }
 
   @override
   void initState() {
-    _translationMode = sharedConfig.translationMode;
+    _translationMode = sharedConfig.translationMode!;
     _defaultEngineConfig =
-        sharedLocalDb.engine(sharedConfig.defaultEngineId).get();
+        sharedLocalDb.engine(sharedConfig.defaultEngineId!).get();
     super.initState();
   }
 
@@ -59,15 +59,15 @@ class _SettingTranslatePageState extends State<SettingTranslatePage> {
                 PreferenceListItem(
                   icon: _defaultEngineConfig == null
                       ? null
-                      : TranslationEngineIcon(_defaultEngineConfig),
+                      : TranslationEngineIcon(_defaultEngineConfig!),
                   title: Builder(builder: (_) {
                     if (_defaultEngineConfig == null) return Text('please_choose'.tr());
                     return Text.rich(
                       TextSpan(
-                        text: _defaultEngineConfig.typeName,
+                        text: _defaultEngineConfig!.typeName,
                         children: [
                           TextSpan(
-                            text: ' (${_defaultEngineConfig.shortId})',
+                            text: ' (${_defaultEngineConfig!.shortId})',
                             style: TextStyle(fontSize: 12, color: Colors.grey),
                           )
                         ],
@@ -78,7 +78,7 @@ class _SettingTranslatePageState extends State<SettingTranslatePage> {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (_) => TranslationEngineChooserPage(
-                          initialEngineConfig: _defaultEngineConfig,
+                          initialEngineConfig: _defaultEngineConfig!,
                           onChoosed: (engineConfig) {
                             sharedConfigManager.setDefaultEngineId(
                               engineConfig.identifier,

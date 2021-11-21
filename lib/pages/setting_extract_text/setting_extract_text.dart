@@ -11,17 +11,17 @@ class SettingExtractTextPage extends StatefulWidget {
 class _SettingExtractTextPageState
     extends State<SettingExtractTextPage> {
   bool _useLocalOcrEngine = false;
-  OcrEngineConfig _defaultOcrEngineConfig;
+  OcrEngineConfig? _defaultOcrEngineConfig;
 
-  String t(String key, {List<String> args}) {
+  String t(String key, {List<String>? args}) {
     return 'page_setting_extract_text.$key'.tr(args: args);
   }
 
   @override
   void initState() {
-    _useLocalOcrEngine = sharedConfig.useLocalOcrEngine;
+    _useLocalOcrEngine = sharedConfig.useLocalOcrEngine!;
     _defaultOcrEngineConfig =
-        sharedLocalDb.ocrEngine(sharedConfig.defaultOcrEngineId).get();
+        sharedLocalDb.ocrEngine(sharedConfig.defaultOcrEngineId!).get();
     super.initState();
   }
 
@@ -53,17 +53,17 @@ class _SettingExtractTextPageState
                   icon: _defaultOcrEngineConfig == null
                       ? null
                       : OcrEngineIcon(
-                          _defaultOcrEngineConfig,
+                          _defaultOcrEngineConfig!,
                         ),
                   title: Builder(builder: (_) {
                     if (_defaultOcrEngineConfig == null)
                       return Text('please_choose'.tr());
                     return Text.rich(
                       TextSpan(
-                        text: _defaultOcrEngineConfig.typeName,
+                        text: _defaultOcrEngineConfig!.typeName,
                         children: [
                           TextSpan(
-                            text: ' (${_defaultOcrEngineConfig.shortId})',
+                            text: ' (${_defaultOcrEngineConfig!.shortId})',
                             style: TextStyle(fontSize: 12, color: Colors.grey),
                           )
                         ],
@@ -74,7 +74,7 @@ class _SettingExtractTextPageState
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (_) => OcrEngineChooserPage(
-                          initialOcrEngineConfig: _defaultOcrEngineConfig,
+                          initialOcrEngineConfig: _defaultOcrEngineConfig!,
                           onChoosed: (ocrEngineConfig) {
                             sharedConfigManager.setDefaultOcrEngineId(
                               ocrEngineConfig.identifier,

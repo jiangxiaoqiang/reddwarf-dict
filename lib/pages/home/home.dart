@@ -42,10 +42,10 @@ class _HomePageState extends State<HomePage>
 
   Config _config = sharedConfigManager.getConfig();
 
-  bool _showTrayIcon = sharedConfigManager.getConfig().showTrayIcon;
-  String _trayIconStyle = sharedConfigManager.getConfig().trayIconStyle;
+  bool? _showTrayIcon = sharedConfigManager.getConfig().showTrayIcon;
+  String? _trayIconStyle = sharedConfigManager.getConfig().trayIconStyle;
 
-  Version _latestVersion;
+  Version _latestVersion=new Version(version: '', buildNumber: 1,platforms: []);
   bool _isAllowedScreenCaptureAccess = true;
   bool _isAllowedScreenSelectionAccess = true;
 
@@ -54,12 +54,12 @@ class _HomePageState extends State<HomePage>
 
   bool _querySubmitted = false;
   String _text = '';
-  String _textDetectedLanguage;
+  String _textDetectedLanguage="en";
   List<TranslationResult> _translationResultList = [];
 
   List<Future> _futureList = [];
 
-  Timer _resizeTimer;
+  late Timer _resizeTimer;
 
   List<TranslationEngineConfig> get _translationEngineList {
     return sharedLocalDb.engines.list(
@@ -72,7 +72,7 @@ class _HomePageState extends State<HomePage>
       return [
         TranslationTarget(
           sourceLanguage: _sourceLanguage,
-          targetLanguage: _targetLanguage,
+          targetLanguage: _targetLanguage, id: '',
         ),
       ];
     }
@@ -93,7 +93,6 @@ class _HomePageState extends State<HomePage>
   @override
   void dispose() {
     UriSchemeManager.instance.removeListener(this);
-    ShortcutService.instance.setListener(null);
     trayManager.removeListener(this);
     sharedConfigManager.removeListener(_configListen);
     _uninit();
@@ -102,8 +101,8 @@ class _HomePageState extends State<HomePage>
 
   void _configListen() {
     Config newConfig = sharedConfigManager.getConfig();
-    bool showTrayIcon = newConfig.showTrayIcon;
-    String trayIconStyle = newConfig.trayIconStyle;
+    bool? showTrayIcon = newConfig.showTrayIcon;
+    String? trayIconStyle = newConfig.trayIconStyle;
 
     bool trayIconUpdated =
         _showTrayIcon != showTrayIcon || _trayIconStyle != trayIconStyle;
@@ -112,7 +111,7 @@ class _HomePageState extends State<HomePage>
     _showTrayIcon = showTrayIcon;
     _trayIconStyle = trayIconStyle;
 
-    if (trayIconUpdated) _initTrayIcon();
+    //if (trayIconUpdated) _initTrayIcon();
     setState(() {});
   }
 
@@ -121,10 +120,10 @@ class _HomePageState extends State<HomePage>
 
     }
 
-    ShortcutService.instance.start();
+    //ShortcutService.instance.start();
 
     // 初始化托盘图标
-    _initTrayIcon();
+    //_initTrayIcon();
   }
 
   Future<void> _initTrayIcon() async {
@@ -137,7 +136,7 @@ class _HomePageState extends State<HomePage>
     }
 
     await trayManager.destroy();
-    if (_showTrayIcon) {
+    if (_showTrayIcon!) {
       await trayManager.setIcon(R.image(trayIconName));
       await Future.delayed(Duration(milliseconds: 200));
       await trayManager.setContextMenu([
@@ -165,43 +164,6 @@ class _HomePageState extends State<HomePage>
   Future<void> _windowHide() async {
   }
 
-  void _windowResize() {
-    if (Navigator.of(context).canPop()) return;
-
-    if (_resizeTimer != null && _resizeTimer.isActive) {
-      _resizeTimer.cancel();
-    }
-    _resizeTimer = Timer.periodic(Duration(milliseconds: 10), (_) async {
-      if (!kIsMacOS) {
-        await Future.delayed(Duration(milliseconds: 100));
-      }
-      RenderBox rb1 = _bannersViewKey?.currentContext?.findRenderObject();
-      RenderBox rb2 = _inputViewKey?.currentContext?.findRenderObject();
-      RenderBox rb3 = _resultsViewKey?.currentContext?.findRenderObject();
-
-      double toolbarViewHeight = 36.0;
-      double bannersViewHeight = rb1?.size?.height ?? 0;
-      double inputViewHeight = rb2?.size?.height ?? 0;
-      double resultsViewHeight = rb3?.size?.height ?? 0;
-
-      try {
-        double newWindowHeight = toolbarViewHeight +
-            bannersViewHeight +
-            inputViewHeight +
-            resultsViewHeight +
-            ((kVirtualWindowFrameMargin * 2) + 2);
-
-      } catch (error) {
-        print(error);
-      }
-
-      if (_resizeTimer != null) {
-        _resizeTimer.cancel();
-        _resizeTimer = null;
-      }
-    });
-  }
-
   void _loadData() async {
     try {
       _latestVersion = await proAccount.version('latest').get();
@@ -221,7 +183,6 @@ class _HomePageState extends State<HomePage>
   void _queryData() async {
     setState(() {
       _querySubmitted = true;
-      _textDetectedLanguage = null;
       _translationResultList = [];
       _futureList = [];
     });
@@ -229,7 +190,7 @@ class _HomePageState extends State<HomePage>
     if (_config.translationMode == kTranslationModeManual) {
       TranslationResult translationResult = TranslationResult(
         translationTarget: _translationTargetList.first,
-        translationResultRecordList: [],
+        translationResultRecordList: [], unsupportedEngineIdList: [], id: '',
       );
       _translationResultList = [translationResult];
     } else {
@@ -240,11 +201,11 @@ class _HomePageState extends State<HomePage>
         );
         DetectLanguageResponse detectLanguageResponse =
             await sharedTranslateClient
-                .use(sharedConfig.defaultEngineId)
+                .use(sharedConfig.defaultEngineId!)
                 .detectLanguage(detectLanguageRequest);
 
         _textDetectedLanguage = detectLanguageResponse
-            .detections.first.detectedLanguage
+            .detections!.first.detectedLanguage!
             .split('-')[0];
 
         filteredTranslationTargetList = _translationTargetList
@@ -258,7 +219,7 @@ class _HomePageState extends State<HomePage>
         TranslationResult translationResult = TranslationResult(
           translationTarget: translationTarget,
           translationResultRecordList: [],
-          unsupportedEngineIdList: [],
+          unsupportedEngineIdList: [], id: '',
         );
         _translationResultList.add(translationResult);
       }
@@ -289,7 +250,6 @@ class _HomePageState extends State<HomePage>
               return e.sourceLanguage == translationTarget.sourceLanguage &&
                   e.targetLanguage == translationTarget.targetLanguage;
             },
-            orElse: () => null,
           );
           if (languagePair == null) {
             unsupportedEngineIdList.add(identifier);
@@ -311,16 +271,16 @@ class _HomePageState extends State<HomePage>
             TranslationResultRecord(
           id: Uuid().v4(),
           translationEngineId: identifier,
-          translationTargetId: translationTarget.id,
+          translationTargetId: translationTarget.id
         );
         _translationResultList[i]
             .translationResultRecordList
             .add(translationResultRecord);
 
         Future<bool> future = Future<bool>.sync(() async {
-          LookUpRequest lookUpRequest;
-          LookUpResponse lookUpResponse;
-          UniTranslateClientError lookUpError;
+          LookUpRequest lookUpRequest = new LookUpRequest();
+          LookUpResponse lookUpResponse = new LookUpResponse(word: '', translations: []);
+          UniTranslateClientError lookUpError = new UniTranslateClientError(message: '', code: '');
           if ((sharedTranslateClient.use(identifier).supportedScopes ?? [])
               .contains(kScopeLookUp)) {
             try {
@@ -335,13 +295,13 @@ class _HomePageState extends State<HomePage>
             } on UniTranslateClientError catch (error) {
               lookUpError = error;
             } catch (error) {
-              lookUpError = UniTranslateClientError(message: error.toString());
+              lookUpError = UniTranslateClientError(message: error.toString(), code: '');
             }
           }
 
-          TranslateRequest translateRequest;
-          TranslateResponse translateResponse;
-          UniTranslateClientError translateError;
+          TranslateRequest translateRequest = new TranslateRequest();
+          TranslateResponse translateResponse = new TranslateResponse(translations: []);
+          UniTranslateClientError translateError = new UniTranslateClientError(message: '', code: '');
           if (sharedTranslateClient
               .use(identifier)
               .supportedScopes
@@ -358,7 +318,7 @@ class _HomePageState extends State<HomePage>
             } on UniTranslateClientError catch (error) {
               lookUpError = error;
             } catch (error) {
-              lookUpError = UniTranslateClientError(message: error.toString());
+              lookUpError = UniTranslateClientError(message: error.toString(), code: '');
             }
           }
 
@@ -436,7 +396,6 @@ class _HomePageState extends State<HomePage>
     setState(() {
       _querySubmitted = false;
       _text = '';
-      _textDetectedLanguage = null;
       _translationResultList = [];
     });
     _textEditingController.clear();
@@ -539,12 +498,12 @@ class _HomePageState extends State<HomePage>
             focusNode: _focusNode,
             controller: _textEditingController,
             onChanged: (newValue) => this._handleTextChanged(newValue),
-            translationMode: _config.translationMode,
+            translationMode: _config.translationMode!,
             onTranslationModeChanged: (newTranslationMode) {
               sharedConfigManager.setTranslationMode(newTranslationMode);
               setState(() {});
             },
-            inputSetting: _config.inputSetting,
+            inputSetting: _config.inputSetting!,
             onClickExtractTextFromScreenCapture:
                 this._handleExtractTextFromScreenCapture,
             onClickExtractTextFromClipboard:
@@ -561,7 +520,7 @@ class _HomePageState extends State<HomePage>
     return TranslationResultsView(
       viewKey: _resultsViewKey,
       controller: _scrollController,
-      translationMode: _config.translationMode,
+      translationMode: _config.translationMode!,
       querySubmitted: _querySubmitted,
       text: _text,
       textDetectedLanguage: _textDetectedLanguage,
@@ -586,7 +545,7 @@ class _HomePageState extends State<HomePage>
     );
   }
 
-  Widget _buildAppBar(BuildContext context) {
+  PreferredSizeWidget _buildAppBar(BuildContext context) {
     return PreferredSize(
       child: Container(
         padding: EdgeInsets.only(left: 8, right: 8, top: 0),
@@ -610,7 +569,6 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) => _windowResize());
     return SafeArea(child: Scaffold(
       appBar: _buildAppBar(context),
       body:_buildBody(context),
@@ -652,7 +610,7 @@ class _HomePageState extends State<HomePage>
     await _windowShow();
     await Future.delayed(Duration(milliseconds: 200));
     if (uri.authority == 'translate') {
-      String text = uri.queryParameters['text'];
+      String? text = uri.queryParameters['text'];
       if (text != null && text.isNotEmpty) {
         _handleTextChanged(text, isRequery: true);
       }

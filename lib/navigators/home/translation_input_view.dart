@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:screen_text_extractor/screen_text_extractor.dart';
 
 import '../../includes.dart';
 
@@ -11,8 +10,6 @@ class TranslationInputView extends StatelessWidget {
   final FocusNode focusNode;
   final TextEditingController controller;
   final ValueChanged<String> onChanged;
-
-  final ExtractedData? extractedData;
 
   final String translationMode;
   final ValueChanged<String> onTranslationModeChanged;
@@ -25,18 +22,17 @@ class TranslationInputView extends StatelessWidget {
   final VoidCallback onButtonTappedTrans;
 
   const TranslationInputView({
-     Key key,
-     this.focusNode,
-     this.controller,
-     this.onChanged,
-    this.extractedData,
-     this.translationMode,
-     this.onTranslationModeChanged,
-     this.inputSetting,
-     this.onClickExtractTextFromScreenCapture,
-     this.onClickExtractTextFromClipboard,
-     this.onButtonTappedClear,
-     this.onButtonTappedTrans,
+     required Key key,
+     required this.focusNode,
+     required this.controller,
+     required this.onChanged,
+     required this.translationMode,
+     required this.onTranslationModeChanged,
+     required this.inputSetting,
+     required this.onClickExtractTextFromScreenCapture,
+     required this.onClickExtractTextFromClipboard,
+     required this.onButtonTappedClear,
+     required this.onButtonTappedTrans,
   }) : super(key: key);
 
   Widget _buildTextGetters(BuildContext context) {
@@ -149,8 +145,7 @@ class TranslationInputView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isTextDetecting =
-        (extractedData?.base64Image != null && extractedData?.text == null);
+    bool isTextDetecting = false;
 
     return Container(
       margin: EdgeInsets.only(

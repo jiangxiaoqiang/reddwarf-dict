@@ -32,10 +32,10 @@ class Env {
     this.apiUrl = json['apiUrl'];
   }
 
-  String env;
+  String? env;
 
-  String webUrl;
-  String apiUrl;
+  String? webUrl;
+  String? apiUrl;
 
   int appBuildNumber = 0;
   String appVersion = '0.0.0';

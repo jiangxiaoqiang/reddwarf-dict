@@ -31,7 +31,7 @@ final Map<String, List<String>> kKnownSupportedEngineOptionKeys = {
 TranslationEngine createTranslationEngine(
   TranslationEngineConfig engineConfig,
 ) {
-  TranslationEngine translationEngine;
+  TranslationEngine translationEngine = ReddwarfTranslationEngine(engineConfig);
   if (sharedLocalDb.proEngine(engineConfig.identifier).exists()) {
     translationEngine = ProTranslationEngine(engineConfig);
   } else {
@@ -73,7 +73,9 @@ class AutoloadTranslateClientAdapter extends UniTranslateClientAdapter {
 
   @override
   TranslationEngine get first {
-    TranslationEngineConfig engineConfig = sharedLocalDb.engines.list().first;
+    TranslationEngineConfig engineConfig = sharedLocalDb.engines.list(where: (TranslationEngineConfig element) {
+      return true;
+    }).first;
 
     return use(engineConfig.identifier);
   }
@@ -82,24 +84,18 @@ class AutoloadTranslateClientAdapter extends UniTranslateClientAdapter {
   TranslationEngine use(String identifier) {
     TranslationEngineConfig engineConfig =
         sharedLocalDb.engine(identifier).get();
-
-    TranslationEngine translationEngine;
-    if (_translationEngineMap.containsKey(engineConfig.identifier)) {
-      translationEngine = _translationEngineMap[engineConfig.identifier];
-    }
-
+    TranslationEngine? translationEngine = _translationEngineMap[identifier];
     if (translationEngine == null) {
       translationEngine = createTranslationEngine(engineConfig);
       if (translationEngine != null) {
         _translationEngineMap.update(
           engineConfig.identifier,
-          (_) => translationEngine,
-          ifAbsent: () => translationEngine,
+          (_) => translationEngine!,
+          ifAbsent: () => translationEngine!,
         );
       }
     }
-
-    return translationEngine;
+    return _translationEngineMap[identifier]!;
   }
 }
 

@@ -11,7 +11,7 @@ class SoundPlayButton extends StatefulWidget {
   final String audioUrl;
 
   const SoundPlayButton({
-    this.audioUrl,
+    required this.audioUrl,
   });
 
   @override
@@ -22,17 +22,17 @@ class _SoundPlayButtonState extends State<SoundPlayButton>
     with AudioPlayerListener {
   bool _playing = false;
   int _playingAnimImageIndex = 0;
-  Timer _playingAnimTimer;
+  late Timer _playingAnimTimer;
 
   @override
   void initState() {
-    AudioPlayer.instance.addListener(this);
+    AudioPlayer.instance!.addListener(this);
     super.initState();
   }
 
   @override
   void dispose() {
-    AudioPlayer.instance.removeListener(this);
+    AudioPlayer.instance!.removeListener(this);
     _stopPlayingAnimTimer();
     super.dispose();
   }
@@ -59,7 +59,6 @@ class _SoundPlayButtonState extends State<SoundPlayButton>
     if (_playingAnimTimer != null && _playingAnimTimer.isActive) {
       _playingAnimTimer.cancel();
     }
-    _playingAnimTimer = null;
     if (mounted) {
       setState(() {
         _playingAnimImageIndex = 0;
@@ -68,14 +67,14 @@ class _SoundPlayButtonState extends State<SoundPlayButton>
   }
 
   void _handleClickPlay() {
-    AudioPlayer.instance.setSource(Uri.parse(widget.audioUrl));
-    AudioPlayer.instance.prepare();
-    AudioPlayer.instance.start();
+    AudioPlayer.instance!.setSource(Uri.parse(widget.audioUrl));
+    AudioPlayer.instance!.prepare();
+    AudioPlayer.instance!.start();
     _startPlayingAnimTimer();
   }
 
   void _handleClickStop() {
-    AudioPlayer.instance.stop();
+    AudioPlayer.instance!.stop();
     _stopPlayingAnimTimer();
   }
 
@@ -97,7 +96,7 @@ class _SoundPlayButtonState extends State<SoundPlayButton>
                 child: Icon(
                   IcoMoonIcons.volume_up,
                   size: _kIconSize,
-                  color: Theme.of(context).textTheme.caption.color,
+                  color: Theme.of(context).textTheme.caption!.color,
                 ),
               ),
               SizedBox(
@@ -106,7 +105,7 @@ class _SoundPlayButtonState extends State<SoundPlayButton>
                 child: Icon(
                   IcoMoonIcons.volume_down,
                   size: _kIconSize,
-                  color: Theme.of(context).textTheme.caption.color,
+                  color: Theme.of(context).textTheme.caption!.color,
                 ),
               ),
               SizedBox(
@@ -115,7 +114,7 @@ class _SoundPlayButtonState extends State<SoundPlayButton>
                 child: Icon(
                   IcoMoonIcons.volume_off,
                   size: _kIconSize,
-                  color: Theme.of(context).textTheme.caption.color,
+                  color: Theme.of(context).textTheme.caption!.color,
                 ),
               ),
             ],

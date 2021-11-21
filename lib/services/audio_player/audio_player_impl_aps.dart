@@ -7,7 +7,7 @@ import 'audio_player.dart';
 class AudioPlayerImplAPS extends AudioPlayer {
   aps.AudioPlayer _apsPlayer = aps.AudioPlayer();
 
-  Uri _audioUrl;
+  Uri? _audioUrl;
   Duration _currentPosition = Duration.zero;
   Duration _duration = Duration.zero;
   AudioPlayerState _state = AudioPlayerState.initialized;
@@ -46,7 +46,7 @@ class AudioPlayerImplAPS extends AudioPlayer {
   }
 
   Uri getSource() {
-    return _audioUrl;
+    return _audioUrl!;
   }
 
   Future<void> setSource(Uri url) {

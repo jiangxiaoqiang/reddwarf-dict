@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'new_word_controller.dart';
 
 class NewWord extends StatelessWidget {
-  NewWord({Key key}) : super(key: key);
+  NewWord({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return GetBuilder<NewWordController>(

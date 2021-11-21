@@ -12,13 +12,13 @@ class SettingThemeModePage extends StatefulWidget {
 class _SettingThemeModePageState extends State<SettingThemeModePage> {
   ThemeMode _themeMode = ThemeMode.light;
 
-  String t(String key, {List<String> args}) {
+  String t(String key, {List<String>? args}) {
     return 'page_setting_theme_mode.$key'.tr(args: args);
   }
 
   @override
   void initState() {
-    _themeMode = sharedConfig.themeMode;
+    _themeMode = sharedConfig.themeMode!;
     super.initState();
   }
 

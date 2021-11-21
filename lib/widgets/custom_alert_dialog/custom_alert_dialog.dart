@@ -11,16 +11,16 @@ const kDialogActionTypeSuccess = 'success';
 const kDialogActionTypeDanger = 'danger';
 
 class CustomDialogAction extends StatelessWidget {
-  String type;
+  String? type;
   final bool processing;
   final Widget child;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   CustomDialogAction({
-    Key key,
+    Key? key,
     this.type,
     this.processing = false,
-    @required this.child,
+    required this.child,
     this.onPressed,
   }) : super(key: key);
 
@@ -33,22 +33,22 @@ class CustomDialogAction extends StatelessWidget {
         padding: EdgeInsets.zero,
         processing: processing,
         child: this.child,
-        onPressed: this.onPressed,
+        onPressed: this.onPressed!,
       ),
     );
   }
 }
 
 class CustomAlertDialog extends StatelessWidget {
-  final Widget title;
-  final Widget content;
+  final Widget? title;
+  final Widget? content;
   final List<Widget> actions;
 
   const CustomAlertDialog({
-    Key key,
+    Key? key,
     this.title,
     this.content,
-    this.actions,
+    required this.actions,
   }) : super(key: key);
 
   @override
@@ -59,7 +59,7 @@ class CustomAlertDialog extends StatelessWidget {
         bottom: MediaQuery.of(context).viewInsets.bottom,
       ),
       child: DefaultTextStyle(
-        style: Theme.of(context).textTheme.bodyText2,
+        style: Theme.of(context).textTheme.bodyText2!,
         child: Container(
           constraints: BoxConstraints(
             minHeight: 100,
@@ -77,7 +77,7 @@ class CustomAlertDialog extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 20, right: 20),
                 child: DefaultTextStyle(
-                  style: Theme.of(context).textTheme.bodyText2.copyWith(
+                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
                         fontSize: 16,
                       ),
                   child: this.title ?? Container(),
@@ -97,22 +97,7 @@ class CustomAlertDialog extends StatelessWidget {
                 padding: EdgeInsets.only(left: 20, right: 20),
                 child: Row(
                   children: <Widget>[
-                    for (var i = 0; i < this.actions.length; i++)
-                      Builder(
-                        builder: (_) {
-                          CustomDialogAction action = this.actions[i];
-                          if (action.type == null &&
-                              i == this.actions.length - 1) {
-                            action.type = kDialogActionTypePrimary;
-                          }
-                          return Expanded(
-                            child: Container(
-                              padding: EdgeInsets.only(left: 5, right: 5),
-                              child: action,
-                            ),
-                          );
-                        },
-                      ),
+
                   ],
                 ),
               ),

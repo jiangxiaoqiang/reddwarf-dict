@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import '../../../includes.dart';
 
 class OcrEngineChooserPage extends StatefulWidget {
-  final OcrEngineConfig initialOcrEngineConfig;
-  final ValueChanged<OcrEngineConfig> onChoosed;
+  final OcrEngineConfig? initialOcrEngineConfig;
+  final ValueChanged<OcrEngineConfig>? onChoosed;
 
   const OcrEngineChooserPage({
-    Key key,
-    this.initialOcrEngineConfig,
-    this.onChoosed,
+    Key? key,
+     this.initialOcrEngineConfig,
+     this.onChoosed,
   }) : super(key: key);
 
   @override
@@ -18,9 +18,9 @@ class OcrEngineChooserPage extends StatefulWidget {
 }
 
 class _OcrEngineChooserPageState extends State<OcrEngineChooserPage> {
-  String _identifier;
+  String? _identifier;
 
-  String t(String key, {List<String> args}) {
+  String t(String key, {required List<String> args}) {
     return 'page_ocr_engine_chooser.$key'.tr(args: args);
   }
 
@@ -35,8 +35,8 @@ class _OcrEngineChooserPageState extends State<OcrEngineChooserPage> {
   void _handleClickOk() async {
     if (widget.onChoosed != null) {
       OcrEngineConfig ocrEngineConfig =
-          sharedLocalDb.ocrEngine(_identifier).get();
-      widget.onChoosed(ocrEngineConfig);
+          sharedLocalDb.ocrEngine(_identifier!).get();
+      widget.onChoosed!(ocrEngineConfig);
     }
 
     Navigator.of(context).pop();
@@ -63,7 +63,7 @@ class _OcrEngineChooserPageState extends State<OcrEngineChooserPage> {
                     groupValue: _identifier,
                     onChanged: (newValue) {
                       setState(() {
-                        _identifier = newValue;
+                        _identifier = newValue as String?;
                       });
                     },
                     title: Builder(builder: (_) {
@@ -84,7 +84,7 @@ class _OcrEngineChooserPageState extends State<OcrEngineChooserPage> {
               ],
             ),
           PreferenceListSection(
-            title: Text(t('pref_section_title_private')),
+            title: Text(t('pref_section_title_private', args: [])),
             children: [
               for (var ocrEngineConfig in privateOcrEngineList)
                 PreferenceListRadioItem(
@@ -95,7 +95,7 @@ class _OcrEngineChooserPageState extends State<OcrEngineChooserPage> {
                   groupValue: _identifier,
                   onChanged: (newValue) {
                     setState(() {
-                      _identifier = newValue;
+                      _identifier = newValue as String?;
                     });
                   },
                   title: Builder(builder: (_) {
@@ -114,7 +114,7 @@ class _OcrEngineChooserPageState extends State<OcrEngineChooserPage> {
                 ),
               if (privateOcrEngineList.isEmpty)
                 PreferenceListItem(
-                  title: Text(t('pref_item_title_no_available_engines')),
+                  title: Text(t('pref_item_title_no_available_engines', args: [])),
                   accessoryView: Container(),
                 ),
             ],
@@ -127,7 +127,7 @@ class _OcrEngineChooserPageState extends State<OcrEngineChooserPage> {
   Widget _build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: Text(t('title')),
+        title: Text(t('title', args: [])),
         actions: [
           CustomAppBarActionItem(
             text: 'ok'.tr(),

@@ -10,7 +10,7 @@ import 'package:wheel/wheel.dart';
 import 'user_center_controller.dart';
 
 class UserCenter extends StatelessWidget {
-  const UserCenter({Key key}) : super(key: key);
+  const UserCenter({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

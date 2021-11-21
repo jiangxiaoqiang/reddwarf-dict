@@ -7,7 +7,7 @@ import '../local_db.dart';
 class ProOcrEnginesModifier {
   final DbData dbData;
 
-  ProOcrEnginesModifier(this.dbData);
+  ProOcrEnginesModifier(this.dbData,this._id);
 
   String _id;
 
@@ -27,7 +27,7 @@ class ProOcrEnginesModifier {
   }
 
   List<OcrEngineConfig> list({
-    bool where(OcrEngineConfig element),
+    required bool where(OcrEngineConfig element),
   }) {
     if (where != null) {
       return _ocrEngineList.where(where).toList();
@@ -40,9 +40,9 @@ class ProOcrEnginesModifier {
   }
 
   Future<void> create({
-    String type,
-    String name,
-    Map<String, dynamic> option,
+    required String type,
+    required String name,
+    required Map<String, dynamic> option,
   }) async {
     OcrEngineConfig group = OcrEngineConfig(
       identifier: Uuid().v4(),
@@ -54,7 +54,7 @@ class ProOcrEnginesModifier {
   }
 
   Future<void> update({
-    bool disabled,
+    required bool disabled,
   }) async {
     if (disabled != null) _ocrEngineList[_ocrEngineIndex].disabled = disabled;
   }

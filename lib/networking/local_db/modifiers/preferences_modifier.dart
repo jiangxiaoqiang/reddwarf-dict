@@ -1,4 +1,5 @@
 import 'package:uuid/uuid.dart';
+import 'package:wheel/wheel.dart';
 
 import '../../../includes.dart';
 
@@ -7,7 +8,7 @@ import '../local_db.dart';
 class PreferencesModifier {
   final DbData dbData;
 
-  PreferencesModifier(this.dbData);
+  PreferencesModifier(this.dbData,this._key);
 
   String _key;
 
@@ -30,28 +31,31 @@ class PreferencesModifier {
     return _preferenceList;
   }
 
-  UserPreference get() {
-    if (_preferenceIndex == -1) return null;
+  UserPreference? get() {
+    if(_preferenceIndex < 0){
+      AppLogHandler.logErrorException("index less than 0", _preferenceIndex);
+      return null;
+    }
     return _preferenceList[_preferenceIndex];
   }
 
   Future<void> create({
-    String key,
-    String type,
-    String value,
+    required String key,
+    required String type,
+    required String value,
   }) async {
     UserPreference userPreference = UserPreference(
       id: Uuid().v4(),
       key: key,
       type: type,
-      value: value,
+      value: value, updatedAt: '', createdAt: '',
     );
     _preferenceList.add(userPreference);
   }
 
   Future<void> update({
-    String type,
-    String value,
+    required String type,
+    required String value,
   }) async {
     if (type != null) _preferenceList[_preferenceIndex].type = type;
     if (value != null) _preferenceList[_preferenceIndex].value = value;
@@ -66,8 +70,8 @@ class PreferencesModifier {
   }
 
   Future<void> updateOrCreate({
-    String type,
-    String value,
+    required String type,
+    required String value,
   }) async {
     if (_key != null && exists()) {
       update(
@@ -77,7 +81,7 @@ class PreferencesModifier {
     } else {
       create(
         type: type,
-        value: value,
+        value: value, key: '',
       );
     }
   }

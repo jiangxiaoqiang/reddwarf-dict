@@ -7,7 +7,7 @@ import '../local_db.dart';
 class TranslationTargetsModifier {
   final DbData dbData;
 
-  TranslationTargetsModifier(this.dbData);
+  TranslationTargetsModifier(this.dbData,this._id);
 
   String _id;
 
@@ -35,8 +35,8 @@ class TranslationTargetsModifier {
   }
 
   Future<void> create({
-    String sourceLanguage,
-    String targetLanguage,
+    required String sourceLanguage,
+    required String targetLanguage,
   }) async {
     TranslationTarget group = TranslationTarget(
       id: Uuid().v4(),
@@ -47,8 +47,8 @@ class TranslationTargetsModifier {
   }
 
   Future<void> update({
-    String sourceLanguage,
-    String targetLanguage,
+    required String sourceLanguage,
+    required String targetLanguage,
   }) async {
     if (sourceLanguage != null) this.get().sourceLanguage = sourceLanguage;
     if (targetLanguage != null) this.get().targetLanguage = targetLanguage;
@@ -63,8 +63,8 @@ class TranslationTargetsModifier {
   }
 
   Future<void> updateOrCreate({
-    String sourceLanguage,
-    String targetLanguage,
+    required String sourceLanguage,
+    required String targetLanguage,
   }) async {
     if (_id != null && exists()) {
       update(

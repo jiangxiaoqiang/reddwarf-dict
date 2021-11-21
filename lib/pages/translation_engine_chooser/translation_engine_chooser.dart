@@ -8,9 +8,9 @@ class TranslationEngineChooserPage extends StatefulWidget {
   final ValueChanged<TranslationEngineConfig> onChoosed;
 
   const TranslationEngineChooserPage({
-    Key key,
-    this.initialEngineConfig,
-    this.onChoosed,
+    Key? key,
+    required this.initialEngineConfig,
+    required this.onChoosed,
   }) : super(key: key);
 
   @override
@@ -19,9 +19,9 @@ class TranslationEngineChooserPage extends StatefulWidget {
 
 class _TranslationEngineChooserPageState
     extends State<TranslationEngineChooserPage> {
-  String _identifier;
+  String? _identifier;
 
-  String t(String key, {List<String> args}) {
+  String t(String key, {List<String>? args}) {
     return 'page_translation_engine_chooser.$key'.tr(args: args);
   }
 
@@ -36,7 +36,7 @@ class _TranslationEngineChooserPageState
   void _handleClickOk() async {
     if (widget.onChoosed != null) {
       TranslationEngineConfig engineConfig =
-          sharedLocalDb.engine(_identifier).get();
+          sharedLocalDb.engine(_identifier!).get();
       widget.onChoosed(engineConfig);
     }
 
@@ -63,7 +63,7 @@ class _TranslationEngineChooserPageState
                     groupValue: _identifier,
                     onChanged: (newValue) {
                       setState(() {
-                        _identifier = newValue;
+                        _identifier = newValue as String?;
                       });
                     },
                     title: Builder(builder: (_) {
@@ -95,7 +95,7 @@ class _TranslationEngineChooserPageState
                   groupValue: _identifier,
                   onChanged: (newValue) {
                     setState(() {
-                      _identifier = newValue;
+                      _identifier = newValue as String?;
                     });
                   },
                   title: Builder(builder: (_) {

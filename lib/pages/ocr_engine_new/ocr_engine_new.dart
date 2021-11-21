@@ -10,9 +10,9 @@ class OcrEngineNewPage extends StatefulWidget {
   final OcrEngineConfig ocrEngineConfig;
 
   const OcrEngineNewPage({
-    Key key,
+    Key? key,
     this.editable = true,
-    this.ocrEngineConfig,
+    required this.ocrEngineConfig,
   }) : super(key: key);
 
   @override
@@ -22,8 +22,8 @@ class OcrEngineNewPage extends StatefulWidget {
 class _OcrEngineNewPageState extends State<OcrEngineNewPage> {
   Map<String, TextEditingController> _textEditingControllerMap = {};
 
-  String _identifier;
-  String _type;
+  late String _identifier;
+  late String _type;
   Map<String, dynamic> _option = Map();
 
   List<String> get _engineOptionKeys {
@@ -34,7 +34,7 @@ class _OcrEngineNewPageState extends State<OcrEngineNewPage> {
     return [];
   }
 
-  String t(String key, {List<String> args}) {
+  String t(String key, {List<String>? args}) {
     return 'page_ocr_engine_new.$key'.tr(args: args);
   }
 
@@ -43,7 +43,7 @@ class _OcrEngineNewPageState extends State<OcrEngineNewPage> {
     if (widget.ocrEngineConfig != null) {
       _identifier = widget.ocrEngineConfig.identifier;
       _type = widget.ocrEngineConfig.type;
-      _option = widget.ocrEngineConfig.option;
+      _option = widget.ocrEngineConfig.option!;
 
       for (var optionKey in _engineOptionKeys) {
         var textEditingController =
@@ -58,13 +58,14 @@ class _OcrEngineNewPageState extends State<OcrEngineNewPage> {
     await sharedLocalDb.privateOcrEngine(_identifier).updateOrCreate(
           type: _type,
           option: _option,
+      name: '',
         );
     await sharedLocalDb.write();
 
     Navigator.of(context).pop();
   }
 
-  Widget _buildAppBar(BuildContext context) {
+  PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
       title: widget.ocrEngineConfig != null
           ? Text.rich(
@@ -99,7 +100,7 @@ class _OcrEngineNewPageState extends State<OcrEngineNewPage> {
               icon: _type == null
                   ? null
                   : OcrEngineIcon(
-                      OcrEngineConfig(type: _type),
+                      OcrEngineConfig(type: _type, name: '', option: {}, identifier: ''),
                     ),
               title: _type == null
                   ? Text('please_choose'.tr())

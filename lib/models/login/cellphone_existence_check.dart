@@ -5,9 +5,9 @@ part 'cellphone_existence_check.g.dart';
 @JsonSerializable()
 class CellphoneExistenceCheck {
   CellphoneExistenceCheck({
-    this.exist,
-    this.nickname,
-    this.hasPassword,
+    required this.exist,
+    required this.nickname,
+    required this.hasPassword,
   });
 
   factory CellphoneExistenceCheck.fromJson(Map<String, dynamic> map) =>

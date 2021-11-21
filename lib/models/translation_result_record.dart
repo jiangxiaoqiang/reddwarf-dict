@@ -4,26 +4,24 @@ class TranslationResultRecord {
   String id;
   String translationTargetId;
   String translationEngineId;
-  LookUpRequest lookUpRequest;
-  LookUpResponse lookUpResponse;
-  UniTranslateClientError lookUpError;
-  TranslateRequest translateRequest;
-  TranslateResponse translateResponse;
-  UniTranslateClientError translateError;
+  LookUpRequest? lookUpRequest;
+  LookUpResponse? lookUpResponse;
+  UniTranslateClientError? lookUpError;
+  TranslateRequest? translateRequest;
+  TranslateResponse? translateResponse;
+  UniTranslateClientError? translateError;
 
   TranslationResultRecord({
-    this.id,
-    this.translationTargetId,
-    this.translationEngineId,
-    this.lookUpRequest,
-    this.lookUpResponse,
-    this.translateRequest,
-    this.translateResponse,
+    required this.id,
+    required this.translationTargetId,
+    required this.translationEngineId,
+     this.lookUpRequest,
+     this.lookUpResponse,
+     this.translateRequest,
+     this.translateResponse,
   });
 
   factory TranslationResultRecord.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
-
     return TranslationResultRecord(
       id: json['id'],
       translationTargetId: json['translationTargetId'],

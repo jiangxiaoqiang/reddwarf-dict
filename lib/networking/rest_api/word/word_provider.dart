@@ -9,6 +9,7 @@ import 'package:wheel/wheel.dart' show RestClient;
 
 class WordProvider {
   static Future<WordTrans> doTranslate(String word) async {
+    WordTrans wordTransDefault = WordTrans(definition: 'No Result', id: 0, sentences: []);
     Map wordRequest = HashMap();
     wordRequest.putIfAbsent("word", () => word.toLowerCase().trim());
     var response = await RestClient.postHttp("/dict/word/translate/v1", wordRequest);
@@ -26,11 +27,10 @@ class WordProvider {
         WordTrans wordTrans = WordTrans(definition: result["translation"], id: result["id"], sentences: sList);
         return wordTrans;
       } else {
-        WordTrans wordTrans = WordTrans(definition: 'No Result', id: 0);
-        return wordTrans;
+        return wordTransDefault;
       }
     }
-    return null;
+    return wordTransDefault;
   }
 
   static Future<List<LearningWord>> fetchLearningWord(int tabName) async {

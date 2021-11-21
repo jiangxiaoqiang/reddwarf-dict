@@ -5,9 +5,9 @@ import '../local_db.dart';
 class ProEnginesModifier {
   final DbData dbData;
 
-  ProEnginesModifier(this.dbData);
+  ProEnginesModifier(this.dbData,this._id);
 
-  String _id;
+  String? _id;
 
   void setId(String id) {
     _id = id;
@@ -22,7 +22,7 @@ class ProEnginesModifier {
   }
 
   List<TranslationEngineConfig> list({
-    bool where(TranslationEngineConfig element),
+    required bool where(TranslationEngineConfig element),
   }) {
     if (where != null) {
       return _engineList.where(where).toList();
@@ -30,7 +30,7 @@ class ProEnginesModifier {
     return _engineList;
   }
 
-  TranslationEngineConfig get() {
+  TranslationEngineConfig? get() {
     if (exists()) {
       return _engineList[_engineIndex];
     }
@@ -38,7 +38,7 @@ class ProEnginesModifier {
   }
 
   Future<void> update({
-    bool disabled,
+    required bool disabled,
   }) async {
     if (disabled != null) _engineList[_engineIndex].disabled = disabled;
   }

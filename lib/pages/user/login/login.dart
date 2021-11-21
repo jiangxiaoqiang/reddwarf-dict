@@ -13,7 +13,7 @@ import 'package:wheel/wheel.dart';
 import 'login_controller.dart';
 
 class Login extends StatelessWidget {
-  const Login({Key key, this.regions, this.inputController}) : super(key: key);
+  const Login({Key? key, required this.regions, this.inputController}) : super(key: key);
   final List<RegionFlag> regions;
   final inputController;
 
@@ -39,20 +39,9 @@ class Login extends StatelessWidget {
               context,
               LoginApi.checkPhoneExist(
                 text,
-                controller.getDefaultRegionFlag.dialCode.replaceAll("+", "").replaceAll(" ", ""),
+                controller.getDefaultRegionFlag.dialCode!.replaceAll("+", "").replaceAll(" ", ""),
               ),
             );
-            if (result.isError) {
-              toast(result.asError.error.toString());
-            }
-            final value = result.asValue.value;
-            if (!value.isExist) {
-              return;
-            }
-            if (!value.hasPassword) {
-              return;
-            }
-            //controller.userName.value = text;
           }
 
           return Scaffold(
@@ -107,7 +96,7 @@ class Login extends StatelessWidget {
                                         child: ElevatedButton(
                                       style: GlobalStyle.getButtonStyle(context),
                                       onPressed: () async {
-                                        String phone = controller.getDefaultRegionFlag.dialCode + controller.userName.value;
+                                        String phone = controller.getDefaultRegionFlag.dialCode! + controller.userName.value;
                                         Navigator.of(context).push(
                                           MaterialPageRoute(
                                             builder: (_) => LoginPassword(

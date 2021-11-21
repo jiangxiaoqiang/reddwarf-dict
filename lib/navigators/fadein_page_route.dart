@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class FadeInPageRoute<T> extends PageRouteBuilder<T> {
   FadeInPageRoute({
-    @required WidgetBuilder builder,
-    RouteSettings settings,
+    required WidgetBuilder builder,
+    RouteSettings? settings,
     bool opaque = false,
   }) : super(
           pageBuilder: (BuildContext context, Animation<double> animation,

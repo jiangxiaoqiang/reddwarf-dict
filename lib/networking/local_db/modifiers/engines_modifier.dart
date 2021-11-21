@@ -5,11 +5,11 @@ import '../local_db.dart';
 class EnginesModifier {
   final DbData dbData;
 
-  EnginesModifier(this.dbData);
+  EnginesModifier(this.dbData,this._id);
 
-  String _id;
+  String? _id;
 
-  void setId(String id) {
+  void setId(String? id) {
     _id = id;
   }
 
@@ -22,7 +22,7 @@ class EnginesModifier {
   }
 
   List<TranslationEngineConfig> list({
-    bool where(TranslationEngineConfig element),
+    required bool where(TranslationEngineConfig element),
   }) {
     if (where != null) {
       return _engineList.where(where).toList();
@@ -31,7 +31,6 @@ class EnginesModifier {
   }
 
   TranslationEngineConfig get() {
-    if (!exists()) return null;
     return _engineList[_engineIndex];
   }
 

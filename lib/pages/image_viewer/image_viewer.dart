@@ -24,7 +24,7 @@ class ImageViewerPage extends StatefulWidget {
 }
 
 class _ImageViewerPageState extends State<ImageViewerPage> {
-  int _currentIndex;
+  int? _currentIndex;
 
   @override
   void initState() {
@@ -78,7 +78,7 @@ class _ImageViewerPageState extends State<ImageViewerPage> {
                     borderRadius: BorderRadius.circular(30),
                   ),
                   child: Text(
-                    "${_currentIndex + 1} / $itemCount",
+                    "${_currentIndex! + 1} / $itemCount",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 12,

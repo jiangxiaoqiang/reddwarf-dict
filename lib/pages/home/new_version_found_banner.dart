@@ -10,8 +10,8 @@ class NewVersionFoundBanner extends StatelessWidget {
   final Version latestVersion;
 
   const NewVersionFoundBanner({
-    Key key,
-    this.latestVersion,
+    Key? key,
+    required this.latestVersion,
   }) : super(key: key);
 
   @override
@@ -39,7 +39,7 @@ class NewVersionFoundBanner extends StatelessWidget {
                 text: 'page_home.newversion_banner_text_found_new_version'
                     .tr(args: [latestVersion?.version ?? '']),
               ),
-              style: Theme.of(context).textTheme.bodyText2.copyWith(
+              style: Theme.of(context).textTheme.bodyText2!.copyWith(
                     color: Colors.white,
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
@@ -72,7 +72,7 @@ class NewVersionFoundBanner extends StatelessWidget {
               ),
               style: Theme.of(context)
                   .textTheme
-                  .bodyText2
+                  .bodyText2!
                   .copyWith(color: Colors.white, fontSize: 14),
             ),
           ],

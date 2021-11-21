@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class CustomImage extends StatelessWidget {
   final String url;
-  final double width;
-  final double height;
-  final BoxFit fit;
+  final double? width;
+  final double? height;
+  final BoxFit? fit;
 
   CustomImage(
     this.url, {

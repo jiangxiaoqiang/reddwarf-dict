@@ -13,8 +13,8 @@ const EdgeInsets _kBackgroundButtonPadding = EdgeInsets.symmetric(
 class CustomButton extends StatefulWidget {
   /// Creates an Custom-style button.
   const CustomButton({
-     Key key,
-     this.processing,
+     Key? key,
+      this.processing,
      this.child,
      this.padding,
      this.color,
@@ -37,7 +37,7 @@ class CustomButton extends StatefulWidget {
   /// To specify a custom background color, use the [color] argument of the
   /// default constructor.
   const CustomButton.filled({
-     Key key,
+     Key? key,
      this.processing,
      this.child,
      this.padding,
@@ -61,7 +61,7 @@ class CustomButton extends StatefulWidget {
   /// To specify a custom background color, use the [color] argument of the
   /// default constructor.
   const CustomButton.outlined({
-     Key key,
+     Key? key,
      this.processing,
      this.child,
      this.padding,
@@ -80,17 +80,17 @@ class CustomButton extends StatefulWidget {
         _filled = false,
         super(key: key);
 
-  final bool processing;
+  final bool? processing;
 
   /// The widget below this widget in the tree.
   ///
   /// Typically a [Text] widget.
-  final Widget child;
+  final Widget? child;
 
   /// The amount of space to surround the child inside the bounds of the button.
   ///
   /// Defaults to 16.0 pixels.
-  final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry? padding;
 
   /// The color of the button's background.
   ///
@@ -98,7 +98,7 @@ class CustomButton extends StatefulWidget {
   ///
   /// Defaults to the [CupertinoTheme]'s `primaryColor` when the
   /// [CustomButton.filled] constructor is used.
-  final Color color;
+  final Color? color;
 
   /// The color of the button's background when the button is disabled.
   ///
@@ -106,34 +106,34 @@ class CustomButton extends StatefulWidget {
   ///
   /// Defaults to [CupertinoColors.quaternarySystemFill] when [color] is
   /// specified. Must not be null.
-  final Color disabledColor;
+  final Color? disabledColor;
 
   /// The callback that is called when the button is tapped or otherwise activated.
   ///
   /// If this is set to null, the button will be disabled.
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   /// Minimum size of the button.
   ///
   /// Defaults to kMinInteractiveDimensionCupertino which the iOS Human
   /// Interface Guidelines recommends as the minimum tappable area.
-  final double minSize;
+  final double? minSize;
 
   /// The opacity that the button will fade to when it is pressed.
   /// The button will have an opacity of 1.0 when it is not pressed.
   ///
   /// This defaults to 0.4. If null, opacity will not change on pressed if using
   /// your own custom effects is desired.
-  final double pressedOpacity;
+  final double? pressedOpacity;
 
-  final Border border;
+  final Border? border;
 
   /// The radius of the button's corners when it has a background color.
   ///
   /// Defaults to round corners of 8 logical pixels.
-  final BorderRadius borderRadius;
+  final BorderRadius? borderRadius;
 
-  final bool _filled;
+  final bool? _filled;
 
   /// Whether the button is enabled or disabled. Buttons are disabled by default. To
   /// enable a button, set its [onPressed] property to a non-null value.
@@ -157,8 +157,8 @@ class _CustomButtonState extends State<CustomButton>
   static const Duration kFadeInDuration = Duration(milliseconds: 100);
   final Tween<double> _opacityTween = Tween<double>(begin: 1.0);
 
-   AnimationController _animationController;
-   Animation<double> _opacityAnimation;
+   AnimationController? _animationController;
+   Animation<double>? _opacityAnimation;
 
   @override
   void initState() {
@@ -168,7 +168,7 @@ class _CustomButtonState extends State<CustomButton>
       value: 0.0,
       vsync: this,
     );
-    _opacityAnimation = _animationController
+    _opacityAnimation = _animationController!
         .drive(CurveTween(curve: Curves.decelerate))
         .drive(_opacityTween);
     _setTween();
@@ -186,7 +186,7 @@ class _CustomButtonState extends State<CustomButton>
 
   @override
   void dispose() {
-    _animationController.dispose();
+    _animationController!.dispose();
     super.dispose();
   }
 
@@ -214,11 +214,11 @@ class _CustomButtonState extends State<CustomButton>
   }
 
   void _animate() {
-    if (_animationController.isAnimating) return;
+    if (_animationController!.isAnimating) return;
     final bool wasHeldDown = _buttonHeldDown;
     final TickerFuture ticker = _buttonHeldDown
-        ? _animationController.animateTo(1.0, duration: kFadeOutDuration)
-        : _animationController.animateTo(0.0, duration: kFadeInDuration);
+        ? _animationController!.animateTo(1.0, duration: kFadeOutDuration)
+        : _animationController!.animateTo(0.0, duration: kFadeInDuration);
     ticker.then<void>((void value) {
       if (mounted && wasHeldDown != _buttonHeldDown) _animate();
     });
@@ -229,9 +229,9 @@ class _CustomButtonState extends State<CustomButton>
     final bool enabled = widget.enabled;
     final CupertinoThemeData themeData = CupertinoTheme.of(context);
     final Color primaryColor = themeData.primaryColor;
-    final Color backgroundColor = widget.color == null
-        ? (widget._filled ? primaryColor : null)
-        : CupertinoDynamicColor.resolve(widget.color, context);
+    final Color? backgroundColor = widget.color == null
+        ? (widget._filled! ? primaryColor : null)
+        : CupertinoDynamicColor.resolve(widget.color!, context);
 
     final Color foregroundColor = backgroundColor != null
         ? themeData.primaryContrastingColor
@@ -255,18 +255,18 @@ class _CustomButtonState extends State<CustomButton>
           constraints: widget.minSize == null
               ? const BoxConstraints()
               : BoxConstraints(
-                  minWidth: widget.minSize,
-                  minHeight: widget.minSize,
+                  minWidth: widget.minSize!,
+                  minHeight: widget.minSize!,
                 ),
           child: FadeTransition(
-            opacity: _opacityAnimation,
+            opacity: _opacityAnimation!,
             child: DecoratedBox(
               decoration: BoxDecoration(
                 border: widget.border,
                 borderRadius: widget.borderRadius,
                 color: backgroundColor != null && !enabled
                     ? CupertinoDynamicColor.resolve(
-                        widget.disabledColor, context)
+                        widget.disabledColor!, context)
                     : backgroundColor,
               ),
               child: Padding(
@@ -277,22 +277,11 @@ class _CustomButtonState extends State<CustomButton>
                 child: Center(
                   widthFactor: 1.0,
                   heightFactor: 1.0,
-                  child: DefaultTextStyle(
-                    style: textStyle,
-                    child: IconTheme(
-                      data: IconThemeData(color: foregroundColor),
-                      child: widget.processing == true
-                          ? SpinKitThreeBounce(
-                              color: textStyle.color, size: 14.0)
-                          : widget.child,
-                    ),
-                  ),
-                ),
               ),
             ),
           ),
         ),
       ),
-    );
+    ));
   }
 }

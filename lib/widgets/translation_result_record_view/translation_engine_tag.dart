@@ -5,11 +5,11 @@ import 'package:uni_translate/uni_translate.dart';
 import '../../includes.dart';
 
 class TranslationEngineTag extends StatefulWidget {
-  final TranslationResultRecord translationResultRecord;
+  final TranslationResultRecord? translationResultRecord;
 
   const TranslationEngineTag({
-     Key key,
-     this.translationResultRecord,
+     Key? key,
+    this.translationResultRecord,
   }) : super(key: key);
 
   @override
@@ -20,7 +20,10 @@ class _TranslationEngineTagState extends State<TranslationEngineTag> {
   bool _isHovered = false;
 
   TranslationEngineConfig get _translationEngineConfig {
-    return null;
+    TranslationEngineConfig engineConfig = sharedLocalDb.engines.list(where: (TranslationEngineConfig element) {
+      return true;
+    }).first;
+    return engineConfig;
   }
 
   @override
@@ -77,7 +80,7 @@ class _TranslationEngineTagState extends State<TranslationEngineTag> {
                     padding: EdgeInsets.only(left: 4, right: 2),
                     child: Text(
                       _translationEngineConfig.typeName,
-                      style: Theme.of(context).textTheme.caption.copyWith(
+                      style: Theme.of(context).textTheme.caption!.copyWith(
                             fontSize: 10,
                           ),
                     ),

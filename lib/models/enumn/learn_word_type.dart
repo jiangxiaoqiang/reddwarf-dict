@@ -12,7 +12,7 @@ extension ResponseStatusExtension on LearnWordType{
     LearnWordType.all: 3,
   };
 
-  int get value => menuValue[this];
+  int get value => menuValue[this]!;
 }
 
 

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class R {
-  static GlobalKey<NavigatorState> _navigatorKey;
+  static GlobalKey<NavigatorState>? _navigatorKey;
 
   static setNavigatorKey(GlobalKey navigatorKey) {
-    _navigatorKey = navigatorKey;
+    _navigatorKey = navigatorKey as GlobalKey<NavigatorState>?;
   }
 
-  static GlobalKey<NavigatorState> getNavigatorKey() {
+  static GlobalKey<NavigatorState>? getNavigatorKey() {
     return _navigatorKey;
   }
 

@@ -6,7 +6,7 @@ import 'package:reddwarf_dict/pages/user/profile/profile.dart';
 import 'package:wheel/wheel.dart';
 
 class LoginPassword extends StatelessWidget {
-  const LoginPassword({Key key, this.phone}) : super(key: key);
+  const LoginPassword({Key? key, required this.phone}) : super(key: key);
 
   final String phone;
 

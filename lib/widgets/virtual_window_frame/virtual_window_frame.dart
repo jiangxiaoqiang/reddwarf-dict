@@ -7,9 +7,9 @@ import '../../../includes.dart';
 double get kVirtualWindowFrameMargin => (kIsLinux || kIsWindows) ? 20.0 : 0;
 
 class VirtualWindowFrame extends StatefulWidget {
-  final Widget child;
+  final Widget? child;
 
-  const VirtualWindowFrame({Key key, this.child}) : super(key: key);
+  const VirtualWindowFrame({Key? key, this.child}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _VirtualWindowFrameState();

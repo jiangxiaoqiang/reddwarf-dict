@@ -8,7 +8,7 @@ import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'nav_controller.dart';
 
 class Nav extends StatelessWidget {
-  const Nav({Key key}) : super(key: key);
+  const Nav({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

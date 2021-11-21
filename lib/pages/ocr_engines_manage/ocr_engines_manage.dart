@@ -9,7 +9,7 @@ class OcrEnginesManagePage extends StatefulWidget {
 }
 
 class _OcrEnginesManagePageState extends State<OcrEnginesManagePage> {
-  String t(String key, {List<String> args}) {
+  String t(String key, {List<String>? args}) {
     return 'page_ocr_engines_manage.$key'.tr(args: args);
   }
 
@@ -76,7 +76,7 @@ class _OcrEnginesManagePageState extends State<OcrEnginesManagePage> {
                     sharedLocalDb
                         .privateOcrEngine(ocrEngineConfig.identifier)
                         .update(
-                          disabled: !ocrEngineConfig.disabled,
+                          disabled: !ocrEngineConfig.disabled, type: '', option: {}, name: '',
                         );
                     sharedLocalDb.write();
                   },
@@ -112,11 +112,11 @@ class _OcrEnginesManagePageState extends State<OcrEnginesManagePage> {
                 ),
                 accessoryView: Container(),
                 onTap: () {
-                  Navigator.of(context).push(
+                 /* Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (_) => OcrEngineNewPage(),
+                      builder: (_) => OcrEngineNewPage(ocrEngineConfig: null,),
                     ),
-                  );
+                  );*/
                 },
               )
             ],

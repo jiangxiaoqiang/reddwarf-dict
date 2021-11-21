@@ -12,7 +12,9 @@ const kSupportedOcrEngineTypes = [
 OcrEngine createOcrEngine(
   OcrEngineConfig ocrEngineConfig,
 ) {
-  OcrEngine ocrEngine;
+  OcrEngineConfig config = new OcrEngineConfig(option: {}, 
+      name: '', identifier: '', type: '');
+  OcrEngine ocrEngine =new ProOcrEngine(config);
   if (sharedLocalDb.proOcrEngine(ocrEngineConfig.identifier).exists()) {
     ocrEngine = ProOcrEngine(ocrEngineConfig);
   } else {
@@ -30,7 +32,8 @@ class AutoloadOcrClientAdapter extends UniOcrClientAdapter {
 
   @override
   OcrEngine get first {
-    OcrEngineConfig engineConfig = sharedLocalDb.ocrEngines.list().first;
+    
+    var engineConfig;
     return use(engineConfig.identifier);
   }
 
@@ -38,9 +41,11 @@ class AutoloadOcrClientAdapter extends UniOcrClientAdapter {
   OcrEngine use(String identifier) {
     OcrEngineConfig engineConfig = sharedLocalDb.ocrEngine(identifier).get();
 
-    OcrEngine ocrEngine;
+    OcrEngineConfig config = new OcrEngineConfig(option: {},
+        name: '', identifier: '', type: '');
+    OcrEngine ocrEngine =new ProOcrEngine(config);
     if (_ocrEngineMap.containsKey(engineConfig.identifier)) {
-      ocrEngine = _ocrEngineMap[engineConfig.identifier];
+      ocrEngine = _ocrEngineMap![engineConfig.identifier]!;
     }
 
     if (ocrEngine == null) {

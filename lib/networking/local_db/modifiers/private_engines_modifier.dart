@@ -7,7 +7,7 @@ import '../local_db.dart';
 class PrivateEnginesModifier {
   final DbData dbData;
 
-  PrivateEnginesModifier(this.dbData);
+  PrivateEnginesModifier(this.dbData,this._id);
 
   String _id;
 
@@ -24,7 +24,7 @@ class PrivateEnginesModifier {
   }
 
   List<TranslationEngineConfig> list({
-    bool where(TranslationEngineConfig element),
+    required bool where(TranslationEngineConfig element),
   }) {
     if (where != null) {
       return _engineList.where(where).toList();
@@ -32,7 +32,7 @@ class PrivateEnginesModifier {
     return _engineList;
   }
 
-  TranslationEngineConfig get() {
+  TranslationEngineConfig? get() {
     if (exists()) {
       return _engineList[_engineIndex];
     }
@@ -40,10 +40,10 @@ class PrivateEnginesModifier {
   }
 
   Future<void> create({
-    String type,
-    String name,
-    Map<String, dynamic> option,
-    List<String> disabledScopes,
+    required String type,
+    required String name,
+    required Map<String, dynamic> option,
+    required List<String> disabledScopes,
   }) async {
     TranslationEngineConfig engineConfig = TranslationEngineConfig(
       identifier: Uuid().v4(),
@@ -56,11 +56,11 @@ class PrivateEnginesModifier {
   }
 
   Future<void> update({
-    String type,
-    String name,
-    Map<String, dynamic> option,
-    List<String> disabledScopes,
-    bool disabled,
+    required String type,
+    required String name,
+    required Map<String, dynamic> option,
+    required List<String> disabledScopes,
+    required bool disabled,
   }) async {
     if (type != null) _engineList[_engineIndex].type = type;
     if (name != null) _engineList[_engineIndex].name = name;
@@ -79,11 +79,11 @@ class PrivateEnginesModifier {
   }
 
   Future<void> updateOrCreate({
-    String type,
-    String name,
-    Map<String, dynamic> option,
-    List<String> disabledScopes,
-    bool disabled,
+    required String type,
+    required String name,
+    required Map<String, dynamic> option,
+    required List<String> disabledScopes,
+     bool? disabled,
   }) async {
     if (_id != null && exists()) {
       update(
@@ -91,7 +91,7 @@ class PrivateEnginesModifier {
         name: name,
         option: option,
         disabledScopes: disabledScopes,
-        disabled: disabled,
+        disabled: disabled!,
       );
     } else {
       create(

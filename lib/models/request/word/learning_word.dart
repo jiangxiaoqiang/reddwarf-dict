@@ -6,11 +6,11 @@ part 'learning_word.g.dart';
 @JsonSerializable()
 class LearningWord {
   LearningWord({
-     this.definition,
-     this.id,
-     this.word,
-     this.translation,
-     this.createdTime
+     required this.definition,
+     required this.id,
+     required this.word,
+     required this.translation,
+     required this.createdTime
   });
 
   String definition;

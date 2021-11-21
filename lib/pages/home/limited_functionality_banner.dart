@@ -16,11 +16,11 @@ class _AllowAccessListItem extends StatelessWidget {
   final VoidCallback onTappedGoSettings;
 
   const _AllowAccessListItem({
-    Key key,
-    this.title,
-    this.allowed,
-    this.onTappedTryAllow,
-    this.onTappedGoSettings,
+     Key? key,
+    required this.title,
+    required this.allowed,
+    required this.onTappedTryAllow,
+    required this.onTappedGoSettings,
   }) : super(key: key);
 
   @override
@@ -55,7 +55,7 @@ class _AllowAccessListItem extends StatelessWidget {
       ),
       style: Theme.of(context)
           .textTheme
-          .bodyText2
+          .bodyText2!
           .copyWith(color: Colors.white, fontSize: 13),
     );
   }
@@ -67,10 +67,10 @@ class LimitedFunctionalityBanner extends StatelessWidget {
   final VoidCallback onTappedRecheckIsAllowedAllAccess;
 
   const LimitedFunctionalityBanner({
-    Key key,
-    this.isAllowedScreenCaptureAccess,
-    this.isAllowedScreenSelectionAccess,
-    this.onTappedRecheckIsAllowedAllAccess,
+    Key? key,
+    required this.isAllowedScreenCaptureAccess,
+    required this.isAllowedScreenSelectionAccess,
+    required this.onTappedRecheckIsAllowedAllAccess,
   }) : super(key: key);
 
   bool get _isAllowedAllAccess =>
@@ -102,7 +102,7 @@ class LimitedFunctionalityBanner extends StatelessWidget {
               TextSpan(
                 text: 'page_home.limited_banner_title'.tr(),
               ),
-              style: Theme.of(context).textTheme.bodyText2.copyWith(
+              style: Theme.of(context).textTheme.bodyText2!.copyWith(
                     color: Colors.white,
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
@@ -192,7 +192,7 @@ class LimitedFunctionalityBanner extends StatelessWidget {
                   ),
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText2
+                      .bodyText2!
                       .copyWith(color: Colors.white, fontSize: 14),
                 ),
               ],

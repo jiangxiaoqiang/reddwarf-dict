@@ -7,8 +7,8 @@ class CustomAppBarCloseButton extends StatelessWidget {
   final VoidCallback onPressed;
 
   const CustomAppBarCloseButton({
-    Key key,
-    this.onPressed,
+    Key? key,
+    required this.onPressed,
   }) : super(key: key);
 
   @override
@@ -17,7 +17,7 @@ class CustomAppBarCloseButton extends StatelessWidget {
       padding: EdgeInsets.only(right: 12),
       child: Icon(
         IcoMoonIcons.x,
-        color: Theme.of(context).appBarTheme.iconTheme.color,
+        color: Theme.of(context).appBarTheme.iconTheme!.color,
         size: 26,
       ),
       onPressed: () {

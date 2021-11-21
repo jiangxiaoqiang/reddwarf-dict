@@ -5,10 +5,10 @@ part 'sentence.g.dart';
 @JsonSerializable()
 class Sentence {
   Sentence({
-     this.sentence_zh,
-     this.id,
-     this.word_id,
-     this.sentence_en
+     required this.sentence_zh,
+     required this.id,
+     required this.word_id,
+     required this.sentence_en
   });
 
   String sentence_zh;

@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import '../../includes.dart';
 
 class SettingAppLanguagePage extends StatefulWidget {
-  final String initialLanguage;
+  final String? initialLanguage;
 
   const SettingAppLanguagePage({
-    Key key,
+    Key? key,
     this.initialLanguage,
   }) : super(key: key);
 
@@ -16,7 +16,7 @@ class SettingAppLanguagePage extends StatefulWidget {
 }
 
 class _SettingAppLanguagePageState extends State<SettingAppLanguagePage> {
-  String _language;
+  String? _language;
 
   String t(String key) {
     return 'page_setting_app_language.$key'.tr();
@@ -28,7 +28,7 @@ class _SettingAppLanguagePageState extends State<SettingAppLanguagePage> {
     super.initState();
   }
 
-  Widget _buildAppBar(BuildContext context) {
+  PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
       title: Text(t('title')),
     );
@@ -47,8 +47,8 @@ class _SettingAppLanguagePageState extends State<SettingAppLanguagePage> {
                   value: appLanguage,
                   groupValue: _language,
                   onChanged: (newGroupValue) async {
-                    _language = newGroupValue;
-                    await context.setLocale(languageToLocale(newGroupValue));
+                    _language = newGroupValue as String?;
+                    await context.setLocale(languageToLocale(newGroupValue!));
                     sharedConfigManager.setAppLanguage(newGroupValue);
                     setState(() {});
                   },

@@ -8,9 +8,8 @@ class TranslationEnginesManagePage extends StatefulWidget {
   State<StatefulWidget> createState() => _TranslationEnginesManagePageState();
 }
 
-class _TranslationEnginesManagePageState
-    extends State<TranslationEnginesManagePage> {
-  String t(String key, {List<String> args}) {
+class _TranslationEnginesManagePageState extends State<TranslationEnginesManagePage> {
+  String t(String key, {List<String>? args}) {
     return 'page_translation_engines_manage.$key'.tr(args: args);
   }
 
@@ -42,8 +41,7 @@ class _TranslationEnginesManagePageState
                           children: [
                             TextSpan(
                               text: ' (${engineConfig.shortId})',
-                              style:
-                                  TextStyle(fontSize: 12, color: Colors.grey),
+                              style: TextStyle(fontSize: 12, color: Colors.grey),
                             )
                           ],
                         ),
@@ -74,6 +72,10 @@ class _TranslationEnginesManagePageState
                   onChanged: (newValue) {
                     sharedLocalDb.privateEngine(engineConfig.identifier).update(
                           disabled: !engineConfig.disabled,
+                          type: '',
+                          option: {},
+                          name: '',
+                          disabledScopes: [],
                         );
                     sharedLocalDb.write();
                   },

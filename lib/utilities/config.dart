@@ -64,7 +64,7 @@ class _ConfigChangeNotifier implements Listenable {
   @mustCallSuper
   void dispose() {
     assert(_debugAssertNotDisposed());
-    _listeners = null;
+
   }
 
   @protected
@@ -96,23 +96,23 @@ class Config {
   static final Config instance = Config._();
 
   Future<Directory> getAppDirectory() async {
-    return proAccount.dataDirectory;
+    return proAccount.dataDirectory!;
   }
 
-  String translationMode;
-  String defaultEngineId;
-  bool useLocalOcrEngine;
-  String defaultOcrEngineId;
-  bool showTrayIcon;
-  String trayIconStyle;
-  double maxWindowHeight;
-  String appLanguage;
-  ThemeMode themeMode;
-  String inputSetting;
-  HotKey shortcutShowOrHide;
-  HotKey shortcutExtractFromScreenSelection;
-  HotKey shortcutExtractFromScreenCapture;
-  HotKey shortcutExtractFromClipboard;
+  String? translationMode;
+  String? defaultEngineId;
+  bool? useLocalOcrEngine;
+  String? defaultOcrEngineId;
+  bool? showTrayIcon;
+  String? trayIconStyle;
+  double? maxWindowHeight;
+  String? appLanguage;
+  ThemeMode? themeMode;
+  String? inputSetting;
+  HotKey? shortcutShowOrHide;
+  HotKey? shortcutExtractFromScreenSelection;
+  HotKey? shortcutExtractFromScreenCapture;
+  HotKey? shortcutExtractFromClipboard;
   HotKey get shortcutInputSettingSubmitWithMetaEnter {
     if (kIsMacOS) {
       return HotKey(
@@ -160,15 +160,16 @@ class ConfigManager extends _ConfigChangeNotifier {
       kPrefTrayIconStyle,
       defaultValue: kIsWindows ? kTrayIconStyleBlack : kTrayIconStyleWhite,
     );
-    Config.instance.maxWindowHeight = double.parse(await _getString(
+    String? max = await _getString(
       kPrefMaxWindowHeight,
       defaultValue: '600',
-    ));
+    );
+    Config.instance.maxWindowHeight = double.parse(max!);
     Config.instance.appLanguage = await _getString(
       kPrefAppLanguage,
       defaultValue: kLanguageZH,
     );
-    String _themeModeString = await _getString(
+    String? _themeModeString = await _getString(
       kPrefThemeMode,
       defaultValue: describeEnum(ThemeMode.light),
     );
@@ -258,9 +259,9 @@ class ConfigManager extends _ConfigChangeNotifier {
     );
   }
 
-  Future<HotKey> getShortcut(String key, {HotKey defaultValue}) async {
-    HotKey hotKey;
-    String jsonString = await _getString(key);
+  Future<HotKey?> getShortcut(String key, {HotKey? defaultValue}) async {
+    HotKey hotKey = new HotKey(KeyCode.keyC);
+    String? jsonString = await _getString(key);
     if (jsonString != null && jsonString.isNotEmpty) {
       hotKey = HotKey.fromJson(json.decode(jsonString));
     }
@@ -268,11 +269,11 @@ class ConfigManager extends _ConfigChangeNotifier {
   }
 
   Future<void> _setString(String key, String value) async {
-    UserPreference pref = sharedLocalDb.preference(key).get();
+    UserPreference? pref = sharedLocalDb.preference(key).get();
     if (pref == null) {
-      sharedLocalDb.preferences.create(key: key, value: value);
+      sharedLocalDb.preferences.create(key: key, value: value, type: '');
     } else {
-      sharedLocalDb.preference(key).update(value: value);
+      sharedLocalDb.preference(key).update(value: value, type: '');
     }
 
     sharedLocalDb.write();
@@ -281,13 +282,13 @@ class ConfigManager extends _ConfigChangeNotifier {
     notifyListeners();
   }
 
-  Future<String> _getString(String key, {String defaultValue}) async {
-    UserPreference pref = sharedLocalDb.preference(key).get();
+  Future<String?> _getString(String key, {String? defaultValue}) async {
+    UserPreference? pref = sharedLocalDb.preference(key).get();
     return pref?.value ?? defaultValue;
   }
 
   Future<void> _setBool(String key, bool value) async {
-    UserPreference pref = sharedLocalDb.preference(key).get();
+    UserPreference? pref = sharedLocalDb.preference(key).get();
     if (pref == null) {
       sharedLocalDb.preferences.create(
         key: key,
@@ -307,8 +308,8 @@ class ConfigManager extends _ConfigChangeNotifier {
     notifyListeners();
   }
 
-  Future<bool> _getBool(String key, {bool defaultValue}) async {
-    UserPreference pref = sharedLocalDb.preference(key).get();
+  Future<bool?> _getBool(String key, {bool? defaultValue}) async {
+    UserPreference? pref = sharedLocalDb.preference(key).get();
     return pref?.boolValue ?? defaultValue;
   }
 }

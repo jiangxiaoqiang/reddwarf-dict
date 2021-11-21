@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import '../../includes.dart';
 
 class OcrEngineTypeChooserPage extends StatefulWidget {
-  final String engineType;
-  final ValueChanged<String> onEngineTypeChanged;
+  final String? engineType;
+  final ValueChanged<String>? onEngineTypeChanged;
 
   const OcrEngineTypeChooserPage({
-    Key key,
+    Key? key,
     this.engineType,
     this.onEngineTypeChanged,
   }) : super(key: key);
@@ -19,9 +19,9 @@ class OcrEngineTypeChooserPage extends StatefulWidget {
 }
 
 class _OcrEngineTypeChooserPageState extends State<OcrEngineTypeChooserPage> {
-  String _type;
+  String? _type;
 
-  String t(String key, {List<String> args}) {
+  String t(String key, {List<String>? args}) {
     return 'page_ocr_engine_type_chooser.$key'.tr(args: args);
   }
 
@@ -32,13 +32,13 @@ class _OcrEngineTypeChooserPageState extends State<OcrEngineTypeChooserPage> {
 
   void _handleClickOk() async {
     if (widget.onEngineTypeChanged != null) {
-      widget.onEngineTypeChanged(_type);
+      widget.onEngineTypeChanged!(_type!);
     }
 
     Navigator.of(context).pop();
   }
 
-  Widget _buildAppBar(BuildContext context) {
+  PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
       title: Text(t('title')),
       actions: [
@@ -58,7 +58,7 @@ class _OcrEngineTypeChooserPageState extends State<OcrEngineTypeChooserPage> {
             for (var engineType in kSupportedOcrEngineTypes)
               PreferenceListRadioItem(
                 icon: OcrEngineIcon(
-                  OcrEngineConfig(type: engineType),
+                  OcrEngineConfig(type: engineType, identifier: '', option: {}, name: ''),
                 ),
                 title: Text('ocr_engine.$engineType'.tr()),
                 value: engineType,

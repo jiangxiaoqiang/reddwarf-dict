@@ -4,8 +4,8 @@ import '../../includes.dart';
 
 class LocalDbBuilder extends StatefulWidget {
   LocalDbBuilder({
-    Key key,
-    this.builder,
+    Key? key,
+    required this.builder,
   })  : assert(builder != null),
         super(key: key);
 
@@ -16,7 +16,7 @@ class LocalDbBuilder extends StatefulWidget {
 }
 
 class _LocalDbBuilderState extends State<LocalDbBuilder> {
-  DbData get dbData => sharedLocalDb.dbData;
+  DbData get dbData => sharedLocalDb.dbData!;
 
   @override
   void initState() {

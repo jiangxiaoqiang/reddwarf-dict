@@ -32,9 +32,9 @@ class AudioPlayer {
     }
   }
 
-  static AudioPlayer _instance;
+  static AudioPlayer? _instance;
 
-  static AudioPlayer get instance {
+  static AudioPlayer? get instance {
     if (_instance == null) {
       _instance = AudioPlayer.create(1);
     }

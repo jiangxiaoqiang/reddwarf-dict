@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:reddwarfdict/src/models/translation_result.dart';
-import 'package:reddwarfdict/src/widgets/translation_result_record_view/translation_result_record_view.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
 import '../../includes.dart';
@@ -17,15 +15,15 @@ class TranslationResultsView extends StatelessWidget {
   final ValueChanged<String> onTextTapped;
 
   const TranslationResultsView({
-     Key key,
-     this.viewKey,
-     this.controller,
-     this.translationMode,
-     this.querySubmitted,
-     this.text,
-     this.textDetectedLanguage,
-     this.translationResultList,
-     this.onTextTapped,
+     required Key key,
+     required this.viewKey,
+     required this.controller,
+     required this.translationMode,
+     required this.querySubmitted,
+     required this.text,
+     required this.textDetectedLanguage,
+     required this.translationResultList,
+     required this.onTextTapped,
   }) : super(key: key);
 
   Widget _buildNoMatchingTranslationTarget(BuildContext context) {

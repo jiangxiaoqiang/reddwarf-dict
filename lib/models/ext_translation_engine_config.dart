@@ -8,7 +8,7 @@ extension ExtTranslationEngineConfig on TranslationEngineConfig {
   }
 
   String get typeName {
-    String key = 'engine.${this.type}';
+    String key = 'engine.reddwarf';
     if (key.tr() == key) {
       return this.name;
     }

@@ -42,7 +42,7 @@ jobs:
           pod repo update
           pod install
 
-      - run: flutter build ios --release --no-codesign --no-sound-null-safety -t lib/main_stable.dart
+      - run: flutter build ios --release --no-codesign --no-sound-null-safety -t lib/main.dart
       - name: Deploy to TestFlight/PGY
         run: |
           cd ./ios

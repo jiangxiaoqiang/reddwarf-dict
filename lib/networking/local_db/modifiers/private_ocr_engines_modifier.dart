@@ -7,7 +7,7 @@ import '../local_db.dart';
 class PrivateOcrEnginesModifier {
   final DbData dbData;
 
-  PrivateOcrEnginesModifier(this.dbData);
+  PrivateOcrEnginesModifier(this.dbData,this._id);
 
   String _id;
 
@@ -27,7 +27,7 @@ class PrivateOcrEnginesModifier {
   }
 
   List<OcrEngineConfig> list({
-    bool where(OcrEngineConfig element),
+    required bool where(OcrEngineConfig element),
   }) {
     if (where != null) {
       return _ocrEngineList.where(where).toList();
@@ -40,9 +40,9 @@ class PrivateOcrEnginesModifier {
   }
 
   Future<void> create({
-    String type,
-    String name,
-    Map<String, dynamic> option,
+    required String type,
+    required String name,
+    required Map<String, dynamic> option,
   }) async {
     OcrEngineConfig group = OcrEngineConfig(
       identifier: Uuid().v4(),
@@ -54,10 +54,10 @@ class PrivateOcrEnginesModifier {
   }
 
   Future<void> update({
-    String type,
-    String name,
-    Map<String, dynamic> option,
-    bool disabled,
+    required String type,
+    required String name,
+    required Map<String, dynamic> option,
+    required bool disabled,
   }) async {
     if (type != null) _ocrEngineList[_ocrEngineIndex].type = type;
     if (name != null) _ocrEngineList[_ocrEngineIndex].name = name;
@@ -74,17 +74,17 @@ class PrivateOcrEnginesModifier {
   }
 
   Future<void> updateOrCreate({
-    String type,
-    String name,
-    Map<String, dynamic> option,
-    bool disabled,
+    required String type,
+    required String name,
+    required Map<String, dynamic> option,
+     bool? disabled,
   }) async {
     if (_id != null && exists()) {
       update(
         type: type,
         name: name,
         option: option,
-        disabled: disabled,
+        disabled: disabled!,
       );
     } else {
       create(

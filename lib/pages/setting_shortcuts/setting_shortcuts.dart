@@ -26,7 +26,6 @@ class _SettingShortcutsPageState extends State<SettingShortcutsPage> {
 
   @override
   void dispose() {
-    ShortcutService.instance.start();
     sharedConfigManager.removeListener(_configListen);
     super.dispose();
   }
@@ -38,14 +37,14 @@ class _SettingShortcutsPageState extends State<SettingShortcutsPage> {
 
   Future<void> _handleClickRegisterNewHotKey(
     BuildContext context, {
-    String shortcutKey,
+    String? shortcutKey,
   }) async {
     return showDialog<void>(
       context: context,
       builder: (BuildContext ctx) {
         return RecordHotKeyDialog(
           onHotKeyRecorded: (newHotKey) {
-            sharedConfigManager.setShortcut(shortcutKey, newHotKey);
+            sharedConfigManager.setShortcut(shortcutKey!, newHotKey);
           },
         );
       },
@@ -61,7 +60,7 @@ class _SettingShortcutsPageState extends State<SettingShortcutsPage> {
               PreferenceListItem(
                 title: Text(t('pref_item_title_show_or_hide')),
                 detailText: HotKeyVirtualView(
-                  hotKey: _config.shortcutShowOrHide,
+                  hotKey: _config.shortcutShowOrHide!,
                 ),
                 onTap: () {
                   _handleClickRegisterNewHotKey(
@@ -78,7 +77,7 @@ class _SettingShortcutsPageState extends State<SettingShortcutsPage> {
               PreferenceListItem(
                 title: Text(t('pref_item_title_extract_text_from_selection')),
                 detailText: HotKeyVirtualView(
-                  hotKey: _config.shortcutExtractFromScreenSelection,
+                  hotKey: _config.shortcutExtractFromScreenSelection!,
                 ),
                 onTap: () {
                   _handleClickRegisterNewHotKey(
@@ -91,7 +90,7 @@ class _SettingShortcutsPageState extends State<SettingShortcutsPage> {
                 PreferenceListItem(
                   title: Text(t('pref_item_title_extract_text_from_capture')),
                   detailText: HotKeyVirtualView(
-                    hotKey: _config.shortcutExtractFromScreenCapture,
+                    hotKey: _config.shortcutExtractFromScreenCapture!,
                   ),
                   onTap: () {
                     _handleClickRegisterNewHotKey(
@@ -103,7 +102,7 @@ class _SettingShortcutsPageState extends State<SettingShortcutsPage> {
               PreferenceListItem(
                 title: Text(t('pref_item_title_extract_text_from_clipboard')),
                 detailText: HotKeyVirtualView(
-                  hotKey: _config.shortcutExtractFromClipboard,
+                  hotKey: _config.shortcutExtractFromClipboard!,
                 ),
                 onTap: () {
                   _handleClickRegisterNewHotKey(
