@@ -7,7 +7,7 @@ extension ExtTranslationEngineConfig on TranslationEngineConfig {
     return R.image('translation_engine_icons/${this.type}.png');
   }
 
-  String get typeName {
+  String? get typeName {
     String key = 'engine.reddwarf';
     if (key.tr() == key) {
       return this.name;

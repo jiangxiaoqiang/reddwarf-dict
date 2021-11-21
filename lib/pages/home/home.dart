@@ -59,8 +59,6 @@ class _HomePageState extends State<HomePage>
 
   List<Future> _futureList = [];
 
-  late Timer _resizeTimer;
-
   List<TranslationEngineConfig> get _translationEngineList {
     return sharedLocalDb.engines.list(
       where: (e) => !e.disabled,
@@ -271,7 +269,7 @@ class _HomePageState extends State<HomePage>
             TranslationResultRecord(
           id: Uuid().v4(),
           translationEngineId: identifier,
-          translationTargetId: translationTarget.id
+          translationTargetId: translationTarget.id!
         );
         _translationResultList[i]
             .translationResultRecordList

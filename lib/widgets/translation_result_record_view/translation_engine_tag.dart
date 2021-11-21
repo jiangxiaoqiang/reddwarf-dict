@@ -79,7 +79,7 @@ class _TranslationEngineTagState extends State<TranslationEngineTag> {
                   Padding(
                     padding: EdgeInsets.only(left: 4, right: 2),
                     child: Text(
-                      _translationEngineConfig.typeName,
+                      _translationEngineConfig.typeName??"Unknown",
                       style: Theme.of(context).textTheme.caption!.copyWith(
                             fontSize: 10,
                           ),

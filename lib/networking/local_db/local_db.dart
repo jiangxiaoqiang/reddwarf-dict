@@ -1,9 +1,9 @@
+import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
-import 'dart:collection';
 
-import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/material.dart';
 
 import '../../includes.dart';
 import 'modifiers/engines_modifier.dart';
@@ -11,19 +11,20 @@ import 'modifiers/ocr_engines_modifier.dart';
 import 'modifiers/preferences_modifier.dart';
 import 'modifiers/translation_targets_modifier.dart';
 
-export 'modifiers/pro_engines_modifier.dart';
-export 'modifiers/pro_ocr_engines_modifier.dart';
-export 'modifiers/private_engines_modifier.dart';
-export 'modifiers/private_ocr_engines_modifier.dart';
 export 'modifiers/engines_modifier.dart';
 export 'modifiers/ocr_engines_modifier.dart';
 export 'modifiers/preferences_modifier.dart';
+export 'modifiers/private_engines_modifier.dart';
+export 'modifiers/private_ocr_engines_modifier.dart';
+export 'modifiers/pro_engines_modifier.dart';
+export 'modifiers/pro_ocr_engines_modifier.dart';
 export 'modifiers/translation_targets_modifier.dart';
 
 const _kLocalUser = -1;
 
 class _ListenerEntry extends LinkedListEntry<_ListenerEntry> {
   _ListenerEntry(this.listener);
+
   final VoidCallback listener;
 }
 
@@ -76,8 +77,7 @@ class _ConfigChangeNotifier implements Listenable {
     assert(_debugAssertNotDisposed());
     if (_listeners.isEmpty) return;
 
-    final List<_ListenerEntry> localListeners =
-        List<_ListenerEntry>.from(_listeners);
+    final List<_ListenerEntry> localListeners = List<_ListenerEntry>.from(_listeners);
 
     for (final _ListenerEntry entry in localListeners) {
       try {
@@ -153,8 +153,7 @@ class LocalDb extends _ConfigChangeNotifier {
     var oldProOcrEngineList = this.dbData!.proOcrEngineList ?? [];
 
     try {
-      List<TranslationEngineConfig> newProEngineList =
-          await proAccount.engines.list();
+      List<TranslationEngineConfig> newProEngineList = await proAccount.engines.list();
       this.dbData!.proEngineList = newProEngineList.map((engine) {
         var oldEngine = oldProEngineList.firstWhere(
           (e) => e.identifier == engine.identifier,
@@ -167,8 +166,7 @@ class LocalDb extends _ConfigChangeNotifier {
     } catch (error) {}
 
     try {
-      List<OcrEngineConfig> newProOcrEngineList =
-          await proAccount.ocrEngines.list();
+      List<OcrEngineConfig> newProOcrEngineList = await proAccount.ocrEngines.list();
       this.dbData!.proOcrEngineList = newProOcrEngineList.map((engine) {
         var oldOrcEngine = oldProOcrEngineList.firstWhere(
           (e) => e.identifier == engine.identifier,
@@ -180,29 +178,17 @@ class LocalDb extends _ConfigChangeNotifier {
       }).toList();
     } catch (error) {}
 
-    List<String> proEngineIdList =
-        this.dbData!.proEngineList.map((e) => e.identifier).toList();
-    if (sharedConfig.defaultEngineId == null ||
-        !proEngineIdList.contains(sharedConfig.defaultEngineId)) {
+    List<String> proEngineIdList = this.dbData!.proEngineList.map((e) => e.identifier).toList();
+    if (sharedConfig.defaultEngineId == null || !proEngineIdList.contains(sharedConfig.defaultEngineId)) {
       sharedConfigManager.setDefaultEngineId(
-        this
-            .dbData!
-            .proEngineList
-            .firstWhere((e) => e.type == 'baidu')
-            .identifier,
+        this.dbData!.proEngineList.firstWhere((e) => e.type == 'baidu').identifier,
       );
     }
 
-    List<String> proOcrEngineIdList =
-        this.dbData!.proOcrEngineList.map((e) => e.identifier).toList();
-    if (sharedConfig.defaultOcrEngineId == null ||
-        !proOcrEngineIdList.contains(sharedConfig.defaultOcrEngineId)) {
+    List<String> proOcrEngineIdList = this.dbData!.proOcrEngineList.map((e) => e.identifier).toList();
+    if (sharedConfig.defaultOcrEngineId == null || !proOcrEngineIdList.contains(sharedConfig.defaultOcrEngineId)) {
       sharedConfigManager.setDefaultOcrEngineId(
-        this
-            .dbData!
-            .proOcrEngineList
-            .firstWhere((e) => e.type == 'built_in')
-            .identifier,
+        this.dbData!.proOcrEngineList.firstWhere((e) => e.type == 'built_in').identifier,
       );
     }
     await this.write();
@@ -215,7 +201,7 @@ class LocalDb extends _ConfigChangeNotifier {
 
   ProEnginesModifier proEngine(String id) {
     if (_proEnginesModifier == null) {
-      _proEnginesModifier = ProEnginesModifier(this.dbData!,"dbdata");
+      _proEnginesModifier = ProEnginesModifier(this.dbData!, "dbdata");
     }
     _proEnginesModifier!.setId(id);
     return _proEnginesModifier!;
@@ -227,7 +213,7 @@ class LocalDb extends _ConfigChangeNotifier {
 
   ProOcrEnginesModifier proOcrEngine(String id) {
     if (_proOcrEnginesModifier == null) {
-      _proOcrEnginesModifier = ProOcrEnginesModifier(this.dbData!,"");
+      _proOcrEnginesModifier = ProOcrEnginesModifier(this.dbData!, "");
     }
     _proOcrEnginesModifier!.setId(id);
     return _proOcrEnginesModifier!;
@@ -239,7 +225,7 @@ class LocalDb extends _ConfigChangeNotifier {
 
   PrivateEnginesModifier privateEngine(String id) {
     if (_privateEnginesModifier == null) {
-      _privateEnginesModifier = PrivateEnginesModifier(this.dbData!,"");
+      _privateEnginesModifier = PrivateEnginesModifier(this.dbData!, "");
     }
     _privateEnginesModifier!.setId(id);
     return _privateEnginesModifier!;
@@ -251,7 +237,7 @@ class LocalDb extends _ConfigChangeNotifier {
 
   PrivateOcrEnginesModifier privateOcrEngine(String id) {
     if (_privateOcrEnginesModifier == null) {
-      _privateOcrEnginesModifier = PrivateOcrEnginesModifier(this.dbData!,"");
+      _privateOcrEnginesModifier = PrivateOcrEnginesModifier(this.dbData!, "");
     }
     _privateOcrEnginesModifier!.setId(id);
     return _privateOcrEnginesModifier!;
@@ -263,7 +249,7 @@ class LocalDb extends _ConfigChangeNotifier {
 
   EnginesModifier engine(String? id) {
     if (_enginesModifier == null) {
-      _enginesModifier = EnginesModifier(this.dbData!,id);
+      _enginesModifier = EnginesModifier(this.dbData!, id);
     }
     _enginesModifier!.setId(id);
     return _enginesModifier!;
@@ -275,7 +261,7 @@ class LocalDb extends _ConfigChangeNotifier {
 
   OcrEnginesModifier ocrEngine(String id) {
     if (_ocrEnginesModifier == null) {
-      _ocrEnginesModifier = OcrEnginesModifier(this.dbData!,"");
+      _ocrEnginesModifier = OcrEnginesModifier(this.dbData!, "");
     }
     _ocrEnginesModifier!.setId(id);
     return _ocrEnginesModifier!;
@@ -287,7 +273,7 @@ class LocalDb extends _ConfigChangeNotifier {
 
   PreferencesModifier preference(String key) {
     if (_preferencesModifier == null) {
-      _preferencesModifier = PreferencesModifier(this.dbData!,"");
+      _preferencesModifier = PreferencesModifier(this.dbData!, "");
     }
     _preferencesModifier!.setKey(key);
     return _preferencesModifier!;
@@ -299,7 +285,7 @@ class LocalDb extends _ConfigChangeNotifier {
 
   TranslationTargetsModifier translationTarget(String id) {
     if (_translationTargetsModifier == null) {
-      _translationTargetsModifier = TranslationTargetsModifier(this.dbData!,"");
+      _translationTargetsModifier = TranslationTargetsModifier(this.dbData!, "");
     }
     _translationTargetsModifier!.setId(id);
     return _translationTargetsModifier!;
@@ -314,10 +300,13 @@ class DbData {
   List<UserPreference> preferenceList;
   List<TranslationTarget> translationTargetList;
 
-  List<TranslationEngineConfig> get engineList =>
-      []..addAll(proEngineList ?? [])..addAll(privateEngineList ?? []);
-  List<OcrEngineConfig> get ocrEngineList =>
-      []..addAll(proOcrEngineList ?? [])..addAll(privateOcrEngineList ?? []);
+  List<TranslationEngineConfig> get engineList => []
+    ..addAll(proEngineList ?? [])
+    ..addAll(privateEngineList ?? []);
+
+  List<OcrEngineConfig> get ocrEngineList => []
+    ..addAll(proOcrEngineList ?? [])
+    ..addAll(privateOcrEngineList ?? []);
 
   DbData({
     required this.proEngineList,
@@ -337,24 +326,24 @@ class DbData {
     List<TranslationTarget> translationTargetList = [];
 
     if (json['proEngineList'] != null) {
-      Iterable l = json['proEngineList'] as List;
-      proEngineList =
-          l.map((item) => TranslationEngineConfig.fromJson(item)).toList();
+      Iterable proEngineList = json['proEngineList'] as List;
+      proEngineList = proEngineList
+          .map((item) => TranslationEngineConfig.fromJson(item))
+          .toList();
     }
     if (json['proOcrEngineList'] != null) {
       Iterable l = json['proOcrEngineList'] as List;
-      proOcrEngineList =
-          l.map((item) => OcrEngineConfig.fromJson(item)).toList();
+      proOcrEngineList = l.map((item) => OcrEngineConfig.fromJson(item)).toList();
     }
     if (json['privateEngineList'] != null) {
-      Iterable l = json['privateEngineList'] as List;
-      privateEngineList =
-          l.map((item) => TranslationEngineConfig.fromJson(item)).toList();
+      Iterable privateEngineList = json['privateEngineList'] as List;
+      privateEngineList = privateEngineList
+          .map((item) => TranslationEngineConfig.fromJson(item))
+          .toList();
     }
     if (json['privateOcrEngineList'] != null) {
       Iterable l = json['privateOcrEngineList'] as List;
-      privateOcrEngineList =
-          l.map((item) => OcrEngineConfig.fromJson(item)).toList();
+      privateOcrEngineList = l.map((item) => OcrEngineConfig.fromJson(item)).toList();
     }
     if (json['preferenceList'] != null) {
       Iterable l = json['preferenceList'] as List;
@@ -362,8 +351,7 @@ class DbData {
     }
     if (json['translationTargetList'] != null) {
       Iterable l = json['translationTargetList'] as List;
-      translationTargetList =
-          l.map((item) => TranslationTarget.fromJson(item)).toList();
+      translationTargetList = l.map((item) => TranslationTarget.fromJson(item)).toList();
     }
 
     return DbData(
@@ -379,15 +367,11 @@ class DbData {
   Map<String, dynamic> toJson() {
     return {
       'proEngineList': (proEngineList ?? []).map((e) => e.toJson()).toList(),
-      'proOcrEngineList':
-          (proOcrEngineList ?? []).map((e) => e.toJson()).toList(),
-      'privateEngineList':
-          (privateEngineList ?? []).map((e) => e.toJson()).toList(),
-      'privateOcrEngineList':
-          (privateOcrEngineList ?? []).map((e) => e.toJson()).toList(),
+      'proOcrEngineList': (proOcrEngineList ?? []).map((e) => e.toJson()).toList(),
+      'privateEngineList': (privateEngineList ?? []).map((e) => e.toJson()).toList(),
+      'privateOcrEngineList': (privateOcrEngineList ?? []).map((e) => e.toJson()).toList(),
       'preferenceList': (preferenceList ?? []).map((e) => e.toJson()).toList(),
-      'translationTargetList':
-          (translationTargetList ?? []).map((e) => e.toJson()).toList(),
+      'translationTargetList': (translationTargetList ?? []).map((e) => e.toJson()).toList(),
     };
   }
 }
@@ -399,13 +383,18 @@ LocalDb sharedLocalDb = LocalDb(
     translationTargetList: [
       TranslationTarget(
         sourceLanguage: kLanguageEN,
-        targetLanguage: kLanguageZH, id: '',
+        targetLanguage: kLanguageZH,
+        id: '',
       ),
       TranslationTarget(
         sourceLanguage: kLanguageZH,
-        targetLanguage: kLanguageEN, id: '',
+        targetLanguage: kLanguageEN,
+        id: '',
       ),
-    ], proEngineList: [], preferenceList: [], proOcrEngineList: [],
+    ],
+    proEngineList: [],
+    preferenceList: [],
+    proOcrEngineList: [],
   ),
 );
 

@@ -35,7 +35,7 @@ class _TranslationTargetNewPageState extends State<TranslationTargetNewPage> {
 
   void _handleClickOk() async {
     await sharedLocalDb
-        .translationTarget(widget.translationTarget!.id)
+        .translationTarget(widget.translationTarget!.id!)
         .updateOrCreate(
           sourceLanguage: _sourceLanguage!,
           targetLanguage: _targetLanguage!,
@@ -115,7 +115,7 @@ class _TranslationTargetNewPageState extends State<TranslationTargetNewPage> {
                   accessoryView: Container(),
                   onTap: () async {
                     await sharedLocalDb
-                        .translationTarget(widget.translationTarget!.id)
+                        .translationTarget(widget.translationTarget!.id!)
                         .delete();
                     await sharedLocalDb.write();
                     Navigator.of(context).pop();

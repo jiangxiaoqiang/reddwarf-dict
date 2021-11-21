@@ -1,10 +1,10 @@
 class TranslationTarget {
-  String id;
+  String? id;
   String sourceLanguage;
   String targetLanguage;
 
   TranslationTarget({
-    required this.id,
+     this.id,
     required this.sourceLanguage,
     required this.targetLanguage,
   });

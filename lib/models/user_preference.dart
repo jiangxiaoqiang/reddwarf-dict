@@ -44,10 +44,10 @@ const Map<String, ThemeMode> kKnownThemeModes = <String, ThemeMode>{
 class UserPreference {
   String id;
   String key;
-  String type;
+  String? type;
   String value;
-  String createdAt;
-  String updatedAt;
+  String? createdAt;
+  String? updatedAt;
 
   int get intValue {
     return int.parse(value);
@@ -60,10 +60,10 @@ class UserPreference {
   UserPreference({
     required this.id,
     required this.key,
-    required this.type,
+     this.type,
     required this.value,
-    required this.createdAt,
-    required this.updatedAt,
+     this.createdAt,
+     this.updatedAt,
   });
 
   factory UserPreference.fromJson(Map<String, dynamic> json) {

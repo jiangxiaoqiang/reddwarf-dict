@@ -33,7 +33,7 @@ dependencies:
       url: https://github.com/jiangxiaoqiang/pro_account_noop.git
   #creen_retriever: ^0.0.2
   #screen_text_extractor: ^0.0.1
-  sticky_headers: ^0.1.8
+  sticky_headers: ^0.2.0
   tray_manager: ^0.1.0
   uni_links: ^0.5.1
   flutter_launcher_icons: ^0.9.0
