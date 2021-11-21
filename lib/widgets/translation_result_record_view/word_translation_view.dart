@@ -61,7 +61,24 @@ class _WordTranslationViewState extends State<WordTranslationView> {
                 ),
               ),
             ),
-
+            Container(
+                width: screenWidth * 0.9,
+                child: Flexible(
+                    child: SelectableText.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(text: widget.wordTranslation.text),
+                        ],
+                      ),
+                      style: Theme.of(context).textTheme.bodyText2!.copyWith(height: 1.4, fontSize: 16),
+                    ))),
+            if ((widget.wordTranslation.audioUrl ?? '').isNotEmpty && _isHovered)
+              Container(
+                margin: EdgeInsets.only(left: 10),
+                child: SoundPlayButton(
+                  audioUrl: widget.wordTranslation.audioUrl!,
+                ),
+              ),
           ],
         ),
       ),

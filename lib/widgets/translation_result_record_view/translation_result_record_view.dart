@@ -7,7 +7,6 @@ import '../../includes.dart';
 
 import 'translation_engine_tag.dart';
 import 'word_image_view.dart';
-import 'word_phrase_view.dart';
 import 'word_pronunciation_view.dart';
 import 'word_sentence_view.dart';
 import 'word_tag_view.dart';
@@ -82,7 +81,7 @@ class TranslationResultRecordView extends StatelessWidget {
 
   Widget _buildBody(BuildContext context) {
     String word;
-    List<TextTranslation> translations= List.empty(growable: true); // 翻译
+    List<TextTranslation>? translations; // 翻译
     List<WordTag>? tags; // 标签
     List<WordDefinition>? definitions; // 定义（基本释义）
     List<WordPronunciation>? pronunciations; // 发音
@@ -152,7 +151,7 @@ class TranslationResultRecordView extends StatelessWidget {
         children: [
           // 翻译
           if ((translations ?? []).isNotEmpty)
-            WordTranslationView(translations.first),
+            WordTranslationView(translations!.first),
           // 包含查词结果时显示分割线
           if ((translations ?? []).isNotEmpty) Divider(height: 0),
           // 音标
