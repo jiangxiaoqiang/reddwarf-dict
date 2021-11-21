@@ -44,9 +44,10 @@ class PrivateEnginesModifier {
     required String name,
     required Map<String, dynamic> option,
     required List<String> disabledScopes,
+    String? id
   }) async {
     TranslationEngineConfig engineConfig = TranslationEngineConfig(
-      identifier: Uuid().v4(),
+      identifier:id?? Uuid().v4(),
       type: type,
       name: name,
       option: option,
@@ -78,12 +79,30 @@ class PrivateEnginesModifier {
     return _engineIndex != -1;
   }
 
+  Future<void> createDefaultTranslationEngine({
+    required String type,
+    required String name,
+    required Map<String, dynamic> option,
+    required List<String> disabledScopes,
+    bool? disabled,
+    String? id
+  }) async {
+      create(
+        type: type,
+        name: name,
+        option: option,
+        disabledScopes: disabledScopes,
+        id: id
+      );
+  }
+
   Future<void> updateOrCreate({
     required String type,
     required String name,
     required Map<String, dynamic> option,
     required List<String> disabledScopes,
      bool? disabled,
+    String? id
   }) async {
     if (_id != null && exists()) {
       update(

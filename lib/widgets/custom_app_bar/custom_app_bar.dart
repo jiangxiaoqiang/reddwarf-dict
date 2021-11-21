@@ -74,7 +74,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     final bool useCloseButton =
         parentRoute is PageRoute<dynamic> && parentRoute.fullscreenDialog;
 
-    Widget leading = this.leading!;
+    Widget? leading = this.leading;
     if (leading == null && this.automaticallyImplyLeading!) {
       if (hasDrawer) {
         //
@@ -84,7 +84,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       }
     }
 
-    Widget bottom = this.bottom!;
+    Widget? bottom = this.bottom;
     if (bottom == null) {
       bottom = PreferredSize(
         child: Container(

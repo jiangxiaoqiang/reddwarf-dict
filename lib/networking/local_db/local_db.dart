@@ -400,4 +400,21 @@ LocalDb sharedLocalDb = LocalDb(
 
 Future<void> initLocalDb() async {
   await sharedLocalDb.read();
+  await addDefaultTranslateEngine();
+}
+
+/**
+ * he default translate engine was set to red dwarf
+ */
+Future<void> addDefaultTranslateEngine() async{
+  final id = sharedConfig.defaultEngineId;
+  final type = "reddwarf";
+  await sharedLocalDb.privateEngine(id).createDefaultTranslationEngine(
+    type: type,
+    option: Map(),
+    disabledScopes: [],
+    name: 'reddwarf',
+    id: id
+  );
+  await sharedLocalDb.write();
 }

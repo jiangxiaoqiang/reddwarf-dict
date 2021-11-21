@@ -60,9 +60,10 @@ class _HomePageState extends State<HomePage>
   List<Future> _futureList = [];
 
   List<TranslationEngineConfig> get _translationEngineList {
-    return sharedLocalDb.engines.list(
+    List<TranslationEngineConfig> engineList = sharedLocalDb.engines.list(
       where: (e) => !e.disabled,
     );
+    return engineList;
   }
 
   List<TranslationTarget> get _translationTargetList {
@@ -278,7 +279,7 @@ class _HomePageState extends State<HomePage>
         Future<bool> future = Future<bool>.sync(() async {
           LookUpRequest lookUpRequest = new LookUpRequest();
           LookUpResponse lookUpResponse = new LookUpResponse(word: '', translations: []);
-          UniTranslateClientError lookUpError = new UniTranslateClientError(message: '', code: '');
+          UniTranslateClientError? lookUpError;
           if ((sharedTranslateClient.use(identifier).supportedScopes ?? [])
               .contains(kScopeLookUp)) {
             try {
@@ -299,11 +300,11 @@ class _HomePageState extends State<HomePage>
 
           TranslateRequest translateRequest = new TranslateRequest();
           TranslateResponse translateResponse = new TranslateResponse(translations: []);
-          UniTranslateClientError translateError = new UniTranslateClientError(message: '', code: '');
+          UniTranslateClientError? translateError;
           if (sharedTranslateClient
               .use(identifier)
               .supportedScopes
-              .contains(kScopeTranslate)) {
+              .contains("default_engine_id")) {
             try {
               translateRequest = TranslateRequest(
                 sourceLanguage: translationTarget.sourceLanguage,

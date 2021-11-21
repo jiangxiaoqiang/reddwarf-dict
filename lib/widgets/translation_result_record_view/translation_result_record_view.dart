@@ -74,7 +74,7 @@ class TranslationResultRecordView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(error.message ?? 'Unknown Error'),
+          Text(error.message.isNotEmpty ?error.message: 'Unknown Error'),
         ],
       ),
     );
@@ -83,25 +83,25 @@ class TranslationResultRecordView extends StatelessWidget {
   Widget _buildBody(BuildContext context) {
     String word;
     List<TextTranslation> translations= List.empty(growable: true); // 翻译
-    List<WordTag> tags= List.empty(growable: true); // 标签
-    List<WordDefinition> definitions = List.empty(growable: true); // 定义（基本释义）
-    List<WordPronunciation> pronunciations= List.empty(growable: true); // 发音
-    List<WordImage> images= List.empty(growable: true); // 图片
-    List<WordPhrase> phrases= List.empty(growable: true); // 短语
-    List<WordTense> tenses= List.empty(growable: true); // 时态
-    List<WordSentence> sentences= List.empty(growable: true); // 例句
+    List<WordTag>? tags; // 标签
+    List<WordDefinition>? definitions; // 定义（基本释义）
+    List<WordPronunciation>? pronunciations; // 发音
+    List<WordImage>? images; // 图片
+    List<WordPhrase>? phrases; // 短语
+    List<WordTense>? tenses; // 时态
+    List<WordSentence>? sentences; // 例句
 
     if (translationResultRecord!.lookUpResponse != null) {
       final resp = translationResultRecord!.lookUpResponse;
       word = resp!.word;
       translations = resp.translations;
-      tags = resp.tags!;
-      definitions = resp.definitions!;
-      pronunciations = resp.pronunciations!;
-      images = resp.images!;
-      phrases = resp.phrases!;
-      tenses = resp.tenses!;
-      sentences = resp.sentences!;
+      tags = resp.tags;
+      definitions = resp.definitions;
+      pronunciations = resp.pronunciations;
+      images = resp.images;
+      phrases = resp.phrases;
+      tenses = resp.tenses;
+      sentences = resp.sentences;
     } else if (translationResultRecord!.translateResponse != null) {
       final resp = translationResultRecord!.translateResponse;
       translations = resp!.translations;
@@ -164,7 +164,7 @@ class TranslationResultRecordView extends StatelessWidget {
                 spacing: 22,
                 crossAxisAlignment: WrapCrossAlignment.center,
                 children: <Widget>[
-                  for (WordPronunciation wordPronunciation in pronunciations)
+                  for (WordPronunciation wordPronunciation in pronunciations!)
                     WordPronunciationView(wordPronunciation)
                 ],
               ),
@@ -176,7 +176,7 @@ class TranslationResultRecordView extends StatelessWidget {
               child: SelectableText.rich(
                 TextSpan(
                   children: [
-                    for (var i = 0; i < definitions.length; i++)
+                    for (var i = 0; i < definitions!.length; i++)
                       TextSpan(
                         children: [
                           if ((definitions[i].name ?? '').isNotEmpty)
@@ -204,13 +204,13 @@ class TranslationResultRecordView extends StatelessWidget {
               child: SelectableText.rich(
                 TextSpan(
                   children: [
-                    for (var i = 0; i < tenses.length; i++)
+                    for (var i = 0; i < tenses!.length; i++)
                       TextSpan(
                         children: [
                           TextSpan(
                             text: '${tenses[i].name}',
                           ),
-                          for (var tenseValue in tenses![i].values!)
+                          for (var tenseValue in tenses[i].values!)
                             TextSpan(
                               text: ' $tenseValue ',
                               style: Theme.of(context)
@@ -244,7 +244,7 @@ class TranslationResultRecordView extends StatelessWidget {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-                  for (var i = 0; i < images.length; i++)
+                  for (var i = 0; i < images!.length; i++)
                     WordImageView(
                       images[i],
                       onPressed: () {
@@ -252,7 +252,7 @@ class TranslationResultRecordView extends StatelessWidget {
                           context,
                           FadeInPageRoute(
                             builder: (context) => ImageViewerPage(
-                              images.map((e) => e.url!).toList(),
+                              images!.map((e) => e.url!).toList(),
                               initialIndex: i,
                             ),
                           ),
@@ -269,7 +269,7 @@ class TranslationResultRecordView extends StatelessWidget {
                 spacing: 6,
                 runSpacing: 6,
                 children: [
-                  for (WordTag wordTag in tags) WordTagView(wordTag),
+                  for (WordTag wordTag in tags!) WordTagView(wordTag),
                 ],
               ),
             ),

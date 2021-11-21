@@ -100,7 +100,7 @@ class Config {
   }
 
   String? translationMode;
-  String? defaultEngineId;
+  String defaultEngineId ="default_engine_id";
   bool? useLocalOcrEngine;
   String? defaultOcrEngineId;
   bool? showTrayIcon;
@@ -142,9 +142,9 @@ class ConfigManager extends _ConfigChangeNotifier {
       kPrefTranslationMode,
       defaultValue: kTranslationModeManual,
     );
-    Config.instance.defaultEngineId = await _getString(
-      kPrefDefaultEngineId,
-    );
+    Config.instance.defaultEngineId = (await _getString(
+      kPrefDefaultEngineId, defaultValue: kPrefDefaultEngineId
+    ))!;
     Config.instance.useLocalOcrEngine = await _getBool(
       kPrefUseLocalOcrEngine,
       defaultValue: false,

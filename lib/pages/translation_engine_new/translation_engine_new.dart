@@ -84,7 +84,7 @@ class _TranslationEngineNewPageState extends State<TranslationEngineNewPage> {
           type: _type!,
           option: _option,
           disabledScopes: _disabledScopes,
-      name: '',
+          name: '',
         );
     await sharedLocalDb.write();
 

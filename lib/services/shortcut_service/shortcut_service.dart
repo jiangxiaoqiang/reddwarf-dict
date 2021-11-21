@@ -23,7 +23,7 @@ class ShortcutService {
   }
 
   void start() async {
-    await hotKeyManager.unregisterAll();
+   /* await hotKeyManager.unregisterAll();
     await hotKeyManager.register(
       sharedConfig.shortcutInputSettingSubmitWithMetaEnter,
       keyDownHandler: (_) {
@@ -55,10 +55,10 @@ class ShortcutService {
       keyDownHandler: (_) {
         _listener!.onShortcutKeyDownExtractFromClipboard();
       },
-    );
+    );*/
   }
 
   void stop() {
-    hotKeyManager.unregisterAll();
+    //hotKeyManager.unregisterAll();
   }
 }

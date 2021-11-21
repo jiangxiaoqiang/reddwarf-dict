@@ -19,8 +19,7 @@ class _SettingTranslatePageState extends State<SettingTranslatePage> {
   @override
   void initState() {
     _translationMode = sharedConfig.translationMode!;
-    _defaultEngineConfig =
-        sharedLocalDb.engine(sharedConfig.defaultEngineId!).get();
+    _defaultEngineConfig = sharedLocalDb.engine(sharedConfig.defaultEngineId).get();
     super.initState();
   }
 
