@@ -262,6 +262,77 @@ class TranslationResultRecordView extends StatelessWidget {
                 ],
               ),
             ),
+
+          // // 常用短词/短句
+          // if ((phrases ?? []).isNotEmpty)
+          //   Container(
+          //     margin: EdgeInsets.only(top: 10),
+          //     width: double.infinity,
+          //     child: Column(
+          //       crossAxisAlignment: CrossAxisAlignment.start,
+          //       children: [
+          //         Container(
+          //           padding: EdgeInsets.only(
+          //             top: 2,
+          //             bottom: 2,
+          //           ),
+          //           decoration: BoxDecoration(
+          //             border: Border(
+          //               bottom: BorderSide(
+          //                 color: Theme.of(context).primaryColor,
+          //                 width: 2,
+          //               ),
+          //             ),
+          //           ),
+          //           child: Text(
+          //             '常用短语/词组',
+          //             style: Theme.of(context).textTheme.caption.copyWith(
+          //                   fontWeight: FontWeight.bold,
+          //                 ),
+          //           ),
+          //         ),
+          //         for (WordPhrase wordPhrase in phrases)
+          //           WordPhraseView(
+          //             wordPhrase,
+          //             onTextTapped: onTextTapped,
+          //           ),
+          //       ],
+          //     ),
+          //   ),
+          // // 例句
+          if ((sentences ?? []).isNotEmpty)
+            Container(
+              margin: EdgeInsets.only(top: 10),
+              width: double.infinity,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(
+                      top: 2,
+                      bottom: 2,
+                    ),
+                    decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                          color: Theme.of(context).primaryColor,
+                          width: 2,
+                        ),
+                      ),
+                    ),
+                    child: Text(
+                      '例句',
+                      style: Theme.of(context).textTheme.caption!.copyWith(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18
+                      ),
+                    ),
+                  ),
+                  for (WordSentence wordSentence in sentences!)
+                    WordSentenceView(wordSentence),
+                ],
+              ),
+            ),
           if ((tags ?? []).isNotEmpty)
             Container(
               margin: EdgeInsets.only(top: 10),
