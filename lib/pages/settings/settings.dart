@@ -47,12 +47,13 @@ class _SettingsPageState extends State<SettingsPage> {
                 onTap: () async {
                   bool isLogin = await Auth.isLoggedIn();
                   if(isLogin) {
-                    /*Navigator.of(context).push(
+                    AppUser appUser = await Auth.currentUser();
+                    Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (_) =>
-                            Profile(user: null,)
+                            Profile(user: appUser,)
                       ),
-                    );*/
+                    );
                   }else{
                     List<RegionFlag> regions = await CommonUtils.getRegions();
                     final inputController = TextEditingController();
