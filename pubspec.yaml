@@ -76,6 +76,7 @@ dependencies:
     git:
       url: https://github.com/jiangxiaoqiang/wheel.git
       ref: main
+  flutter_html: ^2.1.5
 
 dev_dependencies:
   flutter_test:

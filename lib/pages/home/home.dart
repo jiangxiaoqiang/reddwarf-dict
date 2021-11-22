@@ -200,7 +200,7 @@ class _HomePageState extends State<HomePage>
         );
         DetectLanguageResponse detectLanguageResponse =
             await sharedTranslateClient
-                .use(sharedConfig.defaultEngineId!)
+                .use(sharedConfig.defaultEngineId)
                 .detectLanguage(detectLanguageRequest);
 
         _textDetectedLanguage = detectLanguageResponse
