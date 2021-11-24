@@ -33,7 +33,7 @@ class PreferencesModifier {
 
   UserPreference? get() {
     if(_preferenceIndex < 0){
-      AppLogHandler.logErrorException("index less than 0", _preferenceIndex);
+      AppLogHandler.logErrorException("index less than 0",_preferenceList);
       return null;
     }
     return _preferenceList[_preferenceIndex];

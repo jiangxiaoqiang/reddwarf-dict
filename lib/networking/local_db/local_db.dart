@@ -273,7 +273,7 @@ class LocalDb extends _ConfigChangeNotifier {
 
   PreferencesModifier preference(String key) {
     if (_preferencesModifier == null) {
-      _preferencesModifier = PreferencesModifier(this.dbData!, "");
+      _preferencesModifier = PreferencesModifier(this.dbData!, key);
     }
     _preferencesModifier!.setKey(key);
     return _preferencesModifier!;
