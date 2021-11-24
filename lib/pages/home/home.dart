@@ -298,8 +298,8 @@ class _HomePageState extends State<HomePage>
             }
           }
 
-          TranslateRequest translateRequest = new TranslateRequest();
-          TranslateResponse translateResponse = new TranslateResponse(translations: []);
+          TranslateRequest? translateRequest;
+          TranslateResponse? translateResponse;
           UniTranslateClientError? translateError;
           if (sharedTranslateClient
               .use(identifier)
