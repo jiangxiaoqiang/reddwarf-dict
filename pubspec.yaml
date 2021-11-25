@@ -90,7 +90,7 @@ flutter_icons:
   ios: true
 
 dependency_overrides:
-  flutter_secure_storage: 5.0.0
+  flutter_secure_storage: 4.2.1
   uni_translate_client:
     git:
       path: packages/uni_translate_client
