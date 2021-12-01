@@ -45,6 +45,7 @@ class _SettingsPageState extends State<SettingsPage> {
               PreferenceListItem(
                 title: Text(t('pref_item_title_login')),
                 onTap: () async {
+
                   bool isLogin = await Auth.isLoggedIn();
                   if(isLogin) {
                     AppUser appUser = await Auth.currentUser();

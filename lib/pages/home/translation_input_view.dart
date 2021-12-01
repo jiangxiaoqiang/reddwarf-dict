@@ -36,14 +36,6 @@ class TranslationInputView extends StatelessWidget {
     required this.onButtonTappedTrans,
   }) : super(key: key);
 
-  Widget _buildTextGetters(BuildContext context) {
-    return Row(
-      children: [
-
-      ],
-    );
-  }
-
   Widget _buildActionButtons(BuildContext context) {
     return Row(
       children: [

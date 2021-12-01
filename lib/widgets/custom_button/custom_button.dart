@@ -76,7 +76,7 @@ class CustomButton extends StatefulWidget {
   })  : assert(pressedOpacity == null ||
             (pressedOpacity >= 0.0 && pressedOpacity <= 1.0)),
         assert(disabledColor != null),
-        color = Colors.red,
+        color = Colors.transparent,
         _filled = false,
         super(key: key);
 
