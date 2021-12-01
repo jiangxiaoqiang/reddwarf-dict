@@ -44,13 +44,7 @@ class TranslationInputView extends StatelessWidget {
           constraints: BoxConstraints(
             minWidth: 56,
           ),
-          child: CustomButton.outlined(
-            padding: EdgeInsets.only(
-              left: 12,
-              right: 12,
-            ),
-            border: Border.all(color: Theme.of(context).primaryColor),
-            borderRadius: BorderRadius.circular(5),
+          child: ElevatedButton(
             child: Text(
               'page_home.btn_add_book'.tr(),
               style: TextStyle(fontSize: 20),
@@ -64,12 +58,7 @@ class TranslationInputView extends StatelessWidget {
           constraints: BoxConstraints(
             minWidth: 56,
           ),
-          child: CustomButton.filled(
-            padding: EdgeInsets.only(
-              left: 12,
-              right: 12,
-            ),
-            borderRadius: BorderRadius.circular(5),
+          child: ElevatedButton(
             child: Text(
               'page_home.btn_trans'.tr(),
               style: TextStyle(fontSize: 20),
