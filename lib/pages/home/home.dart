@@ -422,7 +422,7 @@ class _HomePageState extends State<HomePage>
 
   void _handleButtonTappedAddBook() {
     if(_text.isNotEmpty) {
-      WordProvider.addLearningWord(-1, _text.toLowerCase());
+      WordProvider.addGlossary(-1, _text.toLowerCase());
     }
   }
 

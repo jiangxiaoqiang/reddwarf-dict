@@ -33,7 +33,7 @@ class WordProvider {
     return wordTransDefault;
   }
 
-  static Future<List<LearningWord>> fetchLearningWord(int tabName) async {
+  static Future<List<LearningWord>> fetchGlossary(int tabName) async {
     Map params = HashMap();
     params.putIfAbsent("wordType", () => tabName);
     var response = await RestClient.postHttp("/dict/word/learn/v1/fetch", params);
@@ -65,7 +65,7 @@ class WordProvider {
     return false;
   }
 
-    static Future<void> addLearningWord(int wordId, String word) async {
+    static Future<void> addGlossary(int wordId, String word) async {
     Map wordRequest = HashMap();
     wordRequest.putIfAbsent("wordId", () => wordId);
     wordRequest.putIfAbsent("word", () => word.trim());

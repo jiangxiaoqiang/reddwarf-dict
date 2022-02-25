@@ -42,7 +42,7 @@ class DevWordController extends GetxController {
   }
 
    Future<List<Card>> renderWordCards(int tabName) async {
-    List<LearningWord> words = await WordProvider.fetchLearningWord(tabName);
+    List<LearningWord> words = await WordProvider.fetchGlossary(tabName);
     List<Card> cards = List.empty(growable: true);
     for (var element in words) {
       var card = Card(
@@ -124,7 +124,7 @@ class DevWordController extends GetxController {
       if (wordTrans.value.id <= 0) {
         return;
       }
-      WordProvider.addLearningWord(wordTrans.value.id,word);
+      WordProvider.addGlossary(wordTrans.value.id,word);
     } finally {
       isLoading(false);
     }
