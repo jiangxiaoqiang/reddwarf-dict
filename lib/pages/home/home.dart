@@ -8,7 +8,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tray_manager/tray_manager.dart';
 import 'package:uuid/uuid.dart';
 
@@ -82,7 +81,6 @@ class _HomePageState extends State<HomePage>
   void initState() {
     UriSchemeManager.instance.addListener(this);
     ShortcutService.instance.setListener(this);
-    trayManager.addListener(this);
     sharedConfigManager.addListener(_configListen);
     _init();
     _loadData();
@@ -92,7 +90,6 @@ class _HomePageState extends State<HomePage>
   @override
   void dispose() {
     UriSchemeManager.instance.removeListener(this);
-    trayManager.removeListener(this);
     sharedConfigManager.removeListener(_configListen);
     _uninit();
     super.dispose();
@@ -123,33 +120,6 @@ class _HomePageState extends State<HomePage>
 
     // 初始化托盘图标
     //_initTrayIcon();
-  }
-
-  Future<void> _initTrayIcon() async {
-    if (kIsWeb) return;
-
-    String trayIconName = kIsWindows ? 'tray_icon.ico' : 'tray_icon.png';
-
-    if (_trayIconStyle == kTrayIconStyleBlack) {
-      trayIconName = kIsWindows ? 'tray_icon_black.ico' : 'tray_icon_black.png';
-    }
-
-    await trayManager.destroy();
-    if (_showTrayIcon!) {
-      await trayManager.setIcon(R.image(trayIconName));
-      await Future.delayed(Duration(milliseconds: 200));
-      await trayManager.setContextMenu([
-        MenuItem(
-          key: kMenuItemKeyShow,
-          title: 'tray_context_menu.item_show'.tr(),
-        ),
-        MenuItem.separator,
-        MenuItem(
-          key: kMenuItemKeyExitApp,
-          title: 'tray_context_menu.item_exit'.tr(),
-        ),
-      ]);
-    }
   }
 
   void _uninit() {
@@ -623,7 +593,6 @@ class _HomePageState extends State<HomePage>
 
   @override
   void onTrayIconRightMouseDown() {
-    trayManager.popUpContextMenu();
   }
 
   @override
@@ -633,7 +602,6 @@ class _HomePageState extends State<HomePage>
         _windowShow();
         break;
       case kMenuItemKeyExitApp:
-        await trayManager.destroy();
         break;
     }
   }
