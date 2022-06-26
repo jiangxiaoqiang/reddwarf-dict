@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:hotkey_manager/hotkey_manager.dart';
 
 import '../../includes.dart';
 import '../custom_alert_dialog/custom_alert_dialog.dart';
 
 class RecordHotKeyDialog extends StatefulWidget {
-  final ValueChanged<HotKey> onHotKeyRecorded;
 
   const RecordHotKeyDialog({
     Key? key,
-    required this.onHotKeyRecorded,
   }) : super(key: key);
 
   @override
@@ -17,7 +14,7 @@ class RecordHotKeyDialog extends StatefulWidget {
 }
 
 class _RecordHotKeyDialogState extends State<RecordHotKeyDialog> {
-  HotKey _hotKey = HotKey(null);
+
 
   @override
   Widget build(BuildContext context) {
@@ -38,12 +35,7 @@ class _RecordHotKeyDialogState extends State<RecordHotKeyDialog> {
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  HotKeyRecorder(
-                    onHotKeyRecorded: (hotKey) {
-                      _hotKey = hotKey;
-                      setState(() {});
-                    },
-                  ),
+
                 ],
               ),
             ),
@@ -51,15 +43,7 @@ class _RecordHotKeyDialogState extends State<RecordHotKeyDialog> {
         ),
       ),
       actions: <Widget>[
-        CustomDialogAction(
-          child: Text('ok'.tr()),
-          onPressed: !_hotKey.isSetted
-              ? null
-              : () {
-                  widget.onHotKeyRecorded(_hotKey);
-                  Navigator.of(context).pop();
-                },
-        ),
+
       ],
     );
   }

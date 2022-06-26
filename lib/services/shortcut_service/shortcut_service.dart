@@ -1,4 +1,3 @@
-import 'package:hotkey_manager/hotkey_manager.dart';
 
 import '../../includes.dart';
 

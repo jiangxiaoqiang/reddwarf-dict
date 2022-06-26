@@ -44,7 +44,7 @@ class LoginPassword extends StatelessWidget {
                   username: phone,
                   password: password,
                 );
-                AuthResult result = await Auth.loginReq(appLoginRequest: loginRequest);
+                AuthResult result = await Auth.login(appLoginRequest: loginRequest);
                 if(result.result.index == Result.ok.index){
                   var user = await Auth.currentUser();
                   Navigator.of(context).push(

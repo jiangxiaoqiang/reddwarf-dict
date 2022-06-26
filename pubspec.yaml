@@ -20,7 +20,6 @@ dependencies:
   easy_localization_loader: ^1.0.0
   flutter_spinkit: ^5.0.0
   flutter_svg: ^0.22.0
-  hotkey_manager: ^0.1.4
   libwinmedia: ^0.0.5
   package_info_plus: ^1.0.4
   fluttertoast: 8.0.3
@@ -41,11 +40,6 @@ dependencies:
   flutter_hooks: ^0.18.0
   overlay_support: ^1.2.1
   scrollable_positioned_list: ^0.2.0-nullsafety.0
-  uni_links_macos:
-    git:
-      path: packages/uni_links_macos
-      ref: master
-      url: https://github.com/biyidev/dart_pkgs.git
   uni_ocr:
     git:
       path: packages/uni_ocr
