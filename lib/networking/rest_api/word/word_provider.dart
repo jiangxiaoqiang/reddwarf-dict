@@ -34,9 +34,11 @@ class WordProvider {
   }
 
   static Future<List<LearningWord>> fetchGlossary(int tabName) async {
-    Map params = HashMap();
+    Map<String,Object> params = HashMap();
     params.putIfAbsent("wordType", () => tabName);
-    var response = await RestClient.postHttp("/dict/word/learn/v1/fetch", params);
+    String path = "/dict/word/learn/v1/fetch?";
+    final queryString = params.entries.map((e) => '${e.key}=${e.value}').join('&');
+    var response = await RestClient.getHttp(path + queryString);
     if (RestClient.respSuccess(response)) {
       var result = response.data["result"] as List;
       List<LearningWord> words = List.empty(growable: true);
@@ -58,7 +60,7 @@ class WordProvider {
     wordRequest.putIfAbsent("word", () => word.word.trim());
     wordRequest.putIfAbsent("wordStatus", () => wordStatus);
     wordRequest.putIfAbsent("wordId", () => word.id);
-    var response = await RestClient.postHttp("/dict/word/learn/v1/update", wordRequest);
+    var response = await RestClient.putHttp("/dict/word/learn/v1/update", wordRequest);
     if (RestClient.respSuccess(response)) {
       return true;
     }
